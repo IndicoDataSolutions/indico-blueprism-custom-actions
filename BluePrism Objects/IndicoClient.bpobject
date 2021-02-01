@@ -1,0 +1,409 @@
+﻿<process name="Client" version="1.0" bpversion="6.10.0.30674" narrative="Client used to connect to the indico API." byrefcollection="true" type="object" runmode="Exclusive" shared="True" preferredid="02a74d78-a543-45f5-ad30-c519598b3676">
+  <appdef>
+    <element name="Application Root">
+      <id>0c68a6f2-faf5-4d90-99fb-897133cdf10a</id>
+      <type>Application</type>
+      <basetype>Application</basetype>
+      <datatype>unknown</datatype>
+      <diagnose>False</diagnose>
+    </element>
+  </appdef>
+  <view>
+    <camerax>0</camerax>
+    <cameray>-8</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="1134c9d8-ab15-44da-a1d3-c13f7393ab66" type="CleanUp" published="True">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c" type="Normal" published="False">
+    <name>WorkflowSubmission</name>
+    <view>
+      <camerax>-248</camerax>
+      <cameray>26</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="0dec0e58-994d-4ca4-a9e7-161d1086183d" type="Normal" published="True">
+    <name>SubmissionResult</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="016ee020-029b-4c6d-beaa-5b13bb2612ae" type="Normal" published="True">
+    <name>GetSubmission</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="82e674e3-6a99-418b-86cc-649086280ec4" type="Normal" published="True">
+    <name>ListSubmissions Action</name>
+    <view>
+      <camerax>-150</camerax>
+      <cameray>21</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="72ec01df-9ac3-4b48-bc65-5654be1dcca5" name="Start" type="Start">
+    <loginhibit />
+    <display x="15" y="-105" />
+    <onsuccess>c8dff5d0-143e-4943-9366-7105ac495333</onsuccess>
+  </stage>
+  <stage stageid="c8dff5d0-143e-4943-9366-7105ac495333" name="End" type="End">
+    <loginhibit />
+    <display x="15" y="105" />
+  </stage>
+  <stage stageid="722e755c-95b2-4c75-a3d3-5dce96c88c09" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+    <references>
+      <reference>System.dll</reference>
+      <reference>System.Data.dll</reference>
+      <reference>System.Xml.dll</reference>
+      <reference>System.Drawing.dll</reference>
+      <reference>netstandard.dll</reference>
+      <reference>GraphQL.Client.dll</reference>
+      <reference>GraphQL.Common.dll</reference>
+      <reference>Indico.dll</reference>
+      <reference>IndicoV2.Abstractions.dll</reference>
+      <reference>IndicoV2.dll</reference>
+      <reference>IndicoV2.V1Adapters.dll</reference>
+      <reference>Microsoft.CSharp.dll</reference>
+      <reference>Newtonsoft.Json.dll</reference>
+      <reference>System.Collections.Concurrent.dll</reference>
+      <reference>System.IO.FileSystem.Primitives.dll</reference>
+      <reference>System.Linq.dll</reference>
+      <reference>System.Net.WebHeaderCollection.dll</reference>
+      <reference>System.Net.WebSockets.dll</reference>
+      <reference>System.Runtime.Numerics.dll</reference>
+      <reference>System.Security.Claims.dll</reference>
+      <reference>System.Security.Cryptography.OpenSsl.dll</reference>
+      <reference>System.Security.Cryptography.Primitives.dll</reference>
+      <reference>System.Security.Principal.dll</reference>
+      <reference>System.Threading.dll</reference>
+      <reference>System.Threading.ThreadPool.dll</reference>
+      <reference>System.Runtime.dll</reference>
+      <reference>Indico.BluePrism.Connector.dll</reference>
+    </references>
+    <imports>
+      <import>System</import>
+      <import>System.Drawing</import>
+      <import>System.Data</import>
+      <import>IndicoV2</import>
+      <import>System.Collections.Generic</import>
+      <import>IndicoV2.Submissions.Models</import>
+      <import>System.Threading.Tasks</import>
+      <import>System.Threading</import>
+      <import>Indico.BluePrism.Connector</import>
+    </imports>
+    <language>csharp</language>
+    <globalcode><![CDATA[]]></globalcode>
+    <code><![CDATA[public IndicoConnector Connector { get; set; }
+
+//FIRST POC BELOW
+		public IndicoV2.IndicoClient IndicoAPIClient { get; set; }
+
+        public DataTable ListSubmissions(DataTable submissionIds, DataTable workflowIds)
+        {
+            var submissionIdsList = GetIntValuesFromDataTable(submissionIds);
+            var workflowIdsList = GetIntValuesFromDataTable(submissionIds);
+
+            if (IndicoAPIClient == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+			var task = Task.Run(async () => await IndicoAPIClient.Submissions().ListAsync(submissionIdsList, workflowIdsList, null));
+            var submissionsList = task.Result;
+            var result = ToSubmissionsDataTable(submissionsList);
+
+            return result;
+        }
+
+        private List<int> GetIntValuesFromDataTable(DataTable dt, string idColumnName = "id")
+        {
+            List<int> result = new List<int>();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                result.Add(Convert.ToInt32(dt.Rows[i][idColumnName]));
+            }
+
+            return result;
+        }
+
+        private DataTable ToSubmissionsDataTable(IEnumerable<ISubmission> list)
+        {
+            DataTable table = new DataTable();
+            DataColumn idColumn = new DataColumn("Id", typeof(int));
+            DataColumn statusColumn = new DataColumn("Status", typeof(string));
+            table.Columns.Add(idColumn);
+            table.Columns.Add(statusColumn);
+
+            foreach (var submission in list)
+            {
+                DataRow dr = table.NewRow();
+                dr["Id"] = submission.Id;
+                dr["Status"] = submission.Status.ToString();
+                table.Rows.Add(dr);
+            }
+
+            return table;
+        }]]></code>
+  </stage>
+  <stage stageid="9a812227-d6f3-44bb-9ab1-7d9e1f5a0b33" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>1134c9d8-ab15-44da-a1d3-c13f7393ab66</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="94df4091-a5bb-4876-bbc8-4e8188601d3c" name="Start" type="Start">
+    <subsheetid>1134c9d8-ab15-44da-a1d3-c13f7393ab66</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <onsuccess>72fe441b-6a67-4e65-96ba-aa7fb1ca772c</onsuccess>
+  </stage>
+  <stage stageid="72fe441b-6a67-4e65-96ba-aa7fb1ca772c" name="End" type="End">
+    <subsheetid>1134c9d8-ab15-44da-a1d3-c13f7393ab66</subsheetid>
+    <loginhibit />
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="82afc1d1-0564-4f57-966e-3d9701c4001b" name="SubmissionResult" type="SubSheetInfo">
+    <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="5cb0a85e-302b-41f1-924b-858679495251" name="Start" type="Start">
+    <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <onsuccess>90daf28c-91df-4bb7-8e83-69fc40c35a32</onsuccess>
+  </stage>
+  <stage stageid="90daf28c-91df-4bb7-8e83-69fc40c35a32" name="End" type="End">
+    <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
+    <loginhibit />
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="4f10327c-80ca-42a2-8dd7-cdb4b3004dd9" name="GetSubmission" type="SubSheetInfo">
+    <subsheetid>016ee020-029b-4c6d-beaa-5b13bb2612ae</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="107e8e7b-d416-4b01-bcfa-a8f6e3b1feb5" name="Start" type="Start">
+    <subsheetid>016ee020-029b-4c6d-beaa-5b13bb2612ae</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <onsuccess>22defd00-f6a5-4051-b2a9-6572fba42553</onsuccess>
+  </stage>
+  <stage stageid="22defd00-f6a5-4051-b2a9-6572fba42553" name="End" type="End">
+    <subsheetid>016ee020-029b-4c6d-beaa-5b13bb2612ae</subsheetid>
+    <loginhibit />
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="ee909105-83ae-4bf8-bb58-42492d975ed8" name="ListSubmissions Action" type="SubSheetInfo">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="d2099002-8d5b-41dc-bfd4-c8e3a5fed226" name="Start" type="Start">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="HostParam" stage="Host" />
+      <input type="text" name="TokenParam" stage="Token" />
+      <input type="collection" name="SubmissionIds" stage="SubmissionIds" />
+      <input type="collection" name="WorkflowIds" stage="WorkflowIds" />
+    </inputs>
+    <onsuccess>2e02996a-4bcd-447f-974c-080cba2d7d4f</onsuccess>
+  </stage>
+  <stage stageid="88614772-3481-4b9b-bec1-fcc3fe42c06c" name="End" type="End">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <loginhibit />
+    <display x="15" y="105" />
+    <outputs>
+      <output type="collection" name="SubmissionsReturn" stage="Submissions" />
+    </outputs>
+    <breakpoint type="0">
+      <condition>
+      </condition>
+    </breakpoint>
+  </stage>
+  <stage stageid="f40515ad-e3a5-4633-841b-365ef97984f3" name="Inputs" type="Block">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <loginhibit />
+    <display x="-435" y="-45" w="150" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="29759ab7-6de6-44a5-965f-a02f2a162568" name="ListSubmissions Stage" type="Code">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <loginhibit />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="collection" name="SubmissionIdsParam" expr="[SubmissionIds]" />
+      <input type="collection" name="WorkflowIdsParam" expr="[WorkflowIds]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="SubmissionsResult" stage="Submissions" />
+    </outputs>
+    <onsuccess>88614772-3481-4b9b-bec1-fcc3fe42c06c</onsuccess>
+    <code><![CDATA[SubmissionsResult = ListSubmissions(SubmissionIdsParam, WorkflowIdsParam);]]></code>
+  </stage>
+  <stage stageid="c74f7390-73a9-442c-8501-ceb55dc465fc" name="ClientHost" type="Data">
+    <loginhibit />
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="de40f5d5-fe9b-4683-83f9-8e94e7ba0dbe" name="ClientToken" type="Data">
+    <loginhibit />
+    <display x="-195" y="30" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c9000abd-3342-482b-b421-1330dbf9cf2f" name="Client" type="Block">
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0148d482-70bc-46d5-8dff-c2b446f3fd63" name="SubmissionIds" type="Collection">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <display x="-360" y="0" w="120" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="cfa95139-8cd3-4574-86d6-b416b029dede" name="WorkflowIds" type="Collection">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <display x="-360" y="75" w="120" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="1c7a157a-99f8-4133-b5a1-8e482278f001" name="Submissions" type="Collection">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <display x="-195" y="0" w="120" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+      <field name="Status" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="e9626d2d-4346-43f3-bd11-5745513c6216" name="Outputs" type="Block">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="165" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2e02996a-4bcd-447f-974c-080cba2d7d4f" name="Initialise Client" type="Code">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <loginhibit />
+    <display x="15" y="-30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="HostParam" expr="[Host]" />
+      <input type="text" name="TokenParam" expr="[Token]" />
+    </inputs>
+    <onsuccess>29759ab7-6de6-44a5-965f-a02f2a162568</onsuccess>
+    <code><![CDATA[IndicoAPIClient = new IndicoV2.IndicoClient(new Uri(HostParam), TokenParam);]]></code>
+  </stage>
+  <stage stageid="6315abd4-fcd1-47ba-9fe4-985fdc5faa08" name="WorkflowSubmission" type="SubSheetInfo">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="cc2a0296-e651-4ea9-8389-8b5f5fd2c17c" name="Start" type="Start">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Host" stage="ClientHost" />
+      <input type="text" name="Token" stage="ClientToken" />
+      <input type="number" name="WorklowId" stage="WorflowIdParam" />
+      <input type="collection" name="Filepaths" stage="FilepathsParam" />
+    </inputs>
+    <onsuccess>1bf9fb40-3387-4d96-8a5a-086890eeb6b2</onsuccess>
+  </stage>
+  <stage stageid="4c5185bc-43b8-4d8a-94fe-a515bf4c8d59" name="End" type="End">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="15" y="165" />
+    <outputs>
+      <output type="collection" name="SubmissionIds" stage="SubmissionIdsResult" />
+    </outputs>
+  </stage>
+  <stage stageid="ec845ba1-3780-4083-8ba4-1329dbd9d138" name="WorkflowSubmission Call" type="Code">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="15" y="75" w="120" h="30" />
+    <inputs>
+      <input type="collection" name="FilepathsInput" expr="[FilepathsParam]" />
+      <input type="number" name="WorkflowIdInput" expr="[WorflowIdParam]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="SubmissionIdsOutpus" stage="SubmissionIdsResult" />
+    </outputs>
+    <onsuccess>4c5185bc-43b8-4d8a-94fe-a515bf4c8d59</onsuccess>
+    <code><![CDATA[SubmissionIdsOutpus = Connector.WorkflowFileSubmission(FilepathsInput, WorkflowIdInput);]]></code>
+  </stage>
+  <stage stageid="febf6089-6898-492c-81e8-f3b070b850fc" name="Inputs" type="Block">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="39367857-88a2-4084-8563-3f338b7d1eb4" name="Outputs" type="Block">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="-270" y="165" w="150" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bfe2c9c4-5156-44a2-a9cb-2fdde4740c31" name="FilepathsParam" type="Collection">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="-195" y="15" w="120" h="90" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fac1b045-891a-4fab-912b-edb96b44ddc0" name="SubmissionIdsResult" type="Collection">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="-195" y="225" w="120" h="90" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1bf9fb40-3387-4d96-8a5a-086890eeb6b2" name="WorkflowSubmission Initialise" type="Code">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="15" y="-15" w="120" h="30" />
+    <inputs>
+      <input type="text" name="HostParam" expr="[Host]" />
+      <input type="text" name="TokenParam" expr="[Token]" />
+    </inputs>
+    <onsuccess>ec845ba1-3780-4083-8ba4-1329dbd9d138</onsuccess>
+    <code><![CDATA[Connector = new IndicoConnector(TokenParam, HostParam);]]></code>
+  </stage>
+  <stage stageid="e226584d-87b1-4b85-bee0-bc1ae23e1b47" name="WorflowIdParam" type="Data">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="-195" y="105" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>
