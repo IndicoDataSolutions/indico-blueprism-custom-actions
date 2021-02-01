@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="IndicoV2">
+      <HintPath>..\..\indico-client-csharp\IndicoV2\bin\Release\netstandard2.0\IndicoV2.dll</HintPath>
+    </Reference>
+    <Reference Include="IndicoV2.Abstractions">
+      <HintPath>..\..\indico-client-csharp\IndicoV2\bin\Release\netstandard2.0\IndicoV2.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
