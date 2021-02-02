@@ -23,7 +23,7 @@
       <zoom version="2">1.25</zoom>
     </view>
   </subsheet>
-  <subsheet subsheetid="f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c" type="Normal" published="False">
+  <subsheet subsheetid="f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c" type="Normal" published="True">
     <name>WorkflowSubmission</name>
     <view>
       <camerax>-248</camerax>
@@ -214,8 +214,8 @@
     <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
     <display x="15" y="-105" />
     <inputs>
-      <input type="text" name="HostParam" stage="Host" />
-      <input type="text" name="TokenParam" stage="Token" />
+      <input type="text" name="HostParam" stage="ClientHost" />
+      <input type="text" name="TokenParam" stage="ClientToken" />
       <input type="collection" name="SubmissionIds" stage="SubmissionIds" />
       <input type="collection" name="WorkflowIds" stage="WorkflowIds" />
     </inputs>
@@ -314,11 +314,11 @@
     <loginhibit />
     <display x="15" y="-30" w="90" h="30" />
     <inputs>
-      <input type="text" name="HostParam" expr="[Host]" />
-      <input type="text" name="TokenParam" expr="[Token]" />
+      <input type="text" name="HostParam" expr="[ClientHost]" />
+      <input type="text" name="TokenParam" expr="[ClientToken]" />
     </inputs>
     <onsuccess>29759ab7-6de6-44a5-965f-a02f2a162568</onsuccess>
-    <code><![CDATA[IndicoAPIClient = new IndicoV2.IndicoClient(new Uri(HostParam), TokenParam);]]></code>
+    <code><![CDATA[IndicoAPIClient = new IndicoV2.IndicoClient(TokenParam, new Uri(HostParam));]]></code>
   </stage>
   <stage stageid="6315abd4-fcd1-47ba-9fe4-985fdc5faa08" name="WorkflowSubmission" type="SubSheetInfo">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
@@ -333,6 +333,7 @@
       <input type="text" name="Token" stage="ClientToken" />
       <input type="number" name="WorklowId" stage="WorflowIdParam" />
       <input type="collection" name="Filepaths" stage="FilepathsParam" />
+      <input type="collection" name="Uris" stage="UrisParam" />
     </inputs>
     <onsuccess>1bf9fb40-3387-4d96-8a5a-086890eeb6b2</onsuccess>
   </stage>
@@ -350,24 +351,25 @@
     <display x="15" y="75" w="120" h="30" />
     <inputs>
       <input type="collection" name="FilepathsInput" expr="[FilepathsParam]" />
+      <input type="collection" name="UrisInput" expr="[UrisParam]" />
       <input type="number" name="WorkflowIdInput" expr="[WorflowIdParam]" />
     </inputs>
     <outputs>
       <output type="collection" name="SubmissionIdsOutpus" stage="SubmissionIdsResult" />
     </outputs>
     <onsuccess>4c5185bc-43b8-4d8a-94fe-a515bf4c8d59</onsuccess>
-    <code><![CDATA[SubmissionIdsOutpus = Connector.WorkflowFileSubmission(FilepathsInput, WorkflowIdInput);]]></code>
+    <code><![CDATA[SubmissionIdsOutpus = Connector.WorkflowSubmission(FilepathsInput, UrisInput, WorkflowIdInput);]]></code>
   </stage>
   <stage stageid="febf6089-6898-492c-81e8-f3b070b850fc" name="Inputs" type="Block">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="-270" y="-45" w="150" h="195" />
+    <display x="-270" y="-45" w="150" h="270" />
     <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
   <stage stageid="39367857-88a2-4084-8563-3f338b7d1eb4" name="Outputs" type="Block">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="-270" y="165" w="150" h="120" />
+    <display x="-435" y="-45" w="150" h="120" />
     <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
   <stage stageid="bfe2c9c4-5156-44a2-a9cb-2fdde4740c31" name="FilepathsParam" type="Collection">
@@ -381,7 +383,7 @@
   <stage stageid="fac1b045-891a-4fab-912b-edb96b44ddc0" name="SubmissionIdsResult" type="Collection">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="-195" y="225" w="120" h="90" />
+    <display x="-360" y="15" w="120" h="90" />
     <datatype>collection</datatype>
     <private />
     <alwaysinit />
@@ -391,8 +393,8 @@
     <loginhibit />
     <display x="15" y="-15" w="120" h="30" />
     <inputs>
-      <input type="text" name="HostParam" expr="[Host]" />
-      <input type="text" name="TokenParam" expr="[Token]" />
+      <input type="text" name="HostParam" expr="[ClientHost]" />
+      <input type="text" name="TokenParam" expr="[ClientToken]" />
     </inputs>
     <onsuccess>ec845ba1-3780-4083-8ba4-1329dbd9d138</onsuccess>
     <code><![CDATA[Connector = new IndicoConnector(TokenParam, HostParam);]]></code>
@@ -400,9 +402,16 @@
   <stage stageid="e226584d-87b1-4b85-bee0-bc1ae23e1b47" name="WorflowIdParam" type="Data">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="-195" y="105" w="120" h="30" />
+    <display x="-195" y="195" w="120" h="30" />
     <datatype>number</datatype>
     <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c51f91e8-c2ca-4386-a674-090bfcf2f993" name="UrisParam" type="Collection">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <display x="-195" y="120" w="120" h="90" />
+    <datatype>collection</datatype>
     <private />
     <alwaysinit />
   </stage>
