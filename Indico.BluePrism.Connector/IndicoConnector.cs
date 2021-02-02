@@ -11,14 +11,18 @@ namespace Indico.BluePrism.Connector
         protected ISubmissionsClient _submissionsClient;
 
         public IndicoConnector(string token, string host)
-        {
-            var client = new IndicoClient(token, new Uri(host));
-            SetupConnector(client.Submissions());
-        }
+            : this(
+                new IndicoV2.IndicoClient(
+                    token,
+                    host == null ? null : new Uri(host)))
+        { }
 
-        public IndicoConnector(ISubmissionsClient submissionsClient) => SetupConnector(submissionsClient);
+        private IndicoConnector(IndicoV2.IndicoClient indicoClient)
+         : this(indicoClient.Submissions())
+        { }
 
-        private void SetupConnector(ISubmissionsClient submissionsClient) => _submissionsClient = submissionsClient;
+        public IndicoConnector(ISubmissionsClient submissionsClient) => _submissionsClient = submissionsClient;
+
 
         public DataTable WorkflowFileSubmission(DataTable filepaths, decimal workflowId)
         {
