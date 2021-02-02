@@ -4,7 +4,7 @@ using FluentAssertions;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Indico.BluePrism.Connector.Tests
+namespace Indico.BluePrism.Connector.Tests.Helpers
 {
     public class DataTableExtensionsTests
     {

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Indico.BluePrism.Connector.Helpers;
 using FluentAssertions;
 
-namespace Indico.BluePrism.Connector.Tests
+namespace Indico.BluePrism.Connector.Tests.Helpers
 {
     public class EnumerableExtensionsTests
     {

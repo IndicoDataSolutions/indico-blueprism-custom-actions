@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 using Indico.BluePrism.Connector.Helpers;
 using IndicoV2;
 using IndicoV2.Submissions;
@@ -20,23 +24,47 @@ namespace Indico.BluePrism.Connector
 
         private void SetupConnector(ISubmissionsClient submissionsClient) => _submissionsClient = submissionsClient;
 
-        public DataTable WorkflowFileSubmission(DataTable filepaths, decimal workflowId)
+        public DataTable WorkflowSubmission(DataTable filepaths, DataTable uris, decimal workflowId)
         {
-            if (filepaths == null)
-            {
-                throw new ArgumentNullException("No collection with filepaths was passed to the client.");
-            }
-            else if (filepaths.Rows.Count == 0)
-            {
-                throw new ArgumentException("No filepaths were passed to the client.");
-            }
-            var files = filepaths.ToList<string>();
+            bool filepathsProvided = ValidateInputDataTable(filepaths);
+            bool urisProvided = ValidateInputDataTable(uris);
 
-            var result = _submissionsClient.CreateAsync(Convert.ToInt32(workflowId), files).GetAwaiter().GetResult();
+            if (!filepathsProvided && !urisProvided)
+            {
+                throw new ArgumentException("No uris or filepaths provided.");
+            }
+
+            if (filepathsProvided && urisProvided)
+            {
+                throw new ArgumentException("Provided uris and filepaths. Pass only one of the parameters.");
+            }
+
+            IEnumerable<int> result = null;
+            int workflowIntId = Convert.ToInt32(workflowId);
+
+            if (filepathsProvided)
+            {
+                var fileList = filepaths.ToList<string>();
+                result = Task.Run(async () => await _submissionsClient.CreateAsync(workflowIntId, fileList)).Result;
+            }
+
+            if (urisProvided)
+            {
+                var fileList = uris.ToList<string>().Select(u => new Uri(u));
+                result = Task.Run(async () => await _submissionsClient.CreateAsync(workflowIntId, fileList)).Result;
+            }
 
             return result.ToDataTable();
         }
 
-        public DataTable WorkflowUrisSubmission(DataTable uris, decimal workflowId) => throw new NotImplementedException();
+        private static bool ValidateInputDataTable(DataTable dataTable)
+        {
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

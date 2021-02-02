@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Indico.BluePrism.Connector.Helpers;
@@ -23,34 +25,70 @@ namespace Indico.BluePrism.Connector.Tests
         }
 
         [Test]
-        public void WorkflowFileSubmission_ShouldReturnIdForEachFile()
+        public void WorkflowSubmission_ShouldReturnIds_WhenPostingFilepaths()
         {
             //Arrange
-            var filePathList = new List<string> { "test file path", "test file path 2" };
-            var filePathDataTable = filePathList.ToDataTable("filepath");
+            var sources = new List<string> { "test", "test 2" };
+
+            var sourcesDataTable = sources.ToDataTable("file");
+
             var submissionResult = new List<int> { 1, 2 };
             var submissionDataTableResult = submissionResult.ToDataTable("Id");
+            
             decimal workflowId = 3;
 
             _submissionsClientMock.Setup(s =>
-                s.CreateAsync(It.IsAny<int>(), filePathList, default))
+                s.CreateAsync(It.IsAny<int>(), sources, default))
                     .Returns(Task.FromResult((IEnumerable<int>)submissionResult));
 
             var connector = new IndicoConnector(_submissionsClientMock.Object);
 
             //Act
-            var result = connector.WorkflowFileSubmission(filePathDataTable, workflowId);
-            var resultList = result.ToList<int>();
+            var resultFilePaths = connector.WorkflowSubmission(sourcesDataTable, null, workflowId);
+            
+            var resultFilePathsList = resultFilePaths.ToList<int>();
 
             //Assert
-            _submissionsClientMock.Verify(s => s.CreateAsync(Convert.ToInt32(workflowId), filePathList, default), Times.Once);
+            _submissionsClientMock.Verify(s => s.CreateAsync(Convert.ToInt32(workflowId), sources, default), Times.Once);
 
-            resultList.Should().HaveCount(submissionResult.Count);
-            resultList.Should().BeEquivalentTo(submissionResult);
+            resultFilePathsList.Should().HaveCount(submissionResult.Count);
+            resultFilePathsList.Should().BeEquivalentTo(submissionResult);
         }
 
         [Test]
-        public void WorkflowFileSubmission_ShouldThrowArgumentNull_WhenFilepathsDataTableNull()
+        public void WorkflowSubmission_ShouldReturnIds_WhenPostingUris()
+        {
+            //Arrange
+            var sources = new List<string> { "http://test", "http://test2" };
+            var sourcesUris = sources.Select(s => new Uri(s));
+
+            var sourcesDataTable = sources.ToDataTable("file");
+
+            var submissionResult = new List<int> { 1, 2 };
+            var submissionDataTableResult = submissionResult.ToDataTable("Id");
+
+            decimal workflowId = 3;
+
+            _submissionsClientMock.Setup(s =>
+                s.CreateAsync(It.IsAny<int>(), sourcesUris, default))
+                    .Returns(Task.FromResult((IEnumerable<int>)submissionResult));
+
+            var connector = new IndicoConnector(_submissionsClientMock.Object);
+
+            //Act
+            var resultUris = connector.WorkflowSubmission(null, sourcesDataTable, workflowId);
+
+            var resultUrisList = resultUris.ToList<int>();
+
+            //Assert
+            _submissionsClientMock.Verify(s => s.CreateAsync(Convert.ToInt32(workflowId), sourcesUris, default), Times.Once);
+
+            resultUrisList.Should().HaveCount(submissionResult.Count);
+            resultUrisList.Should().BeEquivalentTo(submissionResult);
+        }
+
+        [Test]
+        public void WorkflowFileSubmission_ShouldThrowArgumentNull_WhenEmptyData()
         {
             //Arrange
             decimal workflowId = 3;
@@ -58,22 +96,7 @@ namespace Indico.BluePrism.Connector.Tests
             var connector = new IndicoConnector(_submissionsClientMock.Object);
 
             //Act
-            Action act = () => connector.WorkflowFileSubmission(null, workflowId);
-
-            //Assert
-            act.Should().Throw<ArgumentNullException>();
-        }
-
-        [Test]
-        public void WorkflowFileSubmission_ShouldThrowArgument_WhenFilepathsDataTableEmpty()
-        {
-            //Arrange
-            decimal workflowId = 3;
-
-            var connector = new IndicoConnector(_submissionsClientMock.Object);
-
-            //Act
-            Action act = () => connector.WorkflowFileSubmission(new DataTable(), workflowId);
+            Action act = () => connector.WorkflowSubmission(null, null, workflowId);
 
             //Assert
             act.Should().Throw<ArgumentException>();
