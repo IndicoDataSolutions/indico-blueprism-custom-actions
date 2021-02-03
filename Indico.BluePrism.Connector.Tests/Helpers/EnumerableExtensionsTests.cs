@@ -11,7 +11,7 @@ namespace Indico.BluePrism.Connector.Tests.Helpers
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(178)]
-        public void ToDataTable_ShouldReturnDataTableWithRowsCountEqualsToElementsCount(int elementsCount)
+        public void ToList_ShouldReturnRightNumberOfElements(int elementsCount)
         {
             //Arrange
             var dataTable = new DataTable();

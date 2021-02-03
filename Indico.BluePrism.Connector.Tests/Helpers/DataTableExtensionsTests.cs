@@ -12,7 +12,7 @@ namespace Indico.BluePrism.Connector.Tests.Helpers
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(178)]
-        public void ToList_ShouldReturnListWithElementsCountEqualsToRowsCount(int elementCount)
+        public void ToIdDataTable_ShouldReturnRightNumberOfElements(int elementCount)
         {
             //Arrange
             var list = new List<int>(Enumerable.Range(0, elementCount));
