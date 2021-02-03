@@ -30,10 +30,10 @@ namespace Indico.BluePrism.Connector.Tests
             //Arrange
             var sources = new List<string> { "test", "test 2" };
 
-            var sourcesDataTable = sources.ToDataTable("file");
+            var sourcesDataTable = sources.ToIdDataTable("file");
 
             var submissionResult = new List<int> { 1, 2 };
-            var submissionDataTableResult = submissionResult.ToDataTable("Id");
+            var submissionDataTableResult = submissionResult.ToIdDataTable("Id");
             
             decimal workflowId = 3;
 
@@ -62,10 +62,10 @@ namespace Indico.BluePrism.Connector.Tests
             var sources = new List<string> { "http://test", "http://test2" };
             var sourcesUris = sources.Select(s => new Uri(s));
 
-            var sourcesDataTable = sources.ToDataTable("file");
+            var sourcesDataTable = sources.ToIdDataTable("file");
 
             var submissionResult = new List<int> { 1, 2 };
-            var submissionDataTableResult = submissionResult.ToDataTable("Id");
+            var submissionDataTableResult = submissionResult.ToIdDataTable("Id");
 
             decimal workflowId = 3;
 

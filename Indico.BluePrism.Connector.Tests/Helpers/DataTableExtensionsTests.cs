@@ -18,7 +18,7 @@ namespace Indico.BluePrism.Connector.Tests.Helpers
             var list = new List<int>(Enumerable.Range(0, elementCount));
 
             //Act
-            var dataTable = list.ToDataTable();
+            var dataTable = list.ToIdDataTable();
 
             //Assert
             dataTable.Should().NotBeNull();
