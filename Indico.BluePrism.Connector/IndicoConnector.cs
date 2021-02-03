@@ -58,7 +58,28 @@ namespace Indico.BluePrism.Connector
                 result = Task.Run(async () => await _submissionsClient.CreateAsync(workflowIntId, fileList)).Result;
             }
 
-            return result.ToDataTable();
+            return result.ToIdDataTable();
+        }
+        
+        public DataTable ListSubmissions(DataTable submissionIds, DataTable workflowIds, decimal limit = 1000)
+        {
+            var submissionIdsprovided = ValidateInputDataTable(submissionIds);
+
+            if (!submissionIdsprovided)
+            {
+                throw new ArgumentException("No submission ids provided.");
+            }
+
+            var workflowIdsProvided = ValidateInputDataTable(workflowIds);
+
+            if (!workflowIdsProvided)
+            {
+                throw new ArgumentException("No submission ids provided.");
+            }
+
+            var result = Task.Run(async () => await _submissionsClient.ListAsync(submissionIds.ToList<int>(), workflowIds.ToList<int>(), null, Convert.ToInt32(limit))).Result;
+
+            return result.ToDetailedDataTable();
         }
 
         private static bool ValidateInputDataTable(DataTable dataTable)
@@ -70,5 +91,6 @@ namespace Indico.BluePrism.Connector
 
             return true;
         }
+
     }
 }
