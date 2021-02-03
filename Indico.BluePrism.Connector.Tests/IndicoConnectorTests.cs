@@ -71,7 +71,7 @@ namespace Indico.BluePrism.Connector.Tests
 
             _submissionsClientMock.Setup(s =>
                 s.CreateAsync(It.IsAny<int>(), sourcesUris, default))
-                    .Returns(Task.FromResult((IEnumerable<int>)submissionResult));
+                    .ReturnsAsync(submissionResult);
 
             var connector = new IndicoConnector(_submissionsClientMock.Object);
 
