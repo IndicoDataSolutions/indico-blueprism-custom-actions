@@ -27,7 +27,14 @@ namespace Indico.BluePrism.Connector.Helpers
 
             foreach (var prop in props)
             {
-                tb.Columns.Add(prop.Name, prop.PropertyType);
+                if (prop.PropertyType.IsEnum)
+                {
+                    tb.Columns.Add(prop.Name, typeof(string));
+                }
+                else
+                {
+                    tb.Columns.Add(prop.Name, prop.PropertyType);
+                }
             }
 
             foreach (var item in items)
@@ -35,7 +42,16 @@ namespace Indico.BluePrism.Connector.Helpers
                 var values = new object[props.Length];
                 for (var i = 0; i < props.Length; i++)
                 {
-                    values[i] = props[i].GetValue(item, null);
+                    var prop = props[i];
+                    var value = prop.GetValue(item, null);
+                    if (prop.PropertyType.IsEnum)
+                    {
+                        values[i] = value.ToString();
+                    }
+                    else
+                    {
+                        values[i] = prop.GetValue(item, null);
+                    }
                 }
 
                 tb.Rows.Add(values);
