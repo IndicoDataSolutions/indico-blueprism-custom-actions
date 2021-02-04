@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Indico.BluePrism.Connector.Helpers;
 using IndicoV2;
 using IndicoV2.Submissions;
+using IndicoV2.Submissions.Models;
 
 namespace Indico.BluePrism.Connector
 {
@@ -60,24 +61,53 @@ namespace Indico.BluePrism.Connector
 
             return result.ToIdDataTable();
         }
-        
-        public DataTable ListSubmissions(DataTable submissionIds, DataTable workflowIds, decimal limit = 1000)
+
+        public DataTable ListSubmissions(DataTable submissionIds, DataTable workflowIds, string inputFileName, string status, string retrieved, decimal limit = 1000)
         {
-            var submissionIdsprovided = ValidateInputDataTable(submissionIds);
+            bool? parsedRetrieved = null;
+            SubmissionStatus? parsedStatus = null;
 
-            if (!submissionIdsprovided)
+            if (string.IsNullOrWhiteSpace(inputFileName))
             {
-                throw new ArgumentException("No submission ids provided.");
+                inputFileName = null;
             }
 
-            var workflowIdsProvided = ValidateInputDataTable(workflowIds);
-
-            if (!workflowIdsProvided)
+            if (!string.IsNullOrEmpty(status))
             {
-                throw new ArgumentException("No submission ids provided.");
+                if (!Enum.TryParse(status, out SubmissionStatus statusValue))
+                {
+                    throw new ArgumentException("Wrong status value provided. Please provide one of the valid submission statuses.");
+                } 
+                else
+                {
+                    parsedStatus = statusValue;
+                }
             }
 
-            var result = Task.Run(async () => await _submissionsClient.ListAsync(submissionIds.ToList<int>(), workflowIds.ToList<int>(), null, Convert.ToInt32(limit))).Result;
+            if (!string.IsNullOrEmpty(retrieved))
+            {
+                if (!bool.TryParse(retrieved, out bool retrievedValue))
+                {
+                    throw new ArgumentException("Wrong retreived value provided. Please provide \"True\" or \"False\" as a value.");
+                }
+                else
+                {
+                    parsedRetrieved = retrievedValue;
+                }
+            }
+
+            var submissionFilter = new SubmissionFilter
+            {
+                InputFilename = inputFileName,
+                Status = parsedStatus,
+                Retrieved = parsedRetrieved
+            };
+
+            var submissionIdsList = submissionIds?.ToList<decimal>().Select(s => Convert.ToInt32(s)).ToList();
+            var workflowIdsList = workflowIds?.ToList<decimal>().Select(w => Convert.ToInt32(w)).ToList();
+            int limitInt = Convert.ToInt32(limit);
+
+            var result = Task.Run(async () => await _submissionsClient.ListAsync(submissionIdsList, workflowIdsList, submissionFilter, limitInt)).Result;
 
             return result.ToDetailedDataTable();
         }
