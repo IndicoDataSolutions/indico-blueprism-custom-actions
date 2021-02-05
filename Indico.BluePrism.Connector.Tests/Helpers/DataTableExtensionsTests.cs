@@ -1,72 +1,60 @@
-﻿using NUnit.Framework;
+﻿using System.Data;
+using NUnit.Framework;
 using Indico.BluePrism.Connector.Helpers;
 using FluentAssertions;
-using System.Collections.Generic;
-using System.Linq;
-using Indico.Entity;
-using Indico.Types;
 
 namespace Indico.BluePrism.Connector.Tests.Helpers
 {
     public class DataTableExtensionsTests
     {
+        private const string _id = "Id";
+
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(178)]
-        public void ToIdDataTable_ShouldReturnRightNumberOfElements(int elementCount)
+        public void ToListInt_ShouldReturnRightNumberOfElements(int elementsCount)
         {
             //Arrange
-            var list = new List<int>(Enumerable.Range(0, elementCount));
+            var dataTable = new DataTable();
+
+            PopulateDataTable(dataTable, elementsCount);
 
             //Act
-            var dataTable = list.ToIdDataTable();
+            var list = dataTable.ToList<int>(0);
 
             //Assert
-            dataTable.Should().NotBeNull();
-            dataTable.Rows.Should().HaveCount(elementCount);
+            list.Should().NotBeNull();
+            list.Should().HaveCount(elementsCount);
         }
 
-        [TestCase(1, SubmissionStatus.COMPLETE, "test")]
-        [TestCase(2, SubmissionStatus.FAILED, "test2")]
-        public void ToDetailedDataTable_ShouldReturnValidObject(int id, SubmissionStatus status, string inputFile)
-        {
-            //Arrange
-            var testObject = new Submission
-            {
-                Id = id,
-                Status = status,
-                InputFile = inputFile
-            };
-
-            //Act
-            var dataTable = new List<Submission>() { testObject }.ToDetailedDataTable();
-
-            //Assert
-            dataTable.Should().NotBeNull();
-            dataTable.Rows[0][nameof(testObject.Id)].Should().Equals(id);
-            dataTable.Rows[0][nameof(testObject.Status)].Should().Equals(status);
-            dataTable.Rows[0][nameof(testObject.InputFile)].Should().Equals(inputFile);
-        }
-
+        [TestCase(0)]
         [TestCase(1)]
-        [TestCase(8)]
-        public void ToDetailedDataTable_ShouldReturnAllElements(int count)
+        [TestCase(2)]
+        [TestCase(178)]
+        public void ToListString_ShouldReturnRightNumberOfElements(int elementsCount)
         {
             //Arrange
-            var list = new List<Submission>();
+            var dataTable = new DataTable();
 
-            for (int i = 0; i < count; i++)
-            {
-                list.Add(new Submission { Id = i });
-            }
-            
+            PopulateDataTable(dataTable, elementsCount);
+
             //Act
-            var dataTable = list.ToDetailedDataTable();
+            var list = dataTable.ToList<int>(_id);
 
             //Assert
-            dataTable.Should().NotBeNull();
-            dataTable.Rows.Count.Should().Equals(count);
+            list.Should().NotBeNull();
+            list.Should().HaveCount(elementsCount);
+        }
+
+        private static void PopulateDataTable(DataTable dataTable, int elementCount)
+        {
+            dataTable.Columns.Add(new DataColumn(_id, typeof(int)));
+
+            for (int i = 0; i < elementCount; i++)
+            {
+                dataTable.Rows.Add(i);
+            }
         }
     }
 }
