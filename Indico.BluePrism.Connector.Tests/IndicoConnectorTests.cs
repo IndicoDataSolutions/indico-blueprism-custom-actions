@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Indico.BluePrism.Connector.Helpers;
+using Indico.Entity;
 using IndicoV2.Submissions;
+using IndicoV2.Submissions.Models;
 using Moq;
 using NUnit.Framework;
+using IndicoV2.V1Adapters.Submissions.Models;
+using SubmissionFilterV2 = IndicoV2.Submissions.Models.SubmissionFilter;
 
 namespace Indico.BluePrism.Connector.Tests
 {
@@ -34,7 +37,7 @@ namespace Indico.BluePrism.Connector.Tests
 
             var submissionResult = new List<int> { 1, 2 };
             var submissionDataTableResult = submissionResult.ToIdDataTable("Id");
-            
+
             decimal workflowId = 3;
 
             _submissionsClientMock.Setup(s =>
@@ -45,7 +48,7 @@ namespace Indico.BluePrism.Connector.Tests
 
             //Act
             var resultFilePaths = connector.WorkflowSubmission(sourcesDataTable, null, workflowId);
-            
+
             var resultFilePathsList = resultFilePaths.ToList<int>();
 
             //Assert
@@ -83,7 +86,7 @@ namespace Indico.BluePrism.Connector.Tests
             //Assert
             _submissionsClientMock.Verify(s => s.CreateAsync(Convert.ToInt32(workflowId), sourcesUris, default), Times.Once);
 
-            resultUrisList.Should().HaveCount(submissionResult.Count);
+            resultUrisList.Should().HaveSameCount(submissionResult);
             resultUrisList.Should().BeEquivalentTo(submissionResult);
         }
 
@@ -100,6 +103,71 @@ namespace Indico.BluePrism.Connector.Tests
 
             //Assert
             act.Should().Throw<ArgumentException>();
+        }
+
+        [Test]
+        public void ListSubmissions_ShouldReturnSubmissionsById()
+        {
+            //Arrange
+            var submissionIdsList = new List<int> { 1, 2, 3, 4 };
+            var submissionIdsDecimalList = submissionIdsList.Select(id => Convert.ToDecimal(id));
+            var submissionIdsDecimalDataTable = submissionIdsDecimalList.ToIdDataTable();
+
+            var submissionList = submissionIdsList.Select(s => new V1SubmissionAdapter(new Submission { Id = s })).ToList();
+
+            var submissionDataTable = submissionList.ToDetailedDataTable();
+
+            _submissionsClientMock.Setup(s =>
+                s.ListAsync(submissionIdsList, null, It.IsAny<SubmissionFilterV2>(), submissionIdsList.Count, default))
+                    .ReturnsAsync(submissionList);
+
+            var connector = new IndicoConnector(_submissionsClientMock.Object);
+
+            //Act
+            var resultSubmissionsDataTable = connector.ListSubmissions(submissionIdsDecimalDataTable, null, null, null, null, Convert.ToDecimal(submissionIdsList.Count));
+            var resultSubmissionIdsList = resultSubmissionsDataTable.ToList<int>();
+
+            //Assert
+            _submissionsClientMock.Verify(s => s.ListAsync(submissionIdsList, null, It.IsAny<SubmissionFilterV2>(), submissionIdsList.Count, default), Times.Once);
+
+            resultSubmissionsDataTable.Rows.Should().HaveSameCount(submissionList);
+            resultSubmissionIdsList.Should().BeEquivalentTo(submissionIdsList);
+        }
+
+        [Test]
+        public void ListSubmissions_ShouldReturnSubmissionsByWorkflowId()
+        {
+            //Arrange
+            var workflowId = 5;
+            var workflowIdsList = new List<int> { workflowId };
+            var workflowIdsDecimalList = workflowIdsList.Select(id => Convert.ToDecimal(id));
+            var workflowIdsDecimalDataTable = workflowIdsDecimalList.ToIdDataTable();
+
+            var submissionIdsList = new List<int> { 1, 2, 3, 4 };
+            var submissionIdsDecimalList = submissionIdsList.Select(id => Convert.ToDecimal(id));
+            var submissionIdsDecimalDataTable = submissionIdsDecimalList.ToIdDataTable();
+
+            var submissionList = submissionIdsList.Select(s => new V1SubmissionAdapter(new Submission { Id = s, WorkflowId = workflowId })).ToList();
+
+            var submissionDataTable = submissionList.ToDetailedDataTable();
+
+            _submissionsClientMock.Setup(s =>
+                s.ListAsync(null, workflowIdsList, It.IsAny<SubmissionFilterV2>(), submissionIdsList.Count, default))
+                    .ReturnsAsync(submissionList);
+
+            var connector = new IndicoConnector(_submissionsClientMock.Object);
+
+            //Act
+            var resultSubmissionsDataTable = connector.ListSubmissions(null, workflowIdsDecimalDataTable, null, null, null, Convert.ToDecimal(submissionIdsList.Count));
+            var resultSubmissionIdsList = resultSubmissionsDataTable.ToList<int>();
+            var resultSubmissionWorkflowIdsList = resultSubmissionsDataTable.ToList<int>("WorkflowId");
+
+            //Assert
+            _submissionsClientMock.Verify(s => s.ListAsync(null, workflowIdsList, It.IsAny<SubmissionFilterV2>(), submissionIdsList.Count, default), Times.Once);
+
+            resultSubmissionsDataTable.Rows.Should().HaveSameCount(submissionList);
+            resultSubmissionIdsList.Should().BeEquivalentTo(submissionIdsList);
+            resultSubmissionWorkflowIdsList.Should().AllBeEquivalentTo(workflowId);
         }
     }
 }
