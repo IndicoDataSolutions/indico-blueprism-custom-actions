@@ -198,7 +198,7 @@ namespace Indico.BluePrism.Connector.Tests
                 .ReturnsAsync(JObject.Parse(@"{""test"": 1 }"));
 
             // Act
-            var submissionResult = _connector.SubmissionResult(submissionId, checkInterval, timeout);
+            var submissionResult = _connector.SubmissionResult(submissionId, checkInterval, timeout, null);
 
             // Assert
             var row = submissionResult.Rows.OfType<DataRow>().Single();
@@ -208,7 +208,7 @@ namespace Indico.BluePrism.Connector.Tests
         [Test]
         public void SubmissionResult_ShouldThrowWhenIntOverflown() =>
             this.Invoking(
-                    _ => _connector.SubmissionResult(decimal.MaxValue, default, default))
+                    _ => _connector.SubmissionResult(decimal.MaxValue, default, default, null))
                 .Should().Throw<OverflowException>();
     }
 }

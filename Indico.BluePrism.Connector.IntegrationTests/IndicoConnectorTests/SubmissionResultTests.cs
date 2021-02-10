@@ -24,7 +24,7 @@ namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
             var submissionId = _dataHelper.GetAnySubmissionId();
 
             // Act
-            var submissionResult = _connector.SubmissionResult(submissionId, 200, 5000);
+            var submissionResult = _connector.SubmissionResult(submissionId, 200, 5000, null);
 
             // Assert
             submissionResult.Should().NotBeNull();

@@ -119,14 +119,20 @@ namespace Indico.BluePrism.Connector
             return result.ToDetailedDataTable();
         }
 
-        public DataTable SubmissionResult(decimal submissionId, decimal checkInterValMilliseconds, decimal timeoutMilliseconds)
+        public DataTable SubmissionResult(decimal submissionIdDec, decimal checkInterValMilliseconds, decimal timeoutMilliseconds, string awaitStatusString)
         {
-            var result = Task
-                .Run(async () =>
-                    await _submissionResultAwaiter.WaitReady(
-                        (int)submissionId,
-                        TimeSpan.FromMilliseconds((int)checkInterValMilliseconds),
-                        TimeSpan.FromMilliseconds((int)timeoutMilliseconds)))
+            var submissionId = (int)submissionIdDec;
+            var awaitStatus = awaitStatusString == null
+                ? (SubmissionStatus?)null
+                : (SubmissionStatus)Enum.Parse((typeof(SubmissionStatus)), awaitStatusString);
+            var checkInterval = TimeSpan.FromMilliseconds((int)checkInterValMilliseconds);
+            var timeout = TimeSpan.FromMilliseconds((int)timeoutMilliseconds);
+
+            var getResult = awaitStatus == null
+                ? Task.Run(async () => await _submissionResultAwaiter.WaitReady(submissionId, checkInterval, timeout))
+                : Task.Run(async () => await _submissionResultAwaiter.WaitReady(submissionId, awaitStatus.Value, checkInterval, timeout));
+
+            var result = getResult
                 .GetAwaiter()
                 .GetResult();
             var dataTableResult = new JsonUtility().ConvertToDataTable(result.ToString());
