@@ -1,10 +1,11 @@
-﻿using NUnit.Framework;
-using Indico.BluePrism.Connector.Helpers;
-using FluentAssertions;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
+using Indico.BluePrism.Connector.Helpers;
 using Indico.Entity;
 using Indico.Types;
+using NUnit.Framework;
 
 namespace Indico.BluePrism.Connector.Tests.Helpers
 {
@@ -61,7 +62,7 @@ namespace Indico.BluePrism.Connector.Tests.Helpers
             {
                 list.Add(new Submission { Id = i });
             }
-            
+
             //Act
             var dataTable = list.ToDetailedDataTable();
 
