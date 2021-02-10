@@ -1,0 +1,931 @@
+﻿<process name="IndicoClient" version="1.0" bpversion="6.10.0.30674" narrative="" byrefcollection="true" type="object" runmode="Exclusive" preferredid="23a2bf1b-f6a7-4524-bbd2-f5623f90cd75">
+  <appdef>
+    <element name="Application Root">
+      <id>966ad3d3-a4cc-46a9-9c3e-b17e14f2c2f4</id>
+      <type>Application</type>
+      <basetype>Application</basetype>
+      <datatype>unknown</datatype>
+      <diagnose>False</diagnose>
+    </element>
+  </appdef>
+  <view>
+    <camerax>0</camerax>
+    <cameray>21</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="dec898db-feab-4b01-9060-3045f2f79b64" type="CleanUp" published="True">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="1f5a348d-205e-4f78-93c9-e4a1c2d430ee" type="Normal" published="True">
+    <name>Test</name>
+    <view>
+      <camerax>-153</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="6380b34f-6d12-41c4-9330-1c02d0a7010a" type="Normal" published="False">
+    <name>ListSubmissions by ids</name>
+    <view>
+      <camerax>-69</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="e05d874f-a262-40eb-9f1c-67fc80e3de63" type="Normal" published="False">
+    <name>ListSubmissions Workflow Ids</name>
+    <view>
+      <camerax>-153</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="6218fdc3-c7e6-4338-9764-6e032fa7fadb" type="Normal" published="False">
+    <name>ListSubmissions InputFilename</name>
+    <view>
+      <camerax>-153</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="0306474c-6cbf-415a-b819-9780413763e4" type="Normal" published="False">
+    <name>ListSubmissions Status + Limit</name>
+    <view>
+      <camerax>-153</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c9d0799f-e976-4b1c-a372-26ad938b53b8" type="Normal" published="False">
+    <name>WorkflowSubmission Files</name>
+    <view>
+      <camerax>-153</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="394a5687-083b-421b-b11a-5e32057352a9" type="Normal" published="False">
+    <name>WorkflowSubmission Uri</name>
+    <view>
+      <camerax>-153</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="144cfc12-f0e0-4947-98e6-c8e862931e8b" name="Start" type="Start">
+    <loginhibit />
+    <display x="15" y="-105" />
+    <onsuccess>ff910311-dd59-4196-93d8-f479ddf0d759</onsuccess>
+  </stage>
+  <stage stageid="ff910311-dd59-4196-93d8-f479ddf0d759" name="End" type="End">
+    <loginhibit />
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="49dcc58b-94c4-47f4-a492-b15f4298709d" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+    <references>
+      <reference>System.dll</reference>
+      <reference>System.Data.dll</reference>
+      <reference>System.Xml.dll</reference>
+      <reference>System.Drawing.dll</reference>
+      <reference>D:\SS\Repo\indico-client-csharp\Indico\bin\Debug\netstandard2.0\Indico.dll</reference>
+      <reference>System.Threading.dll</reference>
+      <reference>System.Linq.dll</reference>
+    </references>
+    <imports>
+      <import>System</import>
+      <import>System.Drawing</import>
+      <import>System.Data</import>
+      <import>Indico</import>
+      <import>System.IO</import>
+      <import>System.Threading</import>
+      <import>System.Threading.Tasks</import>
+      <import>System.Linq</import>
+    </imports>
+    <language>csharp</language>
+    <globalcode><![CDATA[]]></globalcode>
+    <code><![CDATA[]]></code>
+  </stage>
+  <stage stageid="aeed4b0c-124d-45bc-8386-4cd0cb01ae19" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>dec898db-feab-4b01-9060-3045f2f79b64</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="6cf0e335-d434-4b95-8b60-c535af303642" name="Start" type="Start">
+    <subsheetid>dec898db-feab-4b01-9060-3045f2f79b64</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <onsuccess>12435c8f-170d-4f56-ba81-d8891714ba78</onsuccess>
+  </stage>
+  <stage stageid="12435c8f-170d-4f56-ba81-d8891714ba78" name="End" type="End">
+    <subsheetid>dec898db-feab-4b01-9060-3045f2f79b64</subsheetid>
+    <loginhibit />
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="f87b9f58-647a-4fa8-90de-736d683586da" name="Test" type="SubSheetInfo">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="312de4bc-b661-4173-8aa6-370bbb13cc30" name="Start" type="Start">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Token" stage="Token" />
+    </inputs>
+    <onsuccess>0e1efcf1-5139-4e7b-840b-027c637064ea</onsuccess>
+  </stage>
+  <stage stageid="65eda990-e78f-458e-9ec8-8d7c723499de" name="End" type="End">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit />
+    <display x="15" y="195" />
+    <outputs>
+      <output type="collection" name="Return" stage="SubmissionsReturn" />
+    </outputs>
+  </stage>
+  <stage stageid="0ba856f6-6967-4e46-98d4-92f45da46c3a" name="Note1" type="Note">
+    <subsheetid>dec898db-feab-4b01-9060-3045f2f79b64</subsheetid>
+    <narrative>Clean Up Page
+
+This is an optional page where you might choose to perform some finalisation (or "cleanup") tasks as your business object is closed down.
+
+The cleanup action will be called automatically immediately after closing your business object at the end of a business process.
+
+You will not be able to call this action from a business process, nor will it be called at any other time than before the disposal of the business object.</narrative>
+    <display x="-180" y="60" w="180" h="230" />
+  </stage>
+  <stage stageid="0875efea-1ed3-4456-8dae-3bd0f06f9223" name="Token" type="Data">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <display x="-300" y="45" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgwNDMwLCJ1c2VyX2lkIjoxNDI3OCwidXNlcl9lbWFpbCI6InRlc3QrcnBhQGluZGljby5pbyIsImlhdCI6MTYwODUzMjMxNSwiYXVkIjpbImluZGljbzpyZWZyZXNoX3Rva2VuIl19.-uR7tGEBjfGXhfFI2RELPlA98zKjhVp4ymFE4rPs2k4</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="36a54f15-92b0-4a01-b854-2fa8d070b26b" name="Host" type="Data">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit />
+    <display x="-300" y="105" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2c674ff4-933e-4aa9-9549-26a55e1a7215" name="WorkflowSubmission" type="Action">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="number" name="WorklowId" friendlyname="WorklowId" expr="[WorkflowId]" />
+      <input type="collection" name="Filepaths" friendlyname="Filepaths" expr="" />
+      <input type="collection" name="Uris" friendlyname="Uris" expr="[Uris]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="SubmissionIds" friendlyname="SubmissionIds" stage="SubmissionsIds" />
+    </outputs>
+    <onsuccess>8c2673c1-3067-4e75-9d9b-0bf29d69d458</onsuccess>
+    <resource object="Client" action="WorkflowSubmission" />
+  </stage>
+  <stage stageid="ea8fff6b-4402-4624-9c82-65c9a7d8dfed" name="WorkflowsIds" type="Collection">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit />
+    <display x="-300" y="180" w="180" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Id" type="number" value="1087" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="303a6a63-3758-4660-ac98-f0caee46ba05" name="SubmissionsIds" type="Collection">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit />
+    <display x="-300" y="255" w="180" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Id" type="number" value="10000" />
+      </row>
+      <row>
+        <field name="Id" type="number" value="10064" />
+      </row>
+      <row>
+        <field name="Id" type="number" value="10065" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="ffd1f32c-91d1-4ad9-8a2c-846f4d945acc" name="SubmissionsReturn" type="Collection">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <display x="255" y="225" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+      <field name="Status" type="text" />
+      <field name="DatasetId" type="number" />
+      <field name="WorkflowId" type="number" />
+      <field name="InputFile" type="text" />
+      <field name="InputFilename" type="text" />
+      <field name="ResultFile" type="text" />
+      <field name="Retrieved" type="flag" />
+      <field name="Errors" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="0e1efcf1-5139-4e7b-840b-027c637064ea" name="GetFiles" type="Code">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit />
+    <display x="15" y="-45" />
+    <outputs>
+      <output type="collection" name="Files" stage="Files" />
+    </outputs>
+    <onsuccess>2c674ff4-933e-4aa9-9549-26a55e1a7215</onsuccess>
+    <code><![CDATA[var filesArray = Directory.GetFiles(@"C:\Users\User\Downloads\invoices");
+
+var filesDataTable = new DataTable();
+filesDataTable.Columns.Add(new DataColumn("filePath", typeof(string)));
+
+foreach (var filepath in filesArray)
+{
+	filesDataTable.Rows.Add(filepath);    
+}
+Files = filesDataTable;]]></code>
+  </stage>
+  <stage stageid="15da9ef1-1b1b-43f0-8f64-a608b5f2e887" name="Files" type="Collection">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <display x="-510" y="180" w="90" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f8d69a09-0d10-4c7a-8311-f97be23068cf" name="WorkflowId" type="Data">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit />
+    <display x="-165" y="180" />
+    <datatype>number</datatype>
+    <initialvalue>1087</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8c2673c1-3067-4e75-9d9b-0bf29d69d458" name="ListSubmission" type="Action">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="collection" name="SubmissionIds" friendlyname="SubmissionIds" expr="" />
+      <input type="collection" name="WorkflowIds" friendlyname="WorkflowIds" expr="" />
+      <input type="number" name="Limit" friendlyname="Limit" expr="100" />
+      <input type="text" name="InputFileName" friendlyname="InputFileName" expr="&quot;dummy.pdf&quot;" />
+      <input type="text" name="Status" friendlyname="Status" expr="" />
+      <input type="text" name="Retrieved" friendlyname="Retrieved" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Submissions" friendlyname="Submissions" stage="SubmissionsReturn" />
+    </outputs>
+    <onsuccess>65eda990-e78f-458e-9ec8-8d7c723499de</onsuccess>
+    <resource object="Client" action="ListSubmissions" />
+  </stage>
+  <stage stageid="ad93ea37-0847-4903-892b-eac57fb45466" name="Uris" type="Collection">
+    <subsheetid>1f5a348d-205e-4f78-93c9-e4a1c2d430ee</subsheetid>
+    <loginhibit />
+    <display x="-510" y="255" w="90" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Uri" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Uri" type="text" value="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="4294c066-2be4-4979-9abc-33f3c2e0555d" name="ListSubmissions InputFilename" type="SubSheetInfo">
+    <subsheetid>6218fdc3-c7e6-4338-9764-6e032fa7fadb</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="bf9c701b-071a-4724-b93c-9e2c170832d8" name="Start" type="Start">
+    <subsheetid>6218fdc3-c7e6-4338-9764-6e032fa7fadb</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Token" stage="Token" />
+    </inputs>
+    <onsuccess>47fb10e3-c78e-4341-b2bf-ccac33554dc8</onsuccess>
+  </stage>
+  <stage stageid="4a0a9064-a7e7-4b7c-b688-9872ed7dbfc0" name="End" type="End">
+    <subsheetid>6218fdc3-c7e6-4338-9764-6e032fa7fadb</subsheetid>
+    <loginhibit />
+    <display x="15" y="195" />
+    <outputs>
+      <output type="collection" name="Return" stage="SubmissionsReturn" />
+    </outputs>
+  </stage>
+  <stage stageid="60845f17-9b91-4761-a682-6b85cc5afff5" name="Token" type="Data">
+    <subsheetid>6218fdc3-c7e6-4338-9764-6e032fa7fadb</subsheetid>
+    <display x="-300" y="45" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgwNDMwLCJ1c2VyX2lkIjoxNDI3OCwidXNlcl9lbWFpbCI6InRlc3QrcnBhQGluZGljby5pbyIsImlhdCI6MTYwODUzMjMxNSwiYXVkIjpbImluZGljbzpyZWZyZXNoX3Rva2VuIl19.-uR7tGEBjfGXhfFI2RELPlA98zKjhVp4ymFE4rPs2k4</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a111444f-a487-4b4b-b127-699d30a995fd" name="Host" type="Data">
+    <subsheetid>6218fdc3-c7e6-4338-9764-6e032fa7fadb</subsheetid>
+    <loginhibit />
+    <display x="-300" y="105" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="26479631-ec94-49f7-95eb-198c52bab7f5" name="SubmissionsReturn" type="Collection">
+    <subsheetid>6218fdc3-c7e6-4338-9764-6e032fa7fadb</subsheetid>
+    <display x="255" y="165" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+      <field name="Status" type="text" />
+      <field name="DatasetId" type="number" />
+      <field name="WorkflowId" type="number" />
+      <field name="InputFile" type="text" />
+      <field name="InputFilename" type="text" />
+      <field name="ResultFile" type="text" />
+      <field name="Retrieved" type="flag" />
+      <field name="Errors" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="47fb10e3-c78e-4341-b2bf-ccac33554dc8" name="ListSubmission" type="Action">
+    <subsheetid>6218fdc3-c7e6-4338-9764-6e032fa7fadb</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="collection" name="SubmissionIds" friendlyname="SubmissionIds" expr="" />
+      <input type="collection" name="WorkflowIds" friendlyname="WorkflowIds" expr="" />
+      <input type="number" name="Limit" friendlyname="Limit" expr="" />
+      <input type="text" name="InputFileName" friendlyname="InputFileName" expr="&quot;dummy.pdf&quot;" />
+      <input type="text" name="Status" friendlyname="Status" expr="" />
+      <input type="text" name="Retrieved" friendlyname="Retrieved" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Submissions" friendlyname="Submissions" stage="SubmissionsReturn" />
+    </outputs>
+    <onsuccess>4a0a9064-a7e7-4b7c-b688-9872ed7dbfc0</onsuccess>
+    <resource object="Client" action="ListSubmissions" />
+  </stage>
+  <stage stageid="a369d7e3-53bf-412f-92d6-c8cefbaad7a1" name="ListSubmissions by ids" type="SubSheetInfo">
+    <subsheetid>6380b34f-6d12-41c4-9330-1c02d0a7010a</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="dc196ac5-b4f9-4cd5-a562-9881df6372f6" name="Start" type="Start">
+    <subsheetid>6380b34f-6d12-41c4-9330-1c02d0a7010a</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Token" stage="Token" />
+    </inputs>
+    <onsuccess>b5ef113b-fe40-428b-821c-55812998e09e</onsuccess>
+  </stage>
+  <stage stageid="1686d6d4-d496-4da2-9c4f-884ae82ae8f2" name="End" type="End">
+    <subsheetid>6380b34f-6d12-41c4-9330-1c02d0a7010a</subsheetid>
+    <loginhibit />
+    <display x="15" y="195" />
+    <outputs>
+      <output type="collection" name="Return" stage="SubmissionsReturn" />
+    </outputs>
+  </stage>
+  <stage stageid="2efd340c-56a9-4aca-844b-d5e634daf887" name="Token" type="Data">
+    <subsheetid>6380b34f-6d12-41c4-9330-1c02d0a7010a</subsheetid>
+    <display x="-300" y="45" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgwNDMwLCJ1c2VyX2lkIjoxNDI3OCwidXNlcl9lbWFpbCI6InRlc3QrcnBhQGluZGljby5pbyIsImlhdCI6MTYwODUzMjMxNSwiYXVkIjpbImluZGljbzpyZWZyZXNoX3Rva2VuIl19.-uR7tGEBjfGXhfFI2RELPlA98zKjhVp4ymFE4rPs2k4</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="eb14b174-4812-4cb0-b45c-880e58e11723" name="Host" type="Data">
+    <subsheetid>6380b34f-6d12-41c4-9330-1c02d0a7010a</subsheetid>
+    <loginhibit />
+    <display x="-300" y="105" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="98492232-afa4-4b73-9b30-f3063c94eaed" name="SubmissionsIds" type="Collection">
+    <subsheetid>6380b34f-6d12-41c4-9330-1c02d0a7010a</subsheetid>
+    <loginhibit />
+    <display x="-300" y="180" w="180" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Id" type="number" value="10064" />
+      </row>
+      <row>
+        <field name="Id" type="number" value="10065" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="9ceaa0b9-d7a0-4ab0-b670-ed41c6a3188b" name="SubmissionsReturn" type="Collection">
+    <subsheetid>6380b34f-6d12-41c4-9330-1c02d0a7010a</subsheetid>
+    <display x="255" y="180" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+      <field name="Status" type="text" />
+      <field name="DatasetId" type="number" />
+      <field name="WorkflowId" type="number" />
+      <field name="InputFile" type="text" />
+      <field name="InputFilename" type="text" />
+      <field name="ResultFile" type="text" />
+      <field name="Retrieved" type="flag" />
+      <field name="Errors" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="b5ef113b-fe40-428b-821c-55812998e09e" name="ListSubmission" type="Action">
+    <subsheetid>6380b34f-6d12-41c4-9330-1c02d0a7010a</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="collection" name="SubmissionIds" friendlyname="SubmissionIds" expr="[SubmissionsIds]" />
+      <input type="collection" name="WorkflowIds" friendlyname="WorkflowIds" expr="" />
+      <input type="number" name="Limit" friendlyname="Limit" expr="" />
+      <input type="text" name="InputFileName" friendlyname="InputFileName" expr="" />
+      <input type="text" name="Status" friendlyname="Status" expr="" />
+      <input type="text" name="Retrieved" friendlyname="Retrieved" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Submissions" friendlyname="Submissions" stage="SubmissionsReturn" />
+    </outputs>
+    <onsuccess>1686d6d4-d496-4da2-9c4f-884ae82ae8f2</onsuccess>
+    <resource object="Client" action="ListSubmissions" />
+  </stage>
+  <stage stageid="e6fed75b-6f18-4f0c-8f72-1d02e3648231" name="ListSubmissions Workflow Ids" type="SubSheetInfo">
+    <subsheetid>e05d874f-a262-40eb-9f1c-67fc80e3de63</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="082dff7a-ab38-4139-a3b8-d16208d1fa8c" name="Start" type="Start">
+    <subsheetid>e05d874f-a262-40eb-9f1c-67fc80e3de63</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Token" stage="Token" />
+    </inputs>
+    <onsuccess>69522012-a57a-4e23-86c7-b7193b25e3b4</onsuccess>
+  </stage>
+  <stage stageid="a59d38f4-4a69-4454-9eb9-7a6e64f4664c" name="End" type="End">
+    <subsheetid>e05d874f-a262-40eb-9f1c-67fc80e3de63</subsheetid>
+    <loginhibit />
+    <display x="15" y="195" />
+    <outputs>
+      <output type="collection" name="Return" stage="SubmissionsReturn" />
+    </outputs>
+  </stage>
+  <stage stageid="242e9688-a713-465f-be0c-02900a5097d8" name="Token" type="Data">
+    <subsheetid>e05d874f-a262-40eb-9f1c-67fc80e3de63</subsheetid>
+    <display x="-300" y="45" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgwNDMwLCJ1c2VyX2lkIjoxNDI3OCwidXNlcl9lbWFpbCI6InRlc3QrcnBhQGluZGljby5pbyIsImlhdCI6MTYwODUzMjMxNSwiYXVkIjpbImluZGljbzpyZWZyZXNoX3Rva2VuIl19.-uR7tGEBjfGXhfFI2RELPlA98zKjhVp4ymFE4rPs2k4</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="12be8985-01c3-4f67-bf7f-f98688019c94" name="Host" type="Data">
+    <subsheetid>e05d874f-a262-40eb-9f1c-67fc80e3de63</subsheetid>
+    <loginhibit />
+    <display x="-300" y="105" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0f436500-c0b3-41b3-bc64-14f93766460a" name="WorkflowsIds" type="Collection">
+    <subsheetid>e05d874f-a262-40eb-9f1c-67fc80e3de63</subsheetid>
+    <loginhibit />
+    <display x="-300" y="180" w="180" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Id" type="number" value="1087" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="bb54526a-1252-4ccd-8a7c-58621e10e545" name="SubmissionsReturn" type="Collection">
+    <subsheetid>e05d874f-a262-40eb-9f1c-67fc80e3de63</subsheetid>
+    <display x="255" y="195" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+      <field name="Status" type="text" />
+      <field name="DatasetId" type="number" />
+      <field name="WorkflowId" type="number" />
+      <field name="InputFile" type="text" />
+      <field name="InputFilename" type="text" />
+      <field name="ResultFile" type="text" />
+      <field name="Retrieved" type="flag" />
+      <field name="Errors" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="69522012-a57a-4e23-86c7-b7193b25e3b4" name="ListSubmission" type="Action">
+    <subsheetid>e05d874f-a262-40eb-9f1c-67fc80e3de63</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="collection" name="SubmissionIds" friendlyname="SubmissionIds" expr="" />
+      <input type="collection" name="WorkflowIds" friendlyname="WorkflowIds" expr="[WorkflowsIds]" />
+      <input type="number" name="Limit" friendlyname="Limit" expr="" />
+      <input type="text" name="InputFileName" friendlyname="InputFileName" expr="" />
+      <input type="text" name="Status" friendlyname="Status" expr="" />
+      <input type="text" name="Retrieved" friendlyname="Retrieved" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Submissions" friendlyname="Submissions" stage="SubmissionsReturn" />
+    </outputs>
+    <onsuccess>a59d38f4-4a69-4454-9eb9-7a6e64f4664c</onsuccess>
+    <resource object="Client" action="ListSubmissions" />
+  </stage>
+  <stage stageid="52633af2-c9d9-4c55-95db-c9466bd1d0e1" name="ListSubmissions Status + Limit" type="SubSheetInfo">
+    <subsheetid>0306474c-6cbf-415a-b819-9780413763e4</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="3c10ba9b-6731-4d78-91c5-1fc368b63a10" name="Start" type="Start">
+    <subsheetid>0306474c-6cbf-415a-b819-9780413763e4</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Token" stage="Token" />
+    </inputs>
+    <onsuccess>6e5c9ad6-15b0-44ac-bded-889b2649c70f</onsuccess>
+  </stage>
+  <stage stageid="d4bf222a-5050-445d-889a-972288ec7500" name="End" type="End">
+    <subsheetid>0306474c-6cbf-415a-b819-9780413763e4</subsheetid>
+    <loginhibit />
+    <display x="15" y="195" />
+    <outputs>
+      <output type="collection" name="Return" stage="SubmissionsReturn" />
+    </outputs>
+  </stage>
+  <stage stageid="0b95d13c-7233-4f66-bc9b-9ad386969a19" name="Token" type="Data">
+    <subsheetid>0306474c-6cbf-415a-b819-9780413763e4</subsheetid>
+    <display x="-300" y="45" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgwNDMwLCJ1c2VyX2lkIjoxNDI3OCwidXNlcl9lbWFpbCI6InRlc3QrcnBhQGluZGljby5pbyIsImlhdCI6MTYwODUzMjMxNSwiYXVkIjpbImluZGljbzpyZWZyZXNoX3Rva2VuIl19.-uR7tGEBjfGXhfFI2RELPlA98zKjhVp4ymFE4rPs2k4</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="67b0c48b-919a-4ae6-9ec0-2cf054ed3999" name="Host" type="Data">
+    <subsheetid>0306474c-6cbf-415a-b819-9780413763e4</subsheetid>
+    <loginhibit />
+    <display x="-300" y="105" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="30ba66d0-2fa6-4c4d-8d57-5185bce13e9f" name="SubmissionsReturn" type="Collection">
+    <subsheetid>0306474c-6cbf-415a-b819-9780413763e4</subsheetid>
+    <display x="255" y="165" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+      <field name="Status" type="text" />
+      <field name="DatasetId" type="number" />
+      <field name="WorkflowId" type="number" />
+      <field name="InputFile" type="text" />
+      <field name="InputFilename" type="text" />
+      <field name="ResultFile" type="text" />
+      <field name="Retrieved" type="flag" />
+      <field name="Errors" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="6e5c9ad6-15b0-44ac-bded-889b2649c70f" name="ListSubmission" type="Action">
+    <subsheetid>0306474c-6cbf-415a-b819-9780413763e4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="collection" name="SubmissionIds" friendlyname="SubmissionIds" expr="" />
+      <input type="collection" name="WorkflowIds" friendlyname="WorkflowIds" expr="" />
+      <input type="number" name="Limit" friendlyname="Limit" expr="10" />
+      <input type="text" name="InputFileName" friendlyname="InputFileName" expr="" />
+      <input type="text" name="Status" friendlyname="Status" expr="&quot;COMPLETE&quot;" />
+      <input type="text" name="Retrieved" friendlyname="Retrieved" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Submissions" friendlyname="Submissions" stage="SubmissionsReturn" />
+    </outputs>
+    <onsuccess>d4bf222a-5050-445d-889a-972288ec7500</onsuccess>
+    <resource object="Client" action="ListSubmissions" />
+  </stage>
+  <stage stageid="b4cc185c-b469-43ff-80d7-99b311d01e8e" name="WorkflowSubmission Files" type="SubSheetInfo">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="2bf346d3-da6f-4a9f-9b85-1688e9e0591a" name="Start" type="Start">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Token" stage="Token" />
+    </inputs>
+    <onsuccess>23ecd5df-7bc9-41d3-9d3f-d7d0ee09abeb</onsuccess>
+  </stage>
+  <stage stageid="d47a9975-16a2-4974-8a72-71157f54d388" name="End" type="End">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <loginhibit />
+    <display x="15" y="195" />
+    <outputs>
+      <output type="collection" name="Return" stage="SubmissionsReturn" />
+    </outputs>
+  </stage>
+  <stage stageid="e071a474-ce5b-4d4b-8505-aa09bbd341cd" name="Token" type="Data">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <display x="-300" y="45" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgwNDMwLCJ1c2VyX2lkIjoxNDI3OCwidXNlcl9lbWFpbCI6InRlc3QrcnBhQGluZGljby5pbyIsImlhdCI6MTYwODUzMjMxNSwiYXVkIjpbImluZGljbzpyZWZyZXNoX3Rva2VuIl19.-uR7tGEBjfGXhfFI2RELPlA98zKjhVp4ymFE4rPs2k4</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="09056236-6636-4a64-a41a-fe33e0965851" name="Host" type="Data">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <loginhibit />
+    <display x="-300" y="105" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a421af26-e384-46b6-b5e0-46a26b2ae9be" name="WorkflowSubmission" type="Action">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="30" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="number" name="WorklowId" friendlyname="WorklowId" expr="[WorkflowId]" />
+      <input type="collection" name="Filepaths" friendlyname="Filepaths" expr="[Files]" />
+      <input type="collection" name="Uris" friendlyname="Uris" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="SubmissionIds" friendlyname="SubmissionIds" stage="SubmissionsIds" />
+    </outputs>
+    <onsuccess>fb279fcf-f814-4ad1-97b7-2f3b5081f904</onsuccess>
+    <resource object="Client" action="WorkflowSubmission" />
+  </stage>
+  <stage stageid="15ceba00-6316-41f3-af49-7d1338794acf" name="SubmissionsIds" type="Collection">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <loginhibit />
+    <display x="225" y="30" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="6f9fa6cc-994b-4a61-a5b4-84a4c82ac3e2" name="SubmissionsReturn" type="Collection">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <display x="225" y="120" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+      <field name="Status" type="text" />
+      <field name="DatasetId" type="number" />
+      <field name="WorkflowId" type="number" />
+      <field name="InputFile" type="text" />
+      <field name="InputFilename" type="text" />
+      <field name="ResultFile" type="text" />
+      <field name="Retrieved" type="flag" />
+      <field name="Errors" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="23ecd5df-7bc9-41d3-9d3f-d7d0ee09abeb" name="GetFiles2" type="Code">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <loginhibit />
+    <display x="15" y="-45" />
+    <outputs>
+      <output type="collection" name="Files" stage="Files" />
+    </outputs>
+    <onsuccess>a421af26-e384-46b6-b5e0-46a26b2ae9be</onsuccess>
+    <code><![CDATA[var filesArray = Directory.GetFiles(@"C:\Users\User\Downloads\invoices");
+
+var filesDataTable = new DataTable();
+filesDataTable.Columns.Add(new DataColumn("filePath", typeof(string)));
+
+foreach (var filepath in filesArray)
+{
+	filesDataTable.Rows.Add(filepath);    
+}
+Files = filesDataTable;]]></code>
+  </stage>
+  <stage stageid="dfc980d6-80c0-43c4-afe6-7b5a9ed46fe2" name="Files" type="Collection">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <display x="225" y="-60" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d01d40ae-18c2-4e23-9d58-cf37f5682688" name="WorkflowId" type="Data">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <loginhibit />
+    <display x="-90" y="30" />
+    <datatype>number</datatype>
+    <initialvalue>1087</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fb279fcf-f814-4ad1-97b7-2f3b5081f904" name="ListSubmission" type="Action">
+    <subsheetid>c9d0799f-e976-4b1c-a372-26ad938b53b8</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="collection" name="SubmissionIds" friendlyname="SubmissionIds" expr="[SubmissionsIds]" />
+      <input type="collection" name="WorkflowIds" friendlyname="WorkflowIds" expr="" />
+      <input type="number" name="Limit" friendlyname="Limit" expr="" />
+      <input type="text" name="InputFileName" friendlyname="InputFileName" expr="" />
+      <input type="text" name="Status" friendlyname="Status" expr="" />
+      <input type="text" name="Retrieved" friendlyname="Retrieved" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Submissions" friendlyname="Submissions" stage="SubmissionsReturn" />
+    </outputs>
+    <onsuccess>d47a9975-16a2-4974-8a72-71157f54d388</onsuccess>
+    <resource object="Client" action="ListSubmissions" />
+  </stage>
+  <stage stageid="c8afc839-3dbe-4647-b0ac-9ea954c942fb" name="WorkflowSubmission Uri" type="SubSheetInfo">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="122cd221-511b-4309-bcab-7e578b8d32d6" name="Start" type="Start">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Token" stage="Token" />
+    </inputs>
+    <onsuccess>bba7a436-ccb0-422a-be8f-80e943ff0ff4</onsuccess>
+  </stage>
+  <stage stageid="29bffa39-a260-4299-8a4f-c514247b7069" name="End" type="End">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <loginhibit />
+    <display x="15" y="195" />
+    <outputs>
+      <output type="collection" name="Return" stage="SubmissionsReturn" />
+    </outputs>
+  </stage>
+  <stage stageid="2872c501-f40b-447e-b839-fb27a30b948d" name="Token" type="Data">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <display x="-300" y="45" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTgwNDMwLCJ1c2VyX2lkIjoxNDI3OCwidXNlcl9lbWFpbCI6InRlc3QrcnBhQGluZGljby5pbyIsImlhdCI6MTYwODUzMjMxNSwiYXVkIjpbImluZGljbzpyZWZyZXNoX3Rva2VuIl19.-uR7tGEBjfGXhfFI2RELPlA98zKjhVp4ymFE4rPs2k4</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1c39d3f8-79cd-4e72-9733-2ecc906adf8e" name="Host" type="Data">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <loginhibit />
+    <display x="-300" y="105" w="180" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bba7a436-ccb0-422a-be8f-80e943ff0ff4" name="WorkflowSubmission" type="Action">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="number" name="WorklowId" friendlyname="WorklowId" expr="[WorkflowId]" />
+      <input type="collection" name="Filepaths" friendlyname="Filepaths" expr="" />
+      <input type="collection" name="Uris" friendlyname="Uris" expr="[Uris]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="SubmissionIds" friendlyname="SubmissionIds" stage="SubmissionsIds" />
+    </outputs>
+    <onsuccess>db452e8d-4cf3-4f00-9eff-d9545e38f47c</onsuccess>
+    <resource object="Client" action="WorkflowSubmission" />
+  </stage>
+  <stage stageid="a0c48b1f-d214-4bd0-aa68-98572b38ac82" name="SubmissionsIds" type="Collection">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <loginhibit />
+    <display x="225" y="0" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="2dd546e4-2f3b-4f14-9db1-b526b8d69940" name="SubmissionsReturn" type="Collection">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <display x="225" y="90" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Id" type="number" />
+      <field name="Status" type="text" />
+      <field name="DatasetId" type="number" />
+      <field name="WorkflowId" type="number" />
+      <field name="InputFile" type="text" />
+      <field name="InputFilename" type="text" />
+      <field name="ResultFile" type="text" />
+      <field name="Retrieved" type="flag" />
+      <field name="Errors" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="ce1ba200-293f-4088-aec9-69288fd86113" name="WorkflowId" type="Data">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <loginhibit />
+    <display x="-135" y="0" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>1087</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="db452e8d-4cf3-4f00-9eff-d9545e38f47c" name="ListSubmission" type="Action">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Host" friendlyname="Host" expr="[Host]" />
+      <input type="text" name="Token" friendlyname="Token" expr="[Token]" />
+      <input type="collection" name="SubmissionIds" friendlyname="SubmissionIds" expr="[SubmissionsIds]" />
+      <input type="collection" name="WorkflowIds" friendlyname="WorkflowIds" expr="" />
+      <input type="number" name="Limit" friendlyname="Limit" expr="" />
+      <input type="text" name="InputFileName" friendlyname="InputFileName" expr="" />
+      <input type="text" name="Status" friendlyname="Status" expr="" />
+      <input type="text" name="Retrieved" friendlyname="Retrieved" expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Submissions" friendlyname="Submissions" stage="SubmissionsReturn" />
+    </outputs>
+    <onsuccess>29bffa39-a260-4299-8a4f-c514247b7069</onsuccess>
+    <resource object="Client" action="ListSubmissions" />
+  </stage>
+  <stage stageid="70288c48-e652-4199-a45b-e82589b69118" name="Uris" type="Collection">
+    <subsheetid>394a5687-083b-421b-b11a-5e32057352a9</subsheetid>
+    <loginhibit />
+    <display x="225" y="-90" w="210" h="60" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Uri" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Uri" type="text" value="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" />
+      </row>
+    </initialvalue>
+  </stage>
+</process>
