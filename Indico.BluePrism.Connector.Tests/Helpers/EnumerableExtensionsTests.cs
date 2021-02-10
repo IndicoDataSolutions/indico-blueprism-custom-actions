@@ -49,6 +49,7 @@ namespace Indico.BluePrism.Connector.Tests.Helpers
             dataTable.Rows[0][nameof(testObject.InputFile)].Should().Equals(inputFile);
         }
 
+        [TestCase(0)]
         [TestCase(1)]
         [TestCase(8)]
         public void ToDetailedDataTable_ShouldReturnAllElements(int count)
