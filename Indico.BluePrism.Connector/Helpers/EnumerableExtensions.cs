@@ -27,6 +27,11 @@ namespace Indico.BluePrism.Connector.Helpers
 
             foreach (var prop in props)
             {
+                if (prop.PropertyType != typeof(string) && prop.PropertyType.IsClass)
+                {
+                    throw new NotSupportedException($"Type {prop.PropertyType} is not supported.");
+                }
+
                 if (prop.PropertyType.IsEnum)
                 {
                     tb.Columns.Add(prop.Name, typeof(string));

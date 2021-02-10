@@ -69,5 +69,30 @@ namespace Indico.BluePrism.Connector.Tests.Helpers
             dataTable.Should().NotBeNull();
             dataTable.Rows.Count.Should().Equals(count);
         }
+
+        [Test]
+        public void ToDetailedDataTable_ShouldThrow_WhenInvalidObject()
+        {
+            //Arrange
+            var testObject = new
+            {
+                Id = 1,
+                List = new List<int>()
+            };
+
+            var testObject2 = new
+            {
+                Id = 2,
+                Class = new { Name = "Test" }
+            };
+
+            //Act
+            Action act = () => new[] { testObject }.ToDetailedDataTable();
+            Action act2 = () => new[] { testObject2 }.ToDetailedDataTable();
+
+            //Assert
+            act.Should().Throw<NotSupportedException>();
+            act2.Should().Throw<NotSupportedException>();
+        }
     }
 }
