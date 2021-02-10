@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\indico-client-csharp\IndicoV2.Abstractions\IndicoV2.Abstractions.csproj" />
     <ProjectReference Include="..\Indico.BluePrism.Connector\Indico.BluePrism.Connector.csproj" />
   </ItemGroup>
 

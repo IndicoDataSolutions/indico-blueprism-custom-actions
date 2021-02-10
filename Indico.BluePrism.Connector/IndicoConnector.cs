@@ -4,7 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Indico.BluePrism.Connector.Helpers;
+using Indico.BluePrism.Utilities;
 using IndicoV2;
+using IndicoV2.Extensions.SubmissionResult;
 using IndicoV2.Submissions;
 using IndicoV2.Submissions.Models;
 
@@ -12,7 +14,8 @@ namespace Indico.BluePrism.Connector
 {
     public class IndicoConnector : IIndicoConnector
     {
-        protected ISubmissionsClient _submissionsClient;
+        protected readonly ISubmissionsClient _submissionsClient;
+        private readonly ISubmissionResultAwaiter _submissionResultAwaiter;
 
         public IndicoConnector(string token, string host)
             : this(
@@ -22,10 +25,15 @@ namespace Indico.BluePrism.Connector
         { }
 
         private IndicoConnector(IndicoV2.IndicoClient indicoClient)
-         : this(indicoClient.Submissions())
-        { }
+            : this(indicoClient.Submissions(), indicoClient.GetSubmissionResultAwaiter())
+        {
+        }
 
-        public IndicoConnector(ISubmissionsClient submissionsClient) => _submissionsClient = submissionsClient;
+        public IndicoConnector(ISubmissionsClient submissionsClient, ISubmissionResultAwaiter submissionResultAwaiter)
+        {
+            _submissionsClient = submissionsClient;
+            _submissionResultAwaiter = submissionResultAwaiter;
+        }
 
 
         public DataTable WorkflowSubmission(DataTable filepaths, DataTable uris, decimal workflowId)
@@ -109,6 +117,21 @@ namespace Indico.BluePrism.Connector
             var result = Task.Run(async () => await _submissionsClient.ListAsync(submissionIdsList, workflowIdsList, submissionFilter, limitInt)).Result;
 
             return result.ToDetailedDataTable();
+        }
+
+        public DataTable SubmissionResult(decimal submissionId, decimal checkInterValMilliseconds, decimal timeoutMilliseconds)
+        {
+            var result = Task
+                .Run(async () =>
+                    await _submissionResultAwaiter.WaitReady(
+                        (int)submissionId,
+                        TimeSpan.FromMilliseconds((int)checkInterValMilliseconds),
+                        TimeSpan.FromMilliseconds((int)timeoutMilliseconds)))
+                .GetAwaiter()
+                .GetResult();
+            var dataTableResult = new JsonUtility().ConvertToDataTable(result.ToString());
+
+            return dataTableResult;
         }
 
         private static bool ValidateInputDataTable(DataTable dataTable)

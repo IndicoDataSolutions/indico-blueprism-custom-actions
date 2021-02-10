@@ -1,0 +1,599 @@
+﻿{
+  "submission_id": 9261,
+  "etl_output": "indico-file:///storage/submission/1087/9261/9261_etl_output.json",
+  "errors": [],
+  "results": {
+    "document": {
+      "results": {
+        "Invoice Fields q2076 model": {
+          "pre_review": [
+            {
+              "start": 0,
+              "end": 11,
+              "label": "Vendor Name",
+              "text": "Test Vendor Name",
+              "confidence": {
+                "<PAD>": 4.271482794138137E-06,
+                "Amount Due": 7.309187708415266E-07,
+                "Due Date": 9.986422355723334E-08,
+                "Invoice Date": 1.946412595543734E-07,
+                "Invoice Number": 5.239203915152757E-07,
+                "Vendor City": 1.386300141348329E-06,
+                "Vendor Name": 0.999991238117218,
+                "Vendor State": 9.461527952225879E-07,
+                "Vendor Street": 2.6500941885387874E-07,
+                "Vendor Zip": 3.5498695183378004E-07
+              }
+            },
+            {
+              "start": 36,
+              "end": 59,
+              "label": "Vendor Street",
+              "text": "1234 Some Street",
+              "confidence": {
+                "<PAD>": 1.6543351932796213E-07,
+                "Amount Due": 5.725491405428329E-07,
+                "Due Date": 1.0231142510974678E-07,
+                "Invoice Date": 8.502721016157011E-07,
+                "Invoice Number": 1.051679305419384E-06,
+                "Vendor City": 1.7883476175484248E-06,
+                "Vendor Name": 5.544249574995774E-07,
+                "Vendor State": 2.4364200612581044E-07,
+                "Vendor Street": 0.9999943375587463,
+                "Vendor Zip": 3.2457376164529705E-07
+              }
+            },
+            {
+              "start": 62,
+              "end": 71,
+              "label": "Vendor City",
+              "text": "Massillon",
+              "confidence": {
+                "<PAD>": 7.836537747607508E-07,
+                "Amount Due": 5.015068609282025E-07,
+                "Due Date": 2.7311500616633566E-07,
+                "Invoice Date": 5.956109134785947E-07,
+                "Invoice Number": 2.322472482774174E-06,
+                "Vendor City": 0.999975860118866,
+                "Vendor Name": 5.2031305131095E-07,
+                "Vendor State": 1.1282390914857388E-05,
+                "Vendor Street": 5.918650458625052E-06,
+                "Vendor Zip": 2.003660938498797E-06
+              }
+            },
+            {
+              "start": 73,
+              "end": 77,
+              "label": "Vendor State",
+              "text": "Ohio",
+              "confidence": {
+                "<PAD>": 3.927271791326348E-06,
+                "Amount Due": 7.1389854383596685E-06,
+                "Due Date": 8.855946020958072E-07,
+                "Invoice Date": 2.0745858364534797E-06,
+                "Invoice Number": 8.102899187178991E-07,
+                "Vendor City": 4.6173008740879595E-06,
+                "Vendor Name": 2.7562748527998338E-06,
+                "Vendor State": 0.9999136924743652,
+                "Vendor Street": 2.747875896602636E-06,
+                "Vendor Zip": 6.123633647803217E-05
+              }
+            },
+            {
+              "start": 78,
+              "end": 83,
+              "label": "Vendor Zip",
+              "text": "12345",
+              "confidence": {
+                "<PAD>": 1.4866940034607978E-07,
+                "Amount Due": 8.895974019651476E-07,
+                "Due Date": 2.030450332313194E-07,
+                "Invoice Date": 4.224682470521657E-07,
+                "Invoice Number": 3.0179646159922413E-07,
+                "City\": 5.5992426695183894E-08,": null,
+                "Vendor Name": 7.648411042282532E-07,
+                "Vendor State": 1.2104788993383409E-06,
+                "Vendor Street": 3.6501094768937037E-07,
+                "Vendor Zip": 0.9999956488609314
+              }
+            },
+            {
+              "start": 229,
+              "end": 239,
+              "label": "Invoice Date",
+              "text": "01/28/2019",
+              "confidence": {
+                "<PAD>": 2.7033237870455196E-07,
+                "Amount Due": 2.1477933387359371E-07,
+                "Due Date": 1.7675196431810036E-05,
+                "Invoice Date": 0.9999788403511047,
+                "Invoice Number": 8.259397077381436E-07,
+                "Vendor City": 4.2305759961891454E-07,
+                "Vendor Name": 1.0180622211919399E-07,
+                "Vendor State": 6.248831141419942E-07,
+                "Vendor Street": 2.0,
+                "Vendor Zip": 8.128622539516073E-07
+              }
+            },
+            {
+              "start": 247,
+              "end": 257,
+              "label": "Invoice Number",
+              "text": "13412432142432",
+              "confidence": {
+                "<PAD>": 2.4175352564270725E-07,
+                "Amount Due": 2.620951818244066E-06,
+                "Due Date": 8.300537501781946E-08,
+                "Invoice Date": 1.0526985533942934E-05,
+                "Invoice Number": 0.9999833703041077,
+                "Vendor City": 1.0644797612258117E-06,
+                "Vendor Name": 8.756909863905094E-08,
+                "Vendor State": 6.960123641874816E-07,
+                "Vendor Street": 6.442338076340093E-07,
+                "Vendor Zip": 6.963364853618259E-07
+              }
+            },
+            {
+              "start": 1834,
+              "end": 1840,
+              "label": "Invoice Number",
+              "text": "13241243",
+              "confidence": {
+                "<PAD>": 0.27422764897346497,
+                "Amount Due": 0.00043683333205990493,
+                "Due Date": 1.3726436918659601E-05,
+                "Invoice Date": 7.893586735008284E-05,
+                "Invoice Number": 0.7220757007598877,
+                "Vendor City": 0.0023519136011600494,
+                "Vendor Name": 1.5542189430561848E-05,
+                "Vendor State": 0.0004703652812168002,
+                "Vendor Street": 0.00017412513261660933,
+                "Vendor Zip": 0.00015519025328103453
+              }
+            },
+            {
+              "start": 1916,
+              "end": 1924,
+              "label": "Vendor Name",
+              "text": "Another Vender Name",
+              "confidence": {
+                "<PAD>": 2.750536509665835E-07,
+                "Due\": 7.093600515872822E-07,": null,
+                "Due Date": 3.3416631595173385E-07,
+                "Invoice Date": 2.0175559711788082E-07,
+                "Invoice Number": 6.163528496472281E-07,
+                "Vendor City": 5.008498646930093E-06,
+                "Vendor Name": 0.9999902248382568,
+                "Vendor State": 1.199603616441891E-06,
+                "Vendor Street": 8.895228233996022E-07,
+                "Vendor Zip": 5.664146556227934E-07
+              }
+            },
+            {
+              "start": 1950,
+              "end": 1973,
+              "label": "Vendor Street",
+              "text": "1234 Another Street",
+              "confidence": {
+                "<PAD>": 1.6032167593493796E-07,
+                "Amount Due": 8.623708254162921E-07,
+                "Due Date": 1.8104253740602871E-07,
+                "Invoice Date": 1.3014345086048706E-06,
+                "Invoice Number": 2.4811408820824E-06,
+                "Vendor City": 5.088924808660522E-06,
+                "Vendor Name": 9.404332104168134E-07,
+                "Vendor State": 7.973974902597547E-07,
+                "Vendor Street": 0.9999876618385315,
+                "Vendor Zip": 5.161309104551037E-07
+              }
+            },
+            {
+              "start": 1976,
+              "end": 1985,
+              "label": "Vendor City",
+              "text": "Some City",
+              "confidence": {
+                "<PAD>": 1.0462226782692596E-06,
+                "Amount Due": 8.305369192385115E-07,
+                "Due Date": 5.323455525285681E-07,
+                "Invoice Date": 1.1380384421499912E-06,
+                "Invoice Number": 2.494072987246909E-06,
+                "Vendor City": 0.9999523162841797,
+                "Vendor Name": 5.799839755127323E-07,
+                "Vendor State": 2.4493780074408278E-05,
+                "Vendor Street": 1.470579081797041E-05,
+                "Vendor Zip": 1.825840627134312E-06
+              }
+            },
+            {
+              "start": 1987,
+              "end": 1991,
+              "label": "Vendor State",
+              "text": "Ohio",
+              "confidence": {
+                "<PAD>": 3.8993316593405325E-06,
+                "Amount Due": 5.995788342261221E-06,
+                "Due Date": 9.831113629843458E-07,
+                "Invoice Date": 1.887695248115051E-06,
+                "Invoice Number": 6.017989448992012E-07,
+                "Vendor City": 4.588440788211301E-06,
+                "Vendor Name": 2.05706214728707E-06,
+                "Vendor State": 0.9999607801437378,
+                "Vendor Street": 2.604142537165899E-06,
+                "Vendor Zip": 1.6601446986896917E-05
+              }
+            },
+            {
+              "start": 1992,
+              "end": 1997,
+              "label": "Vendor Zip",
+              "text": "12345",
+              "confidence": {
+                "<PAD>": 1.9867263745254604E-07,
+                "Amount Due": 1.8812875168805476E-06,
+                "Due Date": 4.6429076405729575E-07,
+                "Invoice Date": 9.488996397521987E-07,
+                "Invoice Number": 6.653724540228723E-07,
+                "Vendor City": 7.700547399736024E-08,
+                "Vendor Name": 1.5933269423840102E-06,
+                "Vendor State": 3.7331228668335825E-06,
+                "Vendor Street": 1.0270903203490889E-06,
+                "Vendor Zip": 0.9999893307685852
+              }
+            },
+            {
+              "start": 2143,
+              "end": 2153,
+              "label": "Invoice Date",
+              "text": "01/28/2019",
+              "confidence": {
+                "<PAD>": 2.6460642743586504E-07,
+                "Amount Due": 3.1731678973301314E-07,
+                "Due Date": 3.4332682844251394E-05,
+                "Invoice Date": 0.9999595284461975,
+                "Invoice Number": 1.0973158168781083E-06,
+                "Vendor City": 7.134253223739506E-07,
+                "Vendor Name": 1.833642073734154E-07,
+                "Vendor State": 1.1346638757459004E-06,
+                "Vendor Street": 4.1178455489898624E-07,
+                "Vendor Zip": 1.980817614821717E-06
+              }
+            },
+            {
+              "start": 2161,
+              "end": 2171,
+              "label": "Invoice Number",
+              "text": "134212324132",
+              "confidence": {
+                "<PAD>": 4.505728838921641E-07,
+                "Amount Due": 4.430955868883757E-06,
+                "Due Date": 1.3601068360458157E-07,
+                "Invoice Date": "3.197415253453073E-06",
+                "Invoice Number": 0.9999876618385315,
+                "Vendor City": 1.0866232287298772E-06,
+                "Vendor Name": 1.3140258658950188E-07,
+                "Vendor State": 8.911369491215737E-07,
+                "Vendor Street": 1.1391222187739913E-06,
+                "Vendor Zip": 8.734280640965153E-07
+              }
+            },
+            {
+              "start": 2856,
+              "end": 2862,
+              "label": "Amount Due",
+              "text": "123.45",
+              "confidence": {
+                "<PAD>": 3.056799258160936E-08,
+                "Amount Due": 0.9999793767929077,
+                "Due Date": 9.667737685958855E-07,
+                "Invoice Date": 1.6917787206693902E-06,
+                "Invoice Number": 6.150590252218535E-06,
+                "Vendor City": 4.2208270656374225E-07,
+                "Vendor Name": 4.1350208448420744E-06,
+                "Vendor State": 2.2478620849142317E-06,
+                "Vendor Street": 4.037877260998357E-06,
+                "Vendor Zip": 9.862633305601776E-07
+              }
+            }
+          ],
+          "final": [
+            {
+              "start": 0,
+              "end": 11,
+              "label": "Vendor Name",
+              "text": "Yet Another Vendor",
+              "confidence": {
+                "<PAD>": 4.271482794138137E-06,
+                "Amount Due": 7.309187708415266E-07,
+                "Due Date": 9.986422355723334E-08,
+                "Invoice Date": 1.946412595543734E-07,
+                "Invoice Number": 5.239203915152757E-07,
+                "Vendor City": 1.386300141348329E-06,
+                "Vendor Name": 0.999991238117218,
+                "Vendor State": 9.461527952225879E-07,
+                "Vendor Street": 2.6500941885387874E-07,
+                "Vendor Zip": 3.5498695183378004E-07
+              }
+            },
+            {
+              "start": 36,
+              "end": 59,
+              "label": "Vendor Street",
+              "text": "4321 Test Street",
+              "confidence": {
+                "<PAD>": 1.6543351932796213E-07,
+                "Amount Due": 5.725491405428329E-07,
+                "Due Date": 1.0231142510974678E-07,
+                "Invoice Date": 8.502721016157011E-07,
+                "Invoice Number": 1.051679305419384E-06,
+                "Vendor City": 1.7883476175484248E-06,
+                "Vendor Name": 5.544249574995774E-07,
+                "Vendor State": 2.4364200612581044E-07,
+                "Vendor Street": 0.9999943375587463,
+                "Vendor Zip": 3.2457376164529705E-07
+              }
+            },
+            {
+              "start": 62,
+              "end": 71,
+              "label": "Vendor City",
+              "text": "One of many cities",
+              "confidence": {
+                "<PAD>": 7.836537747607508E-07,
+                "Amount Due": 5.015068609282025E-07,
+                "Due Date": 2.7311500616633566E-07,
+                "Invoice Date": 5.956109134785947E-07,
+                "Invoice Number": 2.322472482774174E-06,
+                "Vendor City": 0.999975860118866,
+                "Vendor Name": 5.2031305131095E-07,
+                "Vendor State": 1.1282390914857388E-05,
+                "Vendor Street": 5.918650458625052E-06,
+                "Vendor Zip": 2.003660938498797E-06
+              }
+            },
+            {
+              "start": 73,
+              "end": 77,
+              "label": "Vendor State",
+              "text": "Ohio",
+              "confidence": {
+                "<PAD>": 3.927271791326348E-06,
+                "Amount Due": 7.1389854383596685E-06,
+                "Due Date": 8.855946020958072E-07,
+                "Invoice Date": 2.0745858364534797E-06,
+                "Invoice Number": 8.102899187178991E-07,
+                "Vendor City": 4.6173008740879595E-06,
+                "Vendor Name": 2.7562748527998338E-06,
+                "Vendor State": 0.9999136924743652,
+                "Vendor Street": 2.747875896602636E-06,
+                "Vendor Zip": 6.123633647803217E-05
+              }
+            },
+            {
+              "start": 78,
+              "end": 83,
+              "label": "Vendor Zip",
+              "text": "76432",
+              "confidence": {
+                "<PAD>": 1.4866940034607978E-07,
+                "Amount Due": 8.895974019651476E-07,
+                "Due Date": 2.030450332313194E-07,
+                "Invoice Date": 4.224682470521657E-07,
+                "Invoice Number": 3.0179646159922413E-07,
+                "Vendor City": 5.5992426695183894E-08,
+
+                "Vendor Name": 7.648411042282532E-07,
+                "Vendor State": 1.2104788993383409E-06,
+                "Vendor Street": 3.6501094768937037E-07,
+                "Vendor Zip": 0.9999956488609314
+              }
+            },
+            {
+              "start": 229,
+              "end": 239,
+              "label": "Invoice Date",
+              "text": "01/28/2019",
+              "confidence": {
+                "<PAD>": 2.7033237870455196E-07,
+                "Amount Due": 2.1477933387359371E-07,
+                "Due Date": 1.7675196431810036E-05,
+                "Invoice Date": 0.9999788403511047,
+                "Invoice Number": 8.259397077381436E-07,
+                "Vendor City": 4.2305759961891454E-07,
+                "Vendor Name": 1.0180622211919399E-07,
+                "Vendor State": 6.248831141419942E-07,
+                "Vendor Street": 2.0765899932939647E-07,
+                "Vendor Zip": 8.128622539516073E-07
+              }
+            },
+            {
+              "start": 247,
+              "end": 257,
+              "label": "Invoice Number",
+              "text": "123413214",
+              "confidence": {
+                "<PAD>": 2.4175352564270725E-07,
+                "Amount Due": 2.620951818244066E-06,
+                "Due Date": 8.300537501781946E-08,
+                "Invoice Date": 1.0526985533942934E-05,
+                "Invoice Number": 0.9999833703041077,
+                "Vendor City": 1.0644797612258117E-06,
+                "Vendor Name": 8.756909863905094E-08,
+                "Vendor State": 6.960123641874816E-07,
+                "Vendor Street": 6.442338076340093E-07,
+                "Vendor Zip": 6.963364853618259E-07
+              }
+            },
+            {
+              "start": 1834,
+              "end": 1840,
+              "label": "Invoice Number",
+
+              "text": "123241234",
+              "confidence": {
+                "<PAD>": 0.27422764897346497,
+                "Amount Due": 0.00043683333205990493,
+                "Due Date": 1.3726436918659601E-05,
+                "Invoice Date": 7.893586735008284E-05,
+                "Invoice Number": 0.7220757007598877,
+                "Vendor City": 0.0023519136011600494,
+                "Vendor Name": 1.5542189430561848E-05,
+                "Vendor State": 0.0004703652812168002,
+                "Vendor Street": 0.00017412513261660933,
+                "Vendor Zip": 0.00015519025328103453
+              }
+            },
+            {
+              "start": 1916,
+              "end": 1924,
+              "label": "Vendor Name",
+              "text": "SoMany Vendors",
+              "confidence": {
+                "<PAD>": 2.750536509665835E-07,
+                "Amount Due": 7.093600515872822E-07,
+
+                "Due Date": 3.3416631595173385E-07,
+                "Invoice Date": 2.0175559711788082E-07,
+                "Invoice Number": 6.163528496472281E-07,
+                "Vendor City": 5.008498646930093E-06,
+                "Vendor Name": 0.9999902248382568,
+                "Vendor State": 1.199603616441891E-06,
+                "Vendor Street": 8.895228233996022E-07,
+                "Vendor Zip": 5.664146556227934E-07
+              }
+            },
+            {
+              "start": 1950,
+              "end": 1973,
+              "label": "Vendor Street",
+              "text": "1122 Test Street",
+              "confidence": {
+                "<PAD>": 1.6032167593493796E-07,
+                "Amount Due": 8.623708254162921E-07,
+                "Due Date": 1.8104253740602871E-07,
+                "Invoice Date": 1.3014345086048706E-06,
+                "Invoice Number": 2.4811408820824E-06,
+
+                "Vendor City": 5.088924808660522E-06,
+                "Vendor Name": 9.404332104168134E-07,
+                "Vendor State": 7.973974902597547E-07,
+                "Vendor Street": 0.9999876618385315,
+                "Vendor Zip": 5.161309104551037E-07
+              }
+            },
+            {
+              "start": 1976,
+              "end": 1985,
+              "label": "Vendor City",
+              "text": "City City",
+              "confidence": {
+                "<PAD>": 1.0462226782692596E-06,
+                "Amount Due": 8.305369192385115E-07,
+                "Due Date": 5.323455525285681E-07,
+                "Invoice Date": 1.1380384421499912E-06,
+                "Invoice Number": 2.494072987246909E-06,
+                "Vendor City": 0.9999523162841797,
+                "Vendor Name": 5.799839755127323E-07,
+                "Vendor State": 2.4493780074408278E-05,
+                "Vendor Street": 1.470579081797041E-05,
+                "Vendor Zip": 1.825840627134312E-06
+              }
+            },
+            {
+              "start": 1987,
+              "end": 1991,
+              "label": "Vendor State",
+              "text": "Ohio",
+              "confidence": {
+                "<PAD>": 3.8993316593405325E-06,
+                "Amount Due": 5.995788342261221E-06,
+                "Due Date": 9.831113629843458E-07,
+                "Invoice Date": 1.887695248115051E-06,
+                "Invoice Number": 6.017989448992012E-07,
+                "Vendor City": 4.588440788211301E-06,
+                "Vendor Name": 2.05706214728707E-06,
+                "Vendor State": 0.9999607801437378,
+                "Vendor Street": 2.604142537165899E-06,
+                "Vendor Zip": 1.6601446986896917E-05
+              }
+            },
+            {
+              "start": 1992,
+              "end": 1997,
+
+              "label": "Vendor Zip",
+              "text": "12123",
+              "confidence": {
+                "<PAD>": 1.9867263745254604E-07,
+                "Amount Due": 1.8812875168805476E-06,
+                "Due Date": 4.6429076405729575E-07,
+                "Invoice Date": 9.488996397521987E-07,
+                "Invoice Number": 6.653724540228723E-07,
+                "Vendor City": 7.700547399736024E-08,
+                "Vendor Name": 1.5933269423840102E-06,
+                "Vendor State": 3.7331228668335825E-06,
+                "Vendor Street": 1.0270903203490889E-06,
+                "Vendor Zip": 0.9999893307685852
+              }
+            },
+            {
+              "start": 2143,
+              "end": 2153,
+              "label": "Invoice Date",
+              "text": "01/28/2019",
+              "confidence": {
+                "<PAD>": 2.6460642743586504E-07,
+                "Amount Due": 3.1731678973301314E-07,
+                "Due Date": 3.4332682844251394E-05,
+                "Invoice Date": 0.9999595284461975,
+                "Invoice Number": 1.0973158168781083E-06,
+                "Vendor City": 7.134253223739506E-07,
+                "Vendor Name": 1.833642073734154E-07,
+                "Vendor State": 1.1346638757459004E-06,
+                "Vendor Street": 4.1178455489898624E-07,
+                "Vendor Zip": 1.980817614821717E-06
+              }
+            },
+            {
+              "start": 2161,
+              "end": 2171,
+              "label": "Invoice Number",
+              "text": "1342143214",
+              "confidence": {
+                "<PAD>": 4.505728838921641E-07,
+                "Amount Due": 4.430955868883757E-06,
+                "Due Date": 1.3601068360458157E-07,
+                "Invoice Date": 3.197415253453073E-06,
+                "Invoice Number": 0.9999876618385315,
+                "Vendor City": 1.0866232287298772E-06,
+                "Vendor Name": 1.3140258658950188E-07,
+                "Vendor State": 8.911369491215737E-07,
+                "Vendor Street": 1.1391222187739913E-06,
+                "Vendor Zip": 8.734280640965153E-07
+              }
+            },
+            {
+              "start": 2856,
+              "end": 2862,
+              "label": "Amount Due",
+              "text": "123.45",
+              "confidence": {
+                "<PAD>": 3.056799258160936E-08,
+                "Amount Due": 0.9999793767929077,
+                "Due Date": 9.667737685958855E-07,
+                "Invoice Date": 1.6917787206693902E-06,
+                "Invoice Number": 6.150590252218535E-06,
+                "Vendor City": 4.2208270656374225E-07,
+                "Vendor Name": 4.1350208448420744E-06,
+                "Vendor State": 2.2478620849142317E-06,
+                "Vendor Street": 4.037877260998357E-06,
+                "Vendor Zip": 9.862633305601776E-07
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "review_id": null
+}
