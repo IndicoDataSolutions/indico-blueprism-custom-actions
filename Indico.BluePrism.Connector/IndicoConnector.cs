@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Threading.Tasks;
 using Indico.BluePrism.Connector.Helpers;
 using IndicoV2;
 using IndicoV2.Submissions;
+using IndicoV2.Submissions.Models;
 
 namespace Indico.BluePrism.Connector
 {
@@ -58,7 +58,57 @@ namespace Indico.BluePrism.Connector
                 result = Task.Run(async () => await _submissionsClient.CreateAsync(workflowIntId, fileList)).Result;
             }
 
-            return result.ToDataTable();
+            return result.ToIdDataTable();
+        }
+
+        public DataTable ListSubmissions(DataTable submissionIds, DataTable workflowIds, string inputFileName, string status, string retrieved, decimal limit = 1000)
+        {
+            bool? parsedRetrieved = null;
+            SubmissionStatus? parsedStatus = null;
+
+            if (string.IsNullOrWhiteSpace(inputFileName))
+            {
+                inputFileName = null;
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                if (!Enum.TryParse(status, out SubmissionStatus statusValue))
+                {
+                    throw new ArgumentException("Wrong status value provided. Please provide one of the valid submission statuses.");
+                } 
+                else
+                {
+                    parsedStatus = statusValue;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(retrieved))
+            {
+                if (!bool.TryParse(retrieved, out bool retrievedValue))
+                {
+                    throw new ArgumentException("Wrong retreived value provided. Please provide \"True\" or \"False\" as a value.");
+                }
+                else
+                {
+                    parsedRetrieved = retrievedValue;
+                }
+            }
+
+            var submissionFilter = new SubmissionFilter
+            {
+                InputFilename = inputFileName,
+                Status = parsedStatus,
+                Retrieved = parsedRetrieved
+            };
+
+            var submissionIdsList = submissionIds?.ToList<decimal>().Select(s => Convert.ToInt32(s)).ToList();
+            var workflowIdsList = workflowIds?.ToList<decimal>().Select(w => Convert.ToInt32(w)).ToList();
+            int limitInt = Convert.ToInt32(limit);
+
+            var result = Task.Run(async () => await _submissionsClient.ListAsync(submissionIdsList, workflowIdsList, submissionFilter, limitInt)).Result;
+
+            return result.ToDetailedDataTable();
         }
 
         private static bool ValidateInputDataTable(DataTable dataTable)
@@ -70,5 +120,6 @@ namespace Indico.BluePrism.Connector
 
             return true;
         }
+
     }
 }

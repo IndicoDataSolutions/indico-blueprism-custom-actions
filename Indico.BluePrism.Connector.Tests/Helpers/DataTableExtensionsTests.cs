@@ -1,28 +1,60 @@
-﻿using NUnit.Framework;
+﻿using System.Data;
+using NUnit.Framework;
 using Indico.BluePrism.Connector.Helpers;
 using FluentAssertions;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Indico.BluePrism.Connector.Tests.Helpers
 {
     public class DataTableExtensionsTests
     {
+        private const string _id = "Id";
+
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(178)]
-        public void ToList_ShouldReturnListWithElementsCountEqualsToRowsCount(int elementCount)
+        public void ToListInt_ShouldReturnRightNumberOfElements(int elementsCount)
         {
             //Arrange
-            var list = new List<int>(Enumerable.Range(0, elementCount));
+            var dataTable = new DataTable();
+
+            PopulateDataTable(dataTable, elementsCount);
 
             //Act
-            var dataTable = list.ToDataTable();
+            var list = dataTable.ToList<int>(0);
 
             //Assert
-            dataTable.Should().NotBeNull();
-            dataTable.Rows.Should().HaveCount(elementCount);
+            list.Should().NotBeNull();
+            list.Should().HaveCount(elementsCount);
+        }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(178)]
+        public void ToListString_ShouldReturnRightNumberOfElements(int elementsCount)
+        {
+            //Arrange
+            var dataTable = new DataTable();
+
+            PopulateDataTable(dataTable, elementsCount);
+
+            //Act
+            var list = dataTable.ToList<int>(_id);
+
+            //Assert
+            list.Should().NotBeNull();
+            list.Should().HaveCount(elementsCount);
+        }
+
+        private static void PopulateDataTable(DataTable dataTable, int elementCount)
+        {
+            dataTable.Columns.Add(new DataColumn(_id, typeof(int)));
+
+            for (int i = 0; i < elementCount; i++)
+            {
+                dataTable.Rows.Add(i);
+            }
         }
     }
 }
