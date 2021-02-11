@@ -18,10 +18,4 @@
     <ProjectReference Include="..\Indico.BluePrism.Connector\Indico.BluePrism.Connector.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="IndicoV2.Abstractions">
-      <HintPath>..\..\indico-client-csharp\IndicoV2\bin\Release\netstandard2.0\IndicoV2.Abstractions.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

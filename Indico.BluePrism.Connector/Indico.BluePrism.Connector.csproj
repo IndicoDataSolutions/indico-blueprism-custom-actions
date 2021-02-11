@@ -4,11 +4,6 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\indico-client-csharp\IndicoV2\IndicoV2.csproj" />
-		<ProjectReference Include="..\..\indico-client-csharp\IndicoV2.Abstractions\IndicoV2.Abstractions.csproj" />
-	</ItemGroup>
-
 	<PropertyGroup>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
@@ -26,5 +21,10 @@
 									 OR $( [System.String]::new('%(Filename)').StartsWith('Newtonsoft') )" />
 		</ItemGroup>
 	</Target>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\client-lib\IndicoV2.Abstractions\IndicoV2.Abstractions.csproj" />
+	  <ProjectReference Include="..\client-lib\IndicoV2\IndicoV2.csproj" />
+	</ItemGroup>
 
 </Project>
