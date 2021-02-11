@@ -8,23 +8,21 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
 		<IndicoBP_Output Condition="'$(IndicoBP_Output)' == ''"></IndicoBP_Output>
-		<AppendTargetFrameworkToOutputPath Condition="'$(IndicoBP_Output)' == ''">false</AppendTargetFrameworkToOutputPath>
+		<AppendTargetFrameworkToOutputPath Condition="'$(IndicoBP_Output)' != ''">false</AppendTargetFrameworkToOutputPath>
 		<OutputPath Condition="$(IndicoBP_Output) != ''">$(IndicoBP_Output)</OutputPath>
 	</PropertyGroup>
 
 	<Target Name="FilterCopyLocalItems" AfterTargets="ResolvePackageDependenciesForBuild">
 		<!--<Message Importance="high" Text="Test: @(ReferenceCopyLocalPaths->'%(Filename)')" />-->
 		<ItemGroup>
-			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" 
-			                         Condition="$( [System.String]::new('%(Filename)').StartsWith('System')) AND '%(Filename)' != 'System.Security.Cryptography.OpenSsl' 
-									 OR $( [System.String]::new('%(Filename)').StartsWith('Microsoft') ) 
-									 OR $( [System.String]::new('%(Filename)').StartsWith('Newtonsoft') )" />
+			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$( [System.String]::new('%(Filename)').StartsWith('System')) AND '%(Filename)' != 'System.Security.Cryptography.OpenSsl' OR $( [System.String]::new('%(Filename)').StartsWith('Microsoft') ) OR $( [System.String]::new('%(Filename)').StartsWith('Newtonsoft') )" />
 		</ItemGroup>
 	</Target>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\client-lib\IndicoV2.Abstractions\IndicoV2.Abstractions.csproj" />
-	  <ProjectReference Include="..\client-lib\IndicoV2\IndicoV2.csproj" />
+		<ProjectReference Include="..\client-lib\IndicoV2.Abstractions\IndicoV2.Abstractions.csproj" />
+		<ProjectReference Include="..\client-lib\IndicoV2\IndicoV2.csproj" />
+		<ProjectReference Include="..\Indico.BluePrism.Utilities\Indico.BluePrism.Utilities.vbproj" />
 	</ItemGroup>
 
 </Project>

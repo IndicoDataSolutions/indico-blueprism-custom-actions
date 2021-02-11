@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using FluentAssertions;
 using Indico.BluePrism.Connector.Helpers;
+using IndicoV2.Extensions.SubmissionResult;
 using IndicoV2.Submissions;
 using IndicoV2.Submissions.Models;
 using Moq;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using SubmissionFilterV2 = IndicoV2.Submissions.Models.SubmissionFilter;
 
@@ -16,13 +18,15 @@ namespace Indico.BluePrism.Connector.Tests
     public class IndicoConnectorTests
     {
         private Mock<ISubmissionsClient> _submissionsClientMock;
+        private Mock<ISubmissionResultAwaiter> _submissionResultAwaiter;
+        private IndicoConnector _connector;
 
         [SetUp]
         public void Setup()
         {
-#pragma warning disable IDE0022 // Use expression body for methods
             _submissionsClientMock = new Mock<ISubmissionsClient>();
-#pragma warning restore IDE0022 // Use expression body for methods
+            _submissionResultAwaiter = new Mock<ISubmissionResultAwaiter>();
+            _connector = new IndicoConnector(_submissionsClientMock.Object, _submissionResultAwaiter.Object);
         }
 
         [Test]
@@ -37,14 +41,12 @@ namespace Indico.BluePrism.Connector.Tests
 
             decimal workflowId = 3;
 
-            _submissionsClientMock.Setup(s =>
-                s.CreateAsync(It.IsAny<int>(), sources, default))
-                    .Returns(Task.FromResult((IEnumerable<int>)submissionResult));
-
-            var connector = new IndicoConnector(_submissionsClientMock.Object);
+            _submissionsClientMock
+                .Setup(s => s.CreateAsync(It.IsAny<int>(), sources, default))
+                .ReturnsAsync(submissionResult);
 
             //Act
-            var resultFilePaths = connector.WorkflowSubmission(sourcesDataTable, null, workflowId);
+            var resultFilePaths = _connector.WorkflowSubmission(sourcesDataTable, null, workflowId);
 
             var resultFilePathsList = resultFilePaths.ToList<int>();
 
@@ -72,10 +74,8 @@ namespace Indico.BluePrism.Connector.Tests
                 s.CreateAsync(It.IsAny<int>(), sourcesUris, default))
                     .ReturnsAsync(submissionResult);
 
-            var connector = new IndicoConnector(_submissionsClientMock.Object);
-
             //Act
-            var resultUris = connector.WorkflowSubmission(null, sourcesDataTable, workflowId);
+            var resultUris = _connector.WorkflowSubmission(null, sourcesDataTable, workflowId);
 
             var resultUrisList = resultUris.ToList<int>();
 
@@ -92,10 +92,8 @@ namespace Indico.BluePrism.Connector.Tests
             //Arrange
             decimal workflowId = 3;
 
-            var connector = new IndicoConnector(_submissionsClientMock.Object);
-
             //Act
-            Action act = () => connector.WorkflowSubmission(null, null, workflowId);
+            Action act = () => _connector.WorkflowSubmission(null, null, workflowId);
 
             //Assert
             act.Should().Throw<ArgumentException>();
@@ -115,10 +113,8 @@ namespace Indico.BluePrism.Connector.Tests
                 s.ListAsync(submissionIdsList, null, It.IsAny<SubmissionFilterV2>(), submissionIdsList.Count, default))
                     .ReturnsAsync(submissionList);
 
-            var connector = new IndicoConnector(_submissionsClientMock.Object);
-
             //Act
-            var resultSubmissionsDataTable = connector.ListSubmissions(submissionIdsDecimalDataTable, null, null, null, null, Convert.ToDecimal(submissionIdsList.Count));
+            var resultSubmissionsDataTable = _connector.ListSubmissions(submissionIdsDecimalDataTable, null, null, null, null, Convert.ToDecimal(submissionIdsList.Count));
             var resultSubmissionIdsList = resultSubmissionsDataTable.ToList<int>();
 
             //Assert
@@ -145,10 +141,8 @@ namespace Indico.BluePrism.Connector.Tests
                 s.ListAsync(null, workflowIdsList, It.IsAny<SubmissionFilterV2>(), submissionIdsList.Count, default))
                     .ReturnsAsync(submissionList);
 
-            var connector = new IndicoConnector(_submissionsClientMock.Object);
-
             //Act
-            var resultSubmissionsDataTable = connector.ListSubmissions(null, workflowIdsDecimalDataTable, null, null, null, Convert.ToDecimal(submissionIdsList.Count));
+            var resultSubmissionsDataTable = _connector.ListSubmissions(null, workflowIdsDecimalDataTable, null, null, null, Convert.ToDecimal(submissionIdsList.Count));
             var resultSubmissionIdsList = resultSubmissionsDataTable.ToList<int>();
             var resultSubmissionWorkflowIdsList = resultSubmissionsDataTable.ToList<int>("WorkflowId");
 
@@ -177,10 +171,8 @@ namespace Indico.BluePrism.Connector.Tests
                 s.ListAsync(null, null, It.IsAny<SubmissionFilterV2>(), limit, default))
                     .ReturnsAsync(new List<ISubmission>());
 
-            var connector = new IndicoConnector(_submissionsClientMock.Object);
-
             //Act
-            connector.ListSubmissions(null, null, inputFileName, status, retrieved, Convert.ToDecimal(limit));
+            _connector.ListSubmissions(null, null, inputFileName, status, retrieved, Convert.ToDecimal(limit));
 
             //Assert
             _submissionsClientMock.Verify(s => s.ListAsync(null, null, It.Is<SubmissionFilterV2>
@@ -190,5 +182,33 @@ namespace Indico.BluePrism.Connector.Tests
                     sf.Retrieved == retrievedParsed), 
             limit, default), Times.Once);
         }
+       
+        [Test]
+        public void SubmissionResult_ShouldGetSubmission()
+        {
+            // Arrange
+            const int submissionId = 1;
+            const int checkInterval = 200;
+            const int timeout = 1000;
+            _submissionResultAwaiter.Setup(cli => cli.WaitReady(
+                    submissionId,
+                    It.Is<TimeSpan>(ts => (int)ts.TotalMilliseconds == checkInterval),
+                    It.Is<TimeSpan>(ts => (int)ts.TotalMilliseconds == timeout),
+                    CancellationToken.None))
+                .ReturnsAsync(JObject.Parse(@"{""test"": 1 }"));
+
+            // Act
+            var submissionResult = _connector.SubmissionResult(submissionId, checkInterval, timeout, null);
+
+            // Assert
+            var row = submissionResult.Rows.OfType<DataRow>().Single();
+            row["test"].Should().Be(1);
+        }
+
+        [Test]
+        public void SubmissionResult_ShouldThrowWhenIntOverflown() =>
+            this.Invoking(
+                    _ => _connector.SubmissionResult(decimal.MaxValue, default, default, null))
+                .Should().Throw<OverflowException>();
     }
 }
