@@ -1,22 +1,11 @@
 ﻿using System.Data;
 using FluentAssertions;
-using Indico.BluePrism.Connector.IntegrationTests.Utils;
 using NUnit.Framework;
 
 namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
 {
-    public class SubmissionResultTests
+    public class SubmissionResultTests : ConnectorTestsBase
     {
-        private IndicoConnector _connector;
-        private TestDataHelper _dataHelper;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _connector = new IndicoConnectorBuilder().Build();
-            _dataHelper = new TestDataHelper(_connector);
-        }
-
         [Test]
         public void SubmissionResult_ShouldReturnJobResult()
         {
@@ -24,7 +13,7 @@ namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
             var submissionId = _dataHelper.GetAnySubmissionId();
 
             // Act
-            var submissionResult = _connector.SubmissionResult(submissionId, 200, 5000, null);
+            var submissionResult = _connector.SubmissionResult(submissionId, null);
 
             // Assert
             submissionResult.Should().NotBeNull();

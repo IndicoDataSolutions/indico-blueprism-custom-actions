@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{359D2135-3A47-4996-877B-4AD309391294}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Indico.BluePrism.Connector.Tests", "Indico.BluePrism.Connector.Tests\Indico.BluePrism.Connector.Tests.csproj", "{D270C866-46D5-453C-9C8E-3C1485554E0A}"
@@ -23,10 +24,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Indico", "client-lib\Indico\Indico.csproj", "{A68A5838-9498-486B-8DE5-14B0D968842D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Indico.BluePrism.Connector.IntegrationTests", "Indico.BluePrism.Connector.IntegrationTests\Indico.BluePrism.Connector.IntegrationTests.csproj", "{EFD8069D-FA0F-4B81-9116-0881785AB6C9}"
-EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Indico.BluePrism.Utilities", "Indico.BluePrism.Utilities\Indico.BluePrism.Utilities.vbproj", "{9B673134-6379-4F32-9E13-796968B09697}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Indico.BluePrism.Utilities.Tests", "Indico.BluePrism.Utilities.Tests\Indico.BluePrism.Utilities.Tests.csproj", "{76DA0C9D-99C9-4F85-A5EE-9EB1DF198664}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,14 +59,6 @@ Global
 		{EFD8069D-FA0F-4B81-9116-0881785AB6C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFD8069D-FA0F-4B81-9116-0881785AB6C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFD8069D-FA0F-4B81-9116-0881785AB6C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B673134-6379-4F32-9E13-796968B09697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B673134-6379-4F32-9E13-796968B09697}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B673134-6379-4F32-9E13-796968B09697}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B673134-6379-4F32-9E13-796968B09697}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76DA0C9D-99C9-4F85-A5EE-9EB1DF198664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76DA0C9D-99C9-4F85-A5EE-9EB1DF198664}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76DA0C9D-99C9-4F85-A5EE-9EB1DF198664}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76DA0C9D-99C9-4F85-A5EE-9EB1DF198664}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
