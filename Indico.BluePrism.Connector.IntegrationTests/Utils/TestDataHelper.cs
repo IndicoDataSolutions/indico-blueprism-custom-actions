@@ -6,6 +6,6 @@
 
         public TestDataHelper(IndicoConnector connector) => _connector = connector;
 
-        public decimal GetAnySubmissionId() => (int)_connector.ListSubmissions(null, null, null, null, null).Rows[0]["Id"];
+        public decimal GetAnySubmissionId() => (int)_connector.ListSubmissions(null, null, null, null, null, 1).Rows[0]["Id"];
     }
 }
