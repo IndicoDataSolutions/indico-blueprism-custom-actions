@@ -1,0 +1,36 @@
+name: PR build
+
+on:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'true'
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory:"./coverage/" --filter FullyQualifiedName\!~IntegrationTests -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=lcov
+    - name: Generate report
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.8.4
+      with:
+        targetdir: ./coverage/
+        reporttypes: lcov
+        reports: ./coverage/*/coverage.info
+        filefilters: -*/client-lib/*
+    - name: Post code coverage report
+      uses: romeovs/lcov-reporter-action@v0.2.16
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        lcov-file: ./coverage/lcov.info
