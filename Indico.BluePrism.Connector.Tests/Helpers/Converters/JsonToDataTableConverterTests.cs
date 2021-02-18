@@ -11,6 +11,7 @@ namespace Indico.BluePrism.Connector.Tests.Helpers.Converters
         private readonly DataTableToJsonConverter _dtToJson = new DataTableToJsonConverter();
 
         [TestCase(@"{ ""test"" : 123 }")]
+        [TestCase(@"{ ""test"" : true }")]
         [TestCase(@"{ ""test"" : 1.25 }")]
         [TestCase(@"{ ""test"" : ""test"" }")]
         [TestCase(@"{ ""test"" : null }")]
@@ -18,7 +19,7 @@ namespace Indico.BluePrism.Connector.Tests.Helpers.Converters
         [TestCase(@"{ ""test"" : ""https://indico.org"" }")]
         [TestCase(@"{ ""test"" : ""2017-05-17T23:09:14.000000Z"" }")]
         [TestCase(@"{ ""test"" : ""00:00:01"" }")]
-        public void ToDataTable_ConvertsSimpleObjects(string json)
+        public void ToDataTable_ConvertsPrimitives(string json)
         {
             // Arrange
             var token = JObject.Parse(json);
@@ -57,7 +58,20 @@ namespace Indico.BluePrism.Connector.Tests.Helpers.Converters
         }
 
         [TestCase(@"[ { ""test"" : 123 } ]")]
-        public void ToDataTable_ShouldConvertArray(string arrayJson)
+        public void ToDataTable_ShouldConvertArrayOfOBjects(string arrayJson)
+        {
+            // Arrange
+            var array = JArray.Parse(arrayJson);
+
+            // Act
+            var dt = _sut.ToDataTable(array);
+
+            // Assert
+            _dtToJson.ToJson(dt).Should().BeEquivalentTo(array);
+        }
+
+        [TestCase(@"[ 1, 2, 3 ]")]
+        public void ToDataTable_ShouldConvertArrayOfPrimitives(string arrayJson)
         {
             // Arrange
             var array = JArray.Parse(arrayJson);

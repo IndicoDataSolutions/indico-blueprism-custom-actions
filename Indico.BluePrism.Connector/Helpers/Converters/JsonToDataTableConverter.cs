@@ -122,8 +122,6 @@ namespace Indico.BluePrism.Connector.Helpers.Converters
                     return typeof(string);
                 case JTokenType.Date:
                     return typeof(DateTime);
-                case JTokenType.Bytes:
-                    return typeof(byte[]);
                 case JTokenType.Null:
                     return typeof(DBNull);
                 case JTokenType.Object:
