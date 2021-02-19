@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -11,18 +10,18 @@ namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
         public void SubmitReview_ShouldReturn__Result()
         {
             // Arrange
-            var submissionResult = _dataHelper.GetAnySubmissionResult();
-            // using model described in https://indicodatasolutions.github.io/indico-client-python/auto-review.html?highlight=submitreview
+            var submissionResult = _dataHelper.GetNewSubmissionResult();
             var results = (DataTable)submissionResult.submissionResult.Rows[0]["results"];
             var document = (DataTable)results.Rows[0]["document"];
-            var changes = (DataTable)document.Rows[0]["results"];
+            var resultsInner = (DataTable)document.Rows[0]["results"];
 
             // Act
-            var submitReviewResult = _connector.SubmitReview(submissionResult.submisisonId, changes, false);
+            var submitReviewResult = _connector.SubmitReview(submissionResult.submisisonId, resultsInner, false);
 
             // Assert
-            submitReviewResult.Should().NotBeNull();
-            throw new NotImplementedException("TODO: check why submit review ends with an error.");
+            var submitReviewTable = (DataTable)submitReviewResult;
+            submitReviewTable.Rows[0]["submission_status"].Should().Be("pending_review");
+            submitReviewTable.Rows[0]["success"].Should().Be(true);
         }
     }
 }

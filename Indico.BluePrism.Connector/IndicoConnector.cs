@@ -24,8 +24,8 @@ namespace Indico.BluePrism.Connector
         private readonly IJobAwaiter _jobAwaiter;
         private readonly IndicoJsonUtility _jsonUtility = new IndicoJsonUtility();
 
-        private TimeSpan _checkInterval = TimeSpan.FromMilliseconds(300);
-        private TimeSpan _timeout = TimeSpan.FromSeconds(5);
+        private TimeSpan _checkInterval = TimeSpan.FromSeconds(1);
+        private TimeSpan _timeout = TimeSpan.FromSeconds(60);
 
         public decimal CheckIntervalMs { get => (decimal)_checkInterval.TotalMilliseconds; set => _checkInterval = TimeSpan.FromMilliseconds((double)value); }
         public decimal TimeoutMs { get => (decimal)_timeout.TotalMilliseconds; set => _timeout = TimeSpan.FromMilliseconds((double)value); }
@@ -152,10 +152,10 @@ namespace Indico.BluePrism.Connector
             }
         }
 
-        public Task<JObject> SubmissionResultAsync(int submissionId, SubmissionStatus? awaitStatus, CancellationToken cancellationToken) =>
+        public async Task<JObject> SubmissionResultAsync(int submissionId, SubmissionStatus? awaitStatus, CancellationToken cancellationToken) =>
             awaitStatus == null
-                ? _submissionResultAwaiter.WaitReady(submissionId, _checkInterval, cancellationToken)
-                : _submissionResultAwaiter.WaitReady(submissionId, awaitStatus.Value, _checkInterval, cancellationToken);
+                ? await _submissionResultAwaiter.WaitReady(submissionId, _checkInterval, cancellationToken)
+                : await _submissionResultAwaiter.WaitReady(submissionId, awaitStatus.Value, _checkInterval, cancellationToken);
 
         public DataTable SubmitReview(decimal submissionIdDec, DataTable changesTable, bool rejected)
             => SubmitReview(submissionIdDec, changesTable, rejected, null);
