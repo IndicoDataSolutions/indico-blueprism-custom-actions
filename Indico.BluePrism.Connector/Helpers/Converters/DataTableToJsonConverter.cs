@@ -103,6 +103,7 @@ namespace Indico.BluePrism.Connector.Helpers.Converters
                     break;
                 case decimal dec when dec == (int)dec:
                     // it's BluePrism, every number is decimal
+                    // we need to format integers without fractional part
                     writer.WriteValue((int)dec);
                     break;
                 case object o when o.GetType().IsValueType:
