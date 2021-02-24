@@ -101,6 +101,10 @@ namespace Indico.BluePrism.Connector.Helpers.Converters
                 case DBNull _:
                     writer.WriteNull();
                     break;
+                case decimal dec when dec == (int)dec:
+                    // it's BluePrism, every number is decimal
+                    writer.WriteValue((int)dec);
+                    break;
                 case object o when o.GetType().IsValueType:
                     writer.WriteValue(value);
                     break;
