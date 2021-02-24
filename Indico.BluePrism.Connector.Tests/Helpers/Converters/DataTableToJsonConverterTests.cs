@@ -49,11 +49,11 @@ namespace Indico.BluePrism.Connector.Tests.Helpers.Converters
             json.Should().BeEquivalentTo(JArray.Parse(@"[ 123 ]"));
         }
 
-        [TestCase(null)]
-        [TestCase(12)]
-        [TestCase(13.1232f)]
-        [TestCase("test")]
-        public void ToJson_ShouldConvertValues(object value)
+        [TestCase(null, JTokenType.Null)]
+        [TestCase(12, JTokenType.Integer)]
+        [TestCase(13.1232f, JTokenType.Float)]
+        [TestCase("test", JTokenType.String)]
+        public void ToJson_ShouldConvertValues(object value, JTokenType expectedTokenType)
         {
             // Arrange
             var dataTable = new DataTable
@@ -73,6 +73,8 @@ namespace Indico.BluePrism.Connector.Tests.Helpers.Converters
             bool isNumeric = value != null && typeof(decimal).IsAssignableFrom(value?.GetType());
             var valueJson = isNumeric ? value : $@"""{value}""";
             json.Should().BeEquivalentTo(JObject.Parse($@"{{ ""test"": {valueJson} }}"));
+            var token = json["test"];
+            token.Type.Should().Be(expectedTokenType);
         }
 
         [TestCase(null)]
@@ -91,6 +93,20 @@ namespace Indico.BluePrism.Connector.Tests.Helpers.Converters
 
             // Act
             this.Invoking(_ => _sut.ToJson(dt)).Should().Throw<JObjectTableRowCountError>();
+        }
+
+        [Test]
+        public void ToJson_ShouldConvertDecimalToInt_WhenNoFractionalPart()
+        {
+            // Arrange
+            var dt = new DataTable {Columns = {new DataColumn("test", typeof(decimal)), _dataTableHelper.CreateFromJObjectMarker(), } };
+            dt.Rows.Add(123);
+
+            // Act
+            var json = _sut.ToJson(dt);
+
+            // Assert
+            json["test"]!.Type.Should().Be(JTokenType.Integer);
         }
     }
 }
