@@ -1,4 +1,6 @@
 <Project>
+	<Import Project="..\Directory.Build.props" Condition="Exists('..\Directory.Build.props')" />
+
 	<ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
 		<PackageReference Include="coverlet.collector" Version="3.0.0" >
 			<PrivateAssets>all</PrivateAssets>

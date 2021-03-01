@@ -2,37 +2,51 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Indico.BluePrism.Connector.Helpers;
-using Indico.BluePrism.Utilities;
 using IndicoV2;
+using IndicoV2.Extensions.Jobs;
 using IndicoV2.Extensions.SubmissionResult;
+using IndicoV2.Reviews;
 using IndicoV2.Submissions;
 using IndicoV2.Submissions.Models;
+using Newtonsoft.Json.Linq;
+using Client = IndicoV2.IndicoClient;
 
 namespace Indico.BluePrism.Connector
 {
     public class IndicoConnector : IIndicoConnector
     {
-        protected readonly ISubmissionsClient _submissionsClient;
+        private readonly ISubmissionsClient _submissionsClient;
         private readonly ISubmissionResultAwaiter _submissionResultAwaiter;
+        private readonly IReviewsClient _reviewsClient;
+        private readonly IJobAwaiter _jobAwaiter;
+        private readonly IndicoJsonUtility _jsonUtility = new IndicoJsonUtility();
+
+        private TimeSpan _checkInterval = TimeSpan.FromSeconds(1);
+        private TimeSpan _timeout = TimeSpan.FromSeconds(60);
+
+        public decimal CheckIntervalMs { get => (decimal)_checkInterval.TotalMilliseconds; set => _checkInterval = TimeSpan.FromMilliseconds((double)value); }
+        public decimal TimeoutMs { get => (decimal)_timeout.TotalMilliseconds; set => _timeout = TimeSpan.FromMilliseconds((double)value); }
+
 
         public IndicoConnector(string token, string host)
-            : this(
-                new IndicoV2.IndicoClient(
-                    token,
-                    host == null ? null : new Uri(host)))
+            : this(host == null ? new Client(token) : new Client(token, new Uri(host)))
         { }
 
         private IndicoConnector(IndicoV2.IndicoClient indicoClient)
-            : this(indicoClient.Submissions(), indicoClient.GetSubmissionResultAwaiter())
+            : this(indicoClient.Submissions(), indicoClient.GetSubmissionResultAwaiter(), indicoClient.Reviews(), indicoClient.JobAwaiter())
         {
         }
 
-        public IndicoConnector(ISubmissionsClient submissionsClient, ISubmissionResultAwaiter submissionResultAwaiter)
+        public IndicoConnector(ISubmissionsClient submissionsClient, ISubmissionResultAwaiter submissionResultAwaiter,
+            IReviewsClient reviewsClient, IJobAwaiter jobAwaiter)
         {
             _submissionsClient = submissionsClient;
             _submissionResultAwaiter = submissionResultAwaiter;
+            _reviewsClient = reviewsClient;
+            _jobAwaiter = jobAwaiter;
         }
 
 
@@ -84,7 +98,7 @@ namespace Indico.BluePrism.Connector
                 if (!Enum.TryParse(status, out SubmissionStatus statusValue))
                 {
                     throw new ArgumentException("Wrong status value provided. Please provide one of the valid submission statuses.");
-                } 
+                }
                 else
                 {
                     parsedStatus = statusValue;
@@ -119,25 +133,59 @@ namespace Indico.BluePrism.Connector
             return result.ToDetailedDataTable();
         }
 
-        public DataTable SubmissionResult(decimal submissionIdDec, decimal checkInterValMilliseconds, decimal timeoutMilliseconds, string awaitStatusString)
+        public DataTable SubmissionResult(decimal submissionIdDec, string awaitStatusString)
         {
             var submissionId = (int)submissionIdDec;
-            var awaitStatus = awaitStatusString == null
+            var awaitStatus = string.IsNullOrWhiteSpace(awaitStatusString)
                 ? (SubmissionStatus?)null
                 : (SubmissionStatus)Enum.Parse((typeof(SubmissionStatus)), awaitStatusString);
-            var checkInterval = TimeSpan.FromMilliseconds((int)checkInterValMilliseconds);
-            var timeout = TimeSpan.FromMilliseconds((int)timeoutMilliseconds);
 
-            var getResult = awaitStatus == null
-                ? Task.Run(async () => await _submissionResultAwaiter.WaitReady(submissionId, checkInterval, timeout))
-                : Task.Run(async () => await _submissionResultAwaiter.WaitReady(submissionId, awaitStatus.Value, checkInterval, timeout));
+            using (var timeoutTokenSource = new CancellationTokenSource(_timeout))
+            {
+                var cancellationToken = timeoutTokenSource.Token;
+                var result = Task.Run(async () => await SubmissionResultAsync(submissionId, awaitStatus, cancellationToken), cancellationToken)
+                    .GetAwaiter()
+                    .GetResult();
+                var dataTableResult = _jsonUtility.ConvertToDataTable(result);
 
-            var result = getResult
+                return dataTableResult;
+            }
+        }
+
+        public async Task<JObject> SubmissionResultAsync(int submissionId, SubmissionStatus? awaitStatus, CancellationToken cancellationToken) =>
+            awaitStatus == null
+                ? await _submissionResultAwaiter.WaitReady(submissionId, _checkInterval, cancellationToken)
+                : await _submissionResultAwaiter.WaitReady(submissionId, awaitStatus.Value, _checkInterval, cancellationToken);
+
+        public DataTable SubmitReview(decimal submissionIdDec, DataTable changesTable, bool rejected)
+            => SubmitReview(submissionIdDec, changesTable, rejected, null);
+
+        public DataTable SubmitReview(decimal submissionIdDec, DataTable changesTable, bool rejected, bool forceComplete)
+            => SubmitReview(submissionIdDec, changesTable, rejected, (bool?)forceComplete);
+
+        private DataTable SubmitReview(decimal submissionIdDec, DataTable changesTable, bool rejected, bool? forceComplete)
+        {
+            var submissionId = (int)submissionIdDec;
+            var changes = _jsonUtility.ConvertToJSON(changesTable ?? throw new ArgumentNullException(nameof(changesTable)));
+
+            var jobResult = Task.Run(() => SubmitReviewAsync(submissionId, (JObject)changes, rejected, forceComplete))
                 .GetAwaiter()
                 .GetResult();
-            var dataTableResult = new JsonUtility().ConvertToDataTable(result.ToString());
 
-            return dataTableResult;
+            var jobResultTable = _jsonUtility.ConvertToDataTable(jobResult);
+
+            return jobResultTable;
+        }
+
+        private async Task<JObject> SubmitReviewAsync(int submissionId, JObject changes, bool rejected, bool? forceComplete)
+        {
+            using (var tokenSource = new CancellationTokenSource(_timeout))
+            {
+                var jobId = await _reviewsClient.SubmitReviewAsync(submissionId, changes, rejected, forceComplete, tokenSource.Token);
+                var jobResult = (JObject)await _jobAwaiter.WaitReadyAsync(jobId, _checkInterval, tokenSource.Token);
+
+                return jobResult;
+            }
         }
 
         private static bool ValidateInputDataTable(DataTable dataTable)
@@ -149,6 +197,5 @@ namespace Indico.BluePrism.Connector
 
             return true;
         }
-
     }
 }

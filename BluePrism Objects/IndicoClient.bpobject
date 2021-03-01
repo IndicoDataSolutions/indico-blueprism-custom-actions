@@ -47,6 +47,14 @@
       <zoom version="2">1.25</zoom>
     </view>
   </subsheet>
+  <subsheet subsheetid="fa4289e2-c868-4169-b744-8da72f9bff5e" type="Normal" published="True">
+    <name>SubmitReview</name>
+    <view>
+      <camerax>-38</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
   <subsheet subsheetid="016ee020-029b-4c6d-beaa-5b13bb2612ae" type="Normal" published="True">
     <name>GetSubmission</name>
     <view>
@@ -425,9 +433,13 @@
     <inputs>
       <input type="text" name="HostInput" expr="[HostParam]" />
       <input type="text" name="TokenInput" expr="[TokenParam]" />
+      <input type="number" name="CheckIntervalMsInput" expr="[CheckIntervalMsParam]" />
+      <input type="number" name="TimeoutMsInput" expr="[TimeoutMsParam]" />
     </inputs>
     <onsuccess>a7c44659-18ae-45ee-8e46-2087112e1740</onsuccess>
-    <code><![CDATA[Connector = new IndicoConnector(TokenInput, HostInput);]]></code>
+    <code><![CDATA[Connector = new IndicoConnector(TokenInput, HostInput);
+Connector.CheckIntervalMs = CheckIntervalMsInput;
+Connector.TimeoutMs = TimeoutMsInput;]]></code>
   </stage>
   <stage stageid="a7c44659-18ae-45ee-8e46-2087112e1740" name="SubmissionResultStage" type="Code">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
@@ -435,15 +447,13 @@
     <display x="150" y="-60" w="120" h="30" />
     <inputs>
       <input type="number" name="SubmissionIdInput" expr="[SubmissionIdParam]" />
-      <input type="number" name="CheckIntervalInput" expr="[CheckIntervalMsParam]" />
-      <input type="number" name="TimeoutInput" expr="[TimeoutMsParam]" />
       <input type="text" name="SubmissionStatusAwaitedInput" expr="[SubmissionStatusAwaitedParam]" />
     </inputs>
     <outputs>
       <output type="collection" name="SubmissionResultOutput" stage="SubmissionResult" />
     </outputs>
     <onsuccess>90daf28c-91df-4bb7-8e83-69fc40c35a32</onsuccess>
-    <code><![CDATA[SubmissionResultOutput = Connector.SubmissionResult(SubmissionIdInput, CheckIntervalInput, TimeoutInput, SubmissionStatusAwaitedInput);]]></code>
+    <code><![CDATA[SubmissionResultOutput = Connector.SubmissionResult(SubmissionIdInput, SubmissionStatusAwaitedInput);]]></code>
   </stage>
   <stage stageid="8bb728e3-7368-4406-ab12-8027e5a94706" name="SubmissionIdParam" type="Data">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
@@ -498,6 +508,124 @@
     <display x="-240" y="105" w="150" h="30" />
     <datatype>text</datatype>
     <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0a088c7e-e8c7-4bee-a437-d49f6d6dabc4" name="SubmitReview" type="SubSheetInfo">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <display x="-255" y="-150" w="150" h="90" />
+  </stage>
+  <stage stageid="b890745b-a483-4d05-ae61-cd11ed8b0b8e" name="Start" type="Start">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="120" y="-135" />
+    <inputs>
+      <input type="text" name="Host" stage="HostParam" />
+      <input type="text" name="Token" stage="TokenParam" />
+      <input type="number" name="CheckIntervalMs" stage="CheckIntervalMsParam" />
+      <input type="number" name="TimeoutMs" stage="TimeoutMsParam" />
+      <input type="number" name="SubmissionId" stage="SubmissionIdParam" />
+      <input type="collection" name="Changes" stage="ChangesParam" />
+      <input type="flag" name="Rejected" stage="RejectedParam" />
+    </inputs>
+    <onsuccess>a94d2cb8-6122-44d7-96df-ae0847eb0946</onsuccess>
+  </stage>
+  <stage stageid="09a9bcd9-308c-4cb8-825b-fea9ba1492be" name="End" type="End">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="120" y="60" />
+  </stage>
+  <stage stageid="a94d2cb8-6122-44d7-96df-ae0847eb0946" name="SubmitReviewInititialize" type="Code">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="120" y="-75" w="120" h="30" />
+    <inputs>
+      <input type="text" name="HostInput" expr="[HostParam]" />
+      <input type="text" name="TokenInput" expr="[TokenParam]" />
+      <input type="number" name="CheckIntervalMsInput" expr="[CheckIntervalMsParam]" />
+      <input type="number" name="TimeoutMsInput" expr="[TimeoutMsParam]" />
+    </inputs>
+    <onsuccess>6b29c42e-339e-4671-99a3-bf69fa606d64</onsuccess>
+    <code><![CDATA[Connector = new IndicoConnector(TokenInput, HostInput);
+Connector.CheckIntervalMs = CheckIntervalMsInput;
+Connector.TimeoutMs = TimeoutMsInput;]]></code>
+  </stage>
+  <stage stageid="6b29c42e-339e-4671-99a3-bf69fa606d64" name="SubmitReviewStage" type="Code">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="120" y="-15" w="120" h="30" />
+    <inputs>
+      <input type="number" name="SubmissionIdInput" expr="[SubmissionIdParam]" />
+      <input type="collection" name="ChangesInput" expr="[ChangesParam]" />
+      <input type="flag" name="RejectedInput" expr="[RejectedParam]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="SubmitReviewResult" stage="SubmitReviewResult" />
+    </outputs>
+    <onsuccess>09a9bcd9-308c-4cb8-825b-fea9ba1492be</onsuccess>
+    <code><![CDATA[SubmitReviewResult = Connector.SubmitReview(SubmissionIdInput, ChangesInput, RejectedInput);]]></code>
+  </stage>
+  <stage stageid="38a363be-d82b-41c6-9349-6d91485d5bb2" name="SubmissionIdParam" type="Data">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="-255" y="30" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="453aca25-5127-4bbc-9401-ebcff0072c7c" name="CheckIntervalMsParam" type="Data">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="-255" y="-60" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>300</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c9a91ee6-cb7d-4f3d-a5b4-1b530cfae8f1" name="TimeoutMsParam" type="Data">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="-255" y="-15" w="150" h="30" />
+    <datatype>number</datatype>
+    <initialvalue>5000</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a6ba6486-ec95-4ec5-8967-8a1de1500d7a" name="Inputs" type="Block">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="-330" y="-90" w="150" h="240" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0b0ca979-66b2-4303-a8d5-afa450abec57" name="Outputs" type="Block">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="-150" y="-45" w="150" h="195" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="248bd804-9485-4f04-98d7-5ade88d323f7" name="SubmitReviewResult" type="Collection">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="-75" y="0" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8f03c784-91c9-479c-a176-f3ce2f86eb00" name="RejectedParam" type="Data">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="-255" y="120" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9209ef1e-9370-4830-ae76-70dc48ddbffd" name="ChangesParam" type="Collection">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="-255" y="75" w="120" h="30" />
+    <datatype>collection</datatype>
     <private />
     <alwaysinit />
   </stage>
