@@ -8,12 +8,10 @@
 
   <ItemGroup>
     <None Remove="Helpers\IndicoJsonUtilityTests.SubmissionResult.json" />
-    <None Remove="IndicoConnectorTests.Changes.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\SubmissionResult.json" />
-    <EmbeddedResource Include="IndicoConnectorTests.Changes.json" />
   </ItemGroup>
 
   <ItemGroup>

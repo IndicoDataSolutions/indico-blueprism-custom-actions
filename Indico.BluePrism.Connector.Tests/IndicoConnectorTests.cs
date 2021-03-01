@@ -46,7 +46,7 @@ namespace Indico.BluePrism.Connector.Tests
         }
 
         [Test]
-        public void Timeout_ShouldHaveDefaultValue() => _connector.TimeoutMs.Should().Be(5000);
+        public void Timeout_ShouldHaveDefaultValue() => _connector.TimeoutMs.Should().Be(60000);
 
         [TestCase(300)]
         public void CheckInterval_ShouldSetValue(decimal checkIntervalMs)
@@ -57,7 +57,7 @@ namespace Indico.BluePrism.Connector.Tests
         }
 
         [Test]
-        public void CheckInterval_ShouldHaveDefaultValue() => _connector.CheckIntervalMs.Should().Be(300);
+        public void CheckInterval_ShouldHaveDefaultValue() => _connector.CheckIntervalMs.Should().Be(1000);
 
         [TestCase("testToken", null)]
         [TestCase("testToken", "https://app.indico.io")]
@@ -278,7 +278,6 @@ namespace Indico.BluePrism.Connector.Tests
             // Arrange
             var submissionId = 1m;
             var rejected = false;
-            var jobId = "test";
             var submissionResult = new IndicoJsonUtility().ConvertToDataTable(await new JsonTestData().SubmissionResult());
             var resultsOuter = (DataTable)submissionResult.Rows[0]["results"];
             var document = (DataTable)resultsOuter.Rows[0]["document"];
