@@ -4,19 +4,21 @@ using NUnit.Framework;
 
 namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
 {
-    public class SubmissionResultTests : ConnectorTestsBase
+    public class SubmissionResultTests : ConnectorTestsBase<DataTable>
     {
-        [Test]
-        public void SubmissionResult_ShouldReturnJobResult()
+        private decimal _submissionId;
+
+        public override void SetUp()
         {
-            // Arrange
-            var submissionId = _dataHelper.GetAnySubmissionId();
+            base.SetUp();
+            _submissionId = _dataHelper.GetAnySubmissionId();
+        }
 
-            // Act
-            var submissionResult = _connector.SubmissionResult(submissionId, null);
+        protected override DataTable PerformAction(IndicoConnector connector) =>
+            connector.SubmissionResult(_submissionId, null);
 
-            // Assert
-            submissionResult.Should().NotBeNull();
+        protected override void AssertResultCorrect(DataTable submissionResult)
+        {
             submissionResult.Rows.Should().HaveCount(1);
             submissionResult.Rows[0]["results"].Should().BeOfType<DataTable>();
         }
