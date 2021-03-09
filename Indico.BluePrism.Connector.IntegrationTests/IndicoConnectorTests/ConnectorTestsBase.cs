@@ -41,9 +41,9 @@ namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
                 .Should().Throw<UriFormatException>()
                 .WithMessage("Invalid URI: The format of the URI could not be determined.");
 
-        [TestCase("invalid")]
-        public void PerformAction_ShouldThrow_WhenApiTokenIncorrect(string token) =>
-            new IndicoConnectorBuilder().WithToken(token).Build()
+        [TestCase]
+        public void PerformAction_ShouldThrow_WhenApiTokenIncorrect() =>
+            new IndicoConnectorBuilder().WithToken("invalid").Build()
                 .Invoking(PerformAction)
                 .Should().Throw<HttpRequestException>()
                 .WithMessage("[error] : Unauthorized");
