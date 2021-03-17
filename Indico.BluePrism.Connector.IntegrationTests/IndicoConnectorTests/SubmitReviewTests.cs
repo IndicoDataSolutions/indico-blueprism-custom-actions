@@ -2,16 +2,13 @@
 using System.Data;
 using System.Linq;
 using FluentAssertions;
-using NUnit.Framework;
 
 namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
 {
-    public class SubmitReviewTests : ConnectorTestsBase
+    public class SubmitReviewTests : ConnectorTestsBase<DataTable>
     {
-        [Test]
-        public void SubmitReview_ShouldReturn__Result()
+        protected override DataTable PerformAction(IndicoConnector connector)
         {
-            // Arrange
             var submissionResult = _dataHelper.GetNewSubmissionResult();
             var results = (DataTable)submissionResult.submissionResult.Rows[0]["results"];
             var document = (DataTable)results.Rows[0]["document"];
@@ -24,9 +21,13 @@ namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
             ChangeColumnType(modelPredictions, "end", typeof(decimal));
 
             // Act
-            var submitReviewResult = _connector.SubmitReview(submissionResult.submisisonId, changes, false);
+            var submitReviewResult = connector.SubmitReview(submissionResult.submisisonId, changes, false);
 
-            // Assert
+            return submitReviewResult;
+        }
+
+        protected override void AssertResultCorrect(DataTable submitReviewResult)
+        {
             submitReviewResult.Rows[0]["submission_status"].Should().Be("pending_review");
             submitReviewResult.Rows[0]["success"].Should().Be(true);
         }

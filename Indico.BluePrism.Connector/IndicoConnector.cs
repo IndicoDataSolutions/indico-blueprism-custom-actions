@@ -71,13 +71,13 @@ namespace Indico.BluePrism.Connector
             if (filepathsProvided)
             {
                 var fileList = filepaths.ToList<string>();
-                result = Task.Run(async () => await _submissionsClient.CreateAsync(workflowIntId, fileList)).Result;
+                result = Task.Run(async () => await _submissionsClient.CreateAsync(workflowIntId, fileList)).GetAwaiter().GetResult();
             }
 
             if (urisProvided)
             {
                 var fileList = uris.ToList<string>().Select(u => new Uri(u));
-                result = Task.Run(async () => await _submissionsClient.CreateAsync(workflowIntId, fileList)).Result;
+                result = Task.Run(async () => await _submissionsClient.CreateAsync(workflowIntId, fileList)).GetAwaiter().GetResult();
             }
 
             return result.ToIdDataTable();
@@ -128,7 +128,7 @@ namespace Indico.BluePrism.Connector
             var workflowIdsList = workflowIds?.ToList<decimal>().Select(w => Convert.ToInt32(w)).ToList();
             int limitInt = Convert.ToInt32(limit);
 
-            var result = Task.Run(async () => await _submissionsClient.ListAsync(submissionIdsList, workflowIdsList, submissionFilter, limitInt)).Result;
+            var result = Task.Run(async () => await _submissionsClient.ListAsync(submissionIdsList, workflowIdsList, submissionFilter, limitInt)).GetAwaiter().GetResult();
 
             return result.ToDetailedDataTable();
         }
