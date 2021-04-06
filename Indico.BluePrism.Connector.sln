@@ -13,16 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Indico.BluePrism.Connector.Tests", "Indico.BluePrism.Connector.Tests\Indico.BluePrism.Connector.Tests.csproj", "{D270C866-46D5-453C-9C8E-3C1485554E0A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientLib", "ClientLib", "{AA06A1E9-5728-4068-84EF-2077A8F67D8A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndicoV2", "client-lib\IndicoV2\IndicoV2.csproj", "{F33A7D95-A983-41A5-95D1-1D4D300E8157}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndicoV2.Abstractions", "client-lib\IndicoV2.Abstractions\IndicoV2.Abstractions.csproj", "{6BCD09D9-B312-465E-A01B-09EB8E07B6D7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndicoV2.V1Adapters", "client-lib\IndicoV2.V1Adapters\IndicoV2.V1Adapters.csproj", "{B6BA8A91-C629-4AF0-96C9-6F6DC66FC74E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Indico", "client-lib\Indico\Indico.csproj", "{A68A5838-9498-486B-8DE5-14B0D968842D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Indico.BluePrism.Connector.IntegrationTests", "Indico.BluePrism.Connector.IntegrationTests\Indico.BluePrism.Connector.IntegrationTests.csproj", "{EFD8069D-FA0F-4B81-9116-0881785AB6C9}"
 EndProject
 Global
@@ -39,22 +29,6 @@ Global
 		{D270C866-46D5-453C-9C8E-3C1485554E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D270C866-46D5-453C-9C8E-3C1485554E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D270C866-46D5-453C-9C8E-3C1485554E0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F33A7D95-A983-41A5-95D1-1D4D300E8157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F33A7D95-A983-41A5-95D1-1D4D300E8157}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F33A7D95-A983-41A5-95D1-1D4D300E8157}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F33A7D95-A983-41A5-95D1-1D4D300E8157}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6BCD09D9-B312-465E-A01B-09EB8E07B6D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BCD09D9-B312-465E-A01B-09EB8E07B6D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BCD09D9-B312-465E-A01B-09EB8E07B6D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6BCD09D9-B312-465E-A01B-09EB8E07B6D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6BA8A91-C629-4AF0-96C9-6F6DC66FC74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6BA8A91-C629-4AF0-96C9-6F6DC66FC74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6BA8A91-C629-4AF0-96C9-6F6DC66FC74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6BA8A91-C629-4AF0-96C9-6F6DC66FC74E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A68A5838-9498-486B-8DE5-14B0D968842D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A68A5838-9498-486B-8DE5-14B0D968842D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A68A5838-9498-486B-8DE5-14B0D968842D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A68A5838-9498-486B-8DE5-14B0D968842D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EFD8069D-FA0F-4B81-9116-0881785AB6C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFD8069D-FA0F-4B81-9116-0881785AB6C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFD8069D-FA0F-4B81-9116-0881785AB6C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,12 +36,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F33A7D95-A983-41A5-95D1-1D4D300E8157} = {AA06A1E9-5728-4068-84EF-2077A8F67D8A}
-		{6BCD09D9-B312-465E-A01B-09EB8E07B6D7} = {AA06A1E9-5728-4068-84EF-2077A8F67D8A}
-		{B6BA8A91-C629-4AF0-96C9-6F6DC66FC74E} = {AA06A1E9-5728-4068-84EF-2077A8F67D8A}
-		{A68A5838-9498-486B-8DE5-14B0D968842D} = {AA06A1E9-5728-4068-84EF-2077A8F67D8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86904256-8E88-413A-B9C3-7A09B3A46143}
