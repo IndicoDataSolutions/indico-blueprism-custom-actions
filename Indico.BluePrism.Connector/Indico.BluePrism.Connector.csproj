@@ -20,8 +20,7 @@
 	</Target>
 
 	<ItemGroup>
-		<ProjectReference Include="..\client-lib\IndicoV2.Abstractions\IndicoV2.Abstractions.csproj" />
-		<ProjectReference Include="..\client-lib\IndicoV2\IndicoV2.csproj" />
+	  <PackageReference Include="IndicoClient" Version="2.0.0-preview.1" />
 	</ItemGroup>
 
 </Project>
