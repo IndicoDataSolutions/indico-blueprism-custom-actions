@@ -210,7 +210,7 @@
     <loginhibit />
     <display x="-195" y="-15" w="120" h="30" />
     <datatype>text</datatype>
-    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <initialvalue />
     <alwaysinit />
   </stage>
   <stage stageid="de40f5d5-fe9b-4683-83f9-8e94e7ba0dbe" name="TokenParam" type="Data">
