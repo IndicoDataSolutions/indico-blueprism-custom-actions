@@ -24,23 +24,23 @@
     </view>
   </subsheet>
   <subsheet subsheetid="f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c" type="Normal" published="True">
-    <name>WorkflowSubmission</name>
+    <name>Workflow Submission</name>
     <view>
-      <camerax>-60</camerax>
+      <camerax>188</camerax>
       <cameray>26</cameray>
       <zoom version="2">1.5625</zoom>
     </view>
   </subsheet>
   <subsheet subsheetid="82e674e3-6a99-418b-86cc-649086280ec4" type="Normal" published="True">
-    <name>ListSubmissions</name>
+    <name>List Submissions</name>
     <view>
       <camerax>-453</camerax>
-      <cameray>-135</cameray>
+      <cameray>-9</cameray>
       <zoom version="2">1.5625</zoom>
     </view>
   </subsheet>
   <subsheet subsheetid="0dec0e58-994d-4ca4-a9e7-161d1086183d" type="Normal" published="True">
-    <name>SubmissionResult</name>
+    <name>Submission Result</name>
     <view>
       <camerax>49</camerax>
       <cameray>-21</cameray>
@@ -48,7 +48,7 @@
     </view>
   </subsheet>
   <subsheet subsheetid="fa4289e2-c868-4169-b744-8da72f9bff5e" type="Normal" published="True">
-    <name>SubmitReview</name>
+    <name>Submit Review</name>
     <view>
       <camerax>78</camerax>
       <cameray>0</cameray>
@@ -125,7 +125,7 @@
     <loginhibit />
     <display x="15" y="90" />
   </stage>
-  <stage stageid="82afc1d1-0564-4f57-966e-3d9701c4001b" name="SubmissionResult" type="SubSheetInfo">
+  <stage stageid="82afc1d1-0564-4f57-966e-3d9701c4001b" name="Submission Result" type="SubSheetInfo">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <display x="-240" y="-150" w="150" h="90" />
   </stage>
@@ -136,10 +136,10 @@
     <inputs>
       <input type="text" name="Host" stage="HostParam" />
       <input type="text" name="Token" stage="TokenParam" />
-      <input type="number" name="SubmissionId" stage="SubmissionIdParam" />
-      <input type="number" name="CheckIntervalMs" stage="CheckIntervalMsParam" />
-      <input type="number" name="TimeoutMs" stage="TimeoutMsParam" />
-      <input type="text" name="SubmissionStatusAwaited" stage="SubmissionStatusAwaitedParam" />
+      <input type="number" name="Submission ID" stage="SubmissionIdParam" />
+      <input type="number" name="Check Interval (Milliseconds)" stage="CheckIntervalMsParam" />
+      <input type="number" name="Timeout (Milliseconds)" stage="TimeoutMsParam" />
+      <input type="text" name="Submission Status Awaited" stage="SubmissionStatusAwaitedParam" />
     </inputs>
     <onsuccess>7818b903-58fb-411d-9948-759418009ec2</onsuccess>
   </stage>
@@ -148,12 +148,12 @@
     <loginhibit />
     <display x="255" y="120" />
     <outputs>
-      <output type="collection" name="SubmissionResult" stage="SubmissionResult" />
+      <output type="collection" name="Submission Result" stage="SubmissionResult" />
       <output type="flag" name="Success" stage="SuccessResult" />
       <output type="text" name="Error Message" stage="ErrorMessageResult" />
     </outputs>
   </stage>
-  <stage stageid="ee909105-83ae-4bf8-bb58-42492d975ed8" name="ListSubmissions" type="SubSheetInfo">
+  <stage stageid="ee909105-83ae-4bf8-bb58-42492d975ed8" name="List Submissions" type="SubSheetInfo">
     <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
     <display x="-525" y="-105" w="150" h="90" />
   </stage>
@@ -163,10 +163,10 @@
     <inputs>
       <input type="text" name="Host" stage="HostParam" />
       <input type="text" name="Token" stage="TokenParam" />
-      <input type="collection" name="SubmissionIds" stage="SubmissionIdsParam" />
-      <input type="collection" name="WorkflowIds" stage="WorkflowIdsParam" />
+      <input type="collection" name="Submission IDs" stage="SubmissionIdsParam" />
+      <input type="collection" name="Workflow IDs" stage="WorkflowIdsParam" />
       <input type="number" name="Limit" stage="LimitParam" />
-      <input type="text" name="InputFileName" stage="InputFileNameParam" />
+      <input type="text" name="Input Filename" stage="InputFileNameParam" />
       <input type="text" name="Status" stage="StatusParam" />
       <input type="text" name="Retrieved" stage="RetrievedParam" />
     </inputs>
@@ -280,7 +280,7 @@
     <onsuccess>29759ab7-6de6-44a5-965f-a02f2a162568</onsuccess>
     <code><![CDATA[Connector = new IndicoConnector(TokenInput, HostInput);]]></code>
   </stage>
-  <stage stageid="6315abd4-fcd1-47ba-9fe4-985fdc5faa08" name="WorkflowSubmission" type="SubSheetInfo">
+  <stage stageid="6315abd4-fcd1-47ba-9fe4-985fdc5faa08" name="Workflow Submission" type="SubSheetInfo">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <display x="-195" y="-105" w="150" h="90" />
   </stage>
@@ -291,9 +291,9 @@
     <inputs>
       <input type="text" name="Host" stage="HostParam" />
       <input type="text" name="Token" stage="TokenParam" />
-      <input type="number" name="WorklowId" stage="WorflowIdParam" />
+      <input type="number" name="Worklow ID" stage="WorflowIdParam" />
       <input type="collection" name="Filepaths" stage="FilepathsParam" />
-      <input type="collection" name="Uris" stage="UrisParam" />
+      <input type="collection" name="URIs" stage="UrisParam" />
     </inputs>
     <onsuccess>1bf9fb40-3387-4d96-8a5a-086890eeb6b2</onsuccess>
   </stage>
@@ -302,7 +302,7 @@
     <loginhibit />
     <display x="300" y="165" />
     <outputs>
-      <output type="collection" name="SubmissionIds" stage="SubmissionIdsResult" />
+      <output type="collection" name="Submission IDs" stage="SubmissionIdsResult" />
       <output type="flag" name="Success" stage="SuccessResult" />
       <output type="text" name="Error Message" stage="ErrorMessageResult" />
     </outputs>
@@ -494,7 +494,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
     <private />
     <alwaysinit />
   </stage>
-  <stage stageid="0a088c7e-e8c7-4bee-a437-d49f6d6dabc4" name="SubmitReview" type="SubSheetInfo">
+  <stage stageid="0a088c7e-e8c7-4bee-a437-d49f6d6dabc4" name="Submit Review" type="SubSheetInfo">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <display x="-255" y="-150" w="150" h="90" />
   </stage>
@@ -505,9 +505,9 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
     <inputs>
       <input type="text" name="Host" stage="HostParam" />
       <input type="text" name="Token" stage="TokenParam" />
-      <input type="number" name="CheckIntervalMs" stage="CheckIntervalMsParam" />
-      <input type="number" name="TimeoutMs" stage="TimeoutMsParam" />
-      <input type="number" name="SubmissionId" stage="SubmissionIdParam" />
+      <input type="number" name="Check Interval (Milliseconds)" stage="CheckIntervalMsParam" />
+      <input type="number" name="Timeout (Milliseconds)" stage="TimeoutMsParam" />
+      <input type="number" name="Submission ID" stage="SubmissionIdParam" />
       <input type="collection" name="Changes" stage="ChangesParam" />
       <input type="flag" name="Rejected" stage="RejectedParam" />
     </inputs>
