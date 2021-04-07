@@ -34,7 +34,7 @@
   <subsheet subsheetid="82e674e3-6a99-418b-86cc-649086280ec4" type="Normal" published="True">
     <name>List Submissions</name>
     <view>
-      <camerax>-453</camerax>
+      <camerax>-159</camerax>
       <cameray>-9</cameray>
       <zoom version="2">1.5625</zoom>
     </view>
@@ -134,12 +134,12 @@
     <loginhibit />
     <display x="255" y="-180" />
     <inputs>
-      <input type="text" name="Host" stage="HostParam" />
-      <input type="text" name="Token" stage="TokenParam" />
-      <input type="number" name="Submission ID" stage="SubmissionIdParam" />
-      <input type="number" name="Check Interval (Milliseconds)" stage="CheckIntervalMsParam" />
-      <input type="number" name="Timeout (Milliseconds)" stage="TimeoutMsParam" />
-      <input type="text" name="Submission Status Awaited" stage="SubmissionStatusAwaitedParam" />
+      <input type="text" name="Host" narrative="Indico host url" stage="HostParam" />
+      <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
+      <input type="number" name="Submission ID" narrative="Id of the submission" stage="SubmissionIdParam" />
+      <input type="number" name="Check Interval (Milliseconds)" narrative="Specifies the time interval in miliseconds between consecutive checks" stage="CheckIntervalMsParam" />
+      <input type="number" name="Timeout (Milliseconds)" narrative="Specifies the amount of time (in milliseconds) to wait for the activity to run before an error is thrown" stage="TimeoutMsParam" />
+      <input type="text" name="Submission Status Awaited" narrative="Checks the particular submission status for submission" stage="SubmissionStatusAwaitedParam" />
     </inputs>
     <onsuccess>7818b903-58fb-411d-9948-759418009ec2</onsuccess>
   </stage>
@@ -148,9 +148,9 @@
     <loginhibit />
     <display x="255" y="120" />
     <outputs>
-      <output type="collection" name="Submission Result" stage="SubmissionResult" />
-      <output type="flag" name="Success" stage="SuccessResult" />
-      <output type="text" name="Error Message" stage="ErrorMessageResult" />
+      <output type="collection" name="Submission Result" narrative="Result of the submission" stage="SubmissionResult" />
+      <output type="flag" name="Success" narrative="Flag indicating whether the action was successful" stage="SuccessResult" />
+      <output type="text" name="Error Message" narrative="Error message (when success=false)" stage="ErrorMessageResult" />
     </outputs>
   </stage>
   <stage stageid="ee909105-83ae-4bf8-bb58-42492d975ed8" name="List Submissions" type="SubSheetInfo">
@@ -161,14 +161,14 @@
     <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
     <display x="-30" y="-135" />
     <inputs>
-      <input type="text" name="Host" stage="HostParam" />
-      <input type="text" name="Token" stage="TokenParam" />
-      <input type="collection" name="Submission IDs" stage="SubmissionIdsParam" />
-      <input type="collection" name="Workflow IDs" stage="WorkflowIdsParam" />
-      <input type="number" name="Limit" stage="LimitParam" />
-      <input type="text" name="Input Filename" stage="InputFileNameParam" />
-      <input type="text" name="Status" stage="StatusParam" />
-      <input type="text" name="Retrieved" stage="RetrievedParam" />
+      <input type="text" name="Host" narrative="Indico host url" stage="HostParam" />
+      <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
+      <input type="collection" name="Submission IDs" narrative="List of submissList of submission ids to filter outpution ids" stage="SubmissionIdsParam" />
+      <input type="collection" name="Workflow IDs" narrative="List of workflow ids to filter output" stage="WorkflowIdsParam" />
+      <input type="number" name="Limit" narrative="Limits the number of submission returned" stage="LimitParam" />
+      <input type="text" name="Input Filename" narrative="Submission name of input file" stage="InputFileNameParam" />
+      <input type="text" name="Status" narrative="Check the specific status of the submission" stage="StatusParam" />
+      <input type="text" name="Retrieved" narrative="Is submission retrieved" stage="RetrievedParam" />
     </inputs>
     <onsuccess>2e02996a-4bcd-447f-974c-080cba2d7d4f</onsuccess>
   </stage>
@@ -177,9 +177,9 @@
     <loginhibit />
     <display x="-30" y="165" />
     <outputs>
-      <output type="collection" name="Submissions" stage="SubmissionsResult" />
-      <output type="flag" name="Success" stage="SuccessResult" />
-      <output type="text" name="Error Message" stage="ErrorMessageResult" />
+      <output type="collection" name="Submissions" narrative="Returned submission list" stage="SubmissionsResult" />
+      <output type="flag" name="Success" narrative="Flag indicating whether the action was successful" stage="SuccessResult" />
+      <output type="text" name="Error Message" narrative="Error message (when success=false)" stage="ErrorMessageResult" />
     </outputs>
   </stage>
   <stage stageid="f40515ad-e3a5-4633-841b-365ef97984f3" name="Inputs" type="Block">
@@ -289,11 +289,11 @@
     <loginhibit />
     <display x="300" y="-135" />
     <inputs>
-      <input type="text" name="Host" stage="HostParam" />
-      <input type="text" name="Token" stage="TokenParam" />
-      <input type="number" name="Worklow ID" stage="WorflowIdParam" />
-      <input type="collection" name="Filepaths" stage="FilepathsParam" />
-      <input type="collection" name="URIs" stage="UrisParam" />
+      <input type="text" name="Host" narrative="Indico host url" stage="HostParam" />
+      <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
+      <input type="number" name="Worklow ID" narrative="Id of workflow for submission" stage="WorflowIdParam" />
+      <input type="collection" name="Filepaths" narrative="Paths of files to submit" stage="FilepathsParam" />
+      <input type="collection" name="URIs" narrative="Urls to submit" stage="UrisParam" />
     </inputs>
     <onsuccess>1bf9fb40-3387-4d96-8a5a-086890eeb6b2</onsuccess>
   </stage>
@@ -302,9 +302,9 @@
     <loginhibit />
     <display x="300" y="165" />
     <outputs>
-      <output type="collection" name="Submission IDs" stage="SubmissionIdsResult" />
-      <output type="flag" name="Success" stage="SuccessResult" />
-      <output type="text" name="Error Message" stage="ErrorMessageResult" />
+      <output type="collection" name="Submission IDs" narrative="List of submission ids" stage="SubmissionIdsResult" />
+      <output type="flag" name="Success" narrative="Flag indicating whether the action was successful" stage="SuccessResult" />
+      <output type="text" name="Error Message" narrative="Error message (when success=false)" stage="ErrorMessageResult" />
     </outputs>
   </stage>
   <stage stageid="ec845ba1-3780-4083-8ba4-1329dbd9d138" name="WorkflowSubmission Call" type="Code">
@@ -503,13 +503,13 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
     <loginhibit />
     <display x="240" y="-180" />
     <inputs>
-      <input type="text" name="Host" stage="HostParam" />
-      <input type="text" name="Token" stage="TokenParam" />
-      <input type="number" name="Check Interval (Milliseconds)" stage="CheckIntervalMsParam" />
-      <input type="number" name="Timeout (Milliseconds)" stage="TimeoutMsParam" />
-      <input type="number" name="Submission ID" stage="SubmissionIdParam" />
-      <input type="collection" name="Changes" stage="ChangesParam" />
-      <input type="flag" name="Rejected" stage="RejectedParam" />
+      <input type="text" name="Host" narrative="Indico host url" stage="HostParam" />
+      <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
+      <input type="number" name="Check Interval (Milliseconds)" narrative="Specifies the time interval in miliseconds between consecutive checks" stage="CheckIntervalMsParam" />
+      <input type="number" name="Timeout (Milliseconds)" narrative="Specifies the amount of time (in milliseconds) to wait for the activity to run before an error is thrown" stage="TimeoutMsParam" />
+      <input type="number" name="Submission ID" narrative="Id of the submission" stage="SubmissionIdParam" />
+      <input type="collection" name="Changes" narrative="Changes to make to raw predictions" stage="ChangesParam" />
+      <input type="flag" name="Rejected" narrative="Reject the predictions and place the submission in the review queue. Must be true if Changes not provided" stage="RejectedParam" />
     </inputs>
     <onsuccess>a94d2cb8-6122-44d7-96df-ae0847eb0946</onsuccess>
   </stage>
@@ -518,9 +518,9 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
     <loginhibit />
     <display x="240" y="120" />
     <outputs>
-      <output type="collection" name="Submit Review Result" stage="SubmitReviewResult" />
-      <output type="flag" name="Success" stage="SuccessResult" />
-      <output type="text" name="Error Message" stage="ErrorMessageResult" />
+      <output type="collection" name="Submit Review Result" narrative="JSON response" stage="SubmitReviewResult" />
+      <output type="flag" name="Success" narrative="Flag indicating whether the action was successful" stage="SuccessResult" />
+      <output type="text" name="Error Message" narrative="Error message (when success=false)" stage="ErrorMessageResult" />
     </outputs>
   </stage>
   <stage stageid="a94d2cb8-6122-44d7-96df-ae0847eb0946" name="SubmitReviewInititialize" type="Code">
