@@ -1,4 +1,4 @@
-﻿<process name="Client" version="1.0" bpversion="6.10.0.30674" narrative="Client used to connect to the indico API." byrefcollection="true" type="object" runmode="Exclusive" shared="True" preferredid="02a74d78-a543-45f5-ad30-c519598b3676">
+﻿<process name="Indico Connector" version="1.0" bpversion="6.10.0.30674" narrative="Client used to connect to the indico API." byrefcollection="true" type="object" runmode="Background" shared="True" preferredid="02a74d78-a543-45f5-ad30-c519598b3676">
   <appdef>
     <element name="Application Root">
       <id>0c68a6f2-faf5-4d90-99fb-897133cdf10a</id>
