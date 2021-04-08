@@ -10,7 +10,7 @@
   </appdef>
   <view>
     <camerax>0</camerax>
-    <cameray>-8</cameray>
+    <cameray>55</cameray>
     <zoom version="2">1.25</zoom>
   </view>
   <preconditions />
@@ -24,43 +24,35 @@
     </view>
   </subsheet>
   <subsheet subsheetid="f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c" type="Normal" published="True">
-    <name>WorkflowSubmission</name>
+    <name>Workflow Submission</name>
     <view>
-      <camerax>-248</camerax>
+      <camerax>188</camerax>
       <cameray>26</cameray>
-      <zoom version="2">1.25</zoom>
+      <zoom version="2">1.5625</zoom>
     </view>
   </subsheet>
   <subsheet subsheetid="82e674e3-6a99-418b-86cc-649086280ec4" type="Normal" published="True">
-    <name>ListSubmissions</name>
+    <name>List Submissions</name>
     <view>
-      <camerax>-265</camerax>
-      <cameray>0</cameray>
-      <zoom version="2">1.25</zoom>
+      <camerax>-159</camerax>
+      <cameray>-9</cameray>
+      <zoom version="2">1.5625</zoom>
     </view>
   </subsheet>
   <subsheet subsheetid="0dec0e58-994d-4ca4-a9e7-161d1086183d" type="Normal" published="True">
-    <name>SubmissionResult</name>
+    <name>Submission Result</name>
     <view>
-      <camerax>7</camerax>
-      <cameray>0</cameray>
-      <zoom version="2">1.25</zoom>
+      <camerax>49</camerax>
+      <cameray>-21</cameray>
+      <zoom version="2">1.5625</zoom>
     </view>
   </subsheet>
   <subsheet subsheetid="fa4289e2-c868-4169-b744-8da72f9bff5e" type="Normal" published="True">
-    <name>SubmitReview</name>
+    <name>Submit Review</name>
     <view>
-      <camerax>-38</camerax>
+      <camerax>78</camerax>
       <cameray>0</cameray>
-      <zoom version="2">1.25</zoom>
-    </view>
-  </subsheet>
-  <subsheet subsheetid="016ee020-029b-4c6d-beaa-5b13bb2612ae" type="Normal" published="True">
-    <name>GetSubmission</name>
-    <view>
-      <camerax>0</camerax>
-      <cameray>0</cameray>
-      <zoom version="2">1.25</zoom>
+      <zoom version="2">1.5625</zoom>
     </view>
   </subsheet>
   <stage stageid="72ec01df-9ac3-4b48-bc65-5654be1dcca5" name="Start" type="Start">
@@ -133,72 +125,61 @@
     <loginhibit />
     <display x="15" y="90" />
   </stage>
-  <stage stageid="82afc1d1-0564-4f57-966e-3d9701c4001b" name="SubmissionResult" type="SubSheetInfo">
+  <stage stageid="82afc1d1-0564-4f57-966e-3d9701c4001b" name="Submission Result" type="SubSheetInfo">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <display x="-240" y="-150" w="150" h="90" />
   </stage>
   <stage stageid="5cb0a85e-302b-41f1-924b-858679495251" name="Start" type="Start">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="150" y="-180" />
+    <display x="255" y="-180" />
     <inputs>
-      <input type="text" name="Host" stage="HostParam" />
-      <input type="text" name="Token" stage="TokenParam" />
-      <input type="number" name="SubmissionId" stage="SubmissionIdParam" />
-      <input type="number" name="CheckIntervalMs" stage="CheckIntervalMsParam" />
-      <input type="number" name="TimeoutMs" stage="TimeoutMsParam" />
-      <input type="text" name="SubmissionStatusAwaited" stage="SubmissionStatusAwaitedParam" />
+      <input type="text" name="Host" narrative="Indico host url" stage="HostParam" />
+      <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
+      <input type="number" name="Submission ID" narrative="Id of the submission" stage="SubmissionIdParam" />
+      <input type="number" name="Check Interval (Milliseconds)" narrative="Specifies the time interval in miliseconds between consecutive checks" stage="CheckIntervalMsParam" />
+      <input type="number" name="Timeout (Milliseconds)" narrative="Specifies the amount of time (in milliseconds) to wait for the activity to run before an error is thrown" stage="TimeoutMsParam" />
+      <input type="text" name="Submission Status Awaited" narrative="Checks the particular submission status for submission" stage="SubmissionStatusAwaitedParam" />
     </inputs>
     <onsuccess>7818b903-58fb-411d-9948-759418009ec2</onsuccess>
   </stage>
   <stage stageid="90daf28c-91df-4bb7-8e83-69fc40c35a32" name="End" type="End">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="150" y="0" />
+    <display x="255" y="120" />
     <outputs>
-      <output type="collection" name="SubmissionResult" stage="SubmissionResult" />
+      <output type="collection" name="Submission Result" narrative="Result of the submission" stage="SubmissionResult" />
+      <output type="flag" name="Success" narrative="Flag indicating whether the action was successful" stage="SuccessResult" />
+      <output type="text" name="Error Message" narrative="Error message (when success=false)" stage="ErrorMessageResult" />
     </outputs>
   </stage>
-  <stage stageid="4f10327c-80ca-42a2-8dd7-cdb4b3004dd9" name="GetSubmission" type="SubSheetInfo">
-    <subsheetid>016ee020-029b-4c6d-beaa-5b13bb2612ae</subsheetid>
-    <display x="-195" y="-105" w="150" h="90" />
-  </stage>
-  <stage stageid="107e8e7b-d416-4b01-bcfa-a8f6e3b1feb5" name="Start" type="Start">
-    <subsheetid>016ee020-029b-4c6d-beaa-5b13bb2612ae</subsheetid>
-    <loginhibit />
-    <display x="15" y="-105" />
-    <onsuccess>22defd00-f6a5-4051-b2a9-6572fba42553</onsuccess>
-  </stage>
-  <stage stageid="22defd00-f6a5-4051-b2a9-6572fba42553" name="End" type="End">
-    <subsheetid>016ee020-029b-4c6d-beaa-5b13bb2612ae</subsheetid>
-    <loginhibit />
-    <display x="15" y="90" />
-  </stage>
-  <stage stageid="ee909105-83ae-4bf8-bb58-42492d975ed8" name="ListSubmissions" type="SubSheetInfo">
+  <stage stageid="ee909105-83ae-4bf8-bb58-42492d975ed8" name="List Submissions" type="SubSheetInfo">
     <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
     <display x="-525" y="-105" w="150" h="90" />
   </stage>
   <stage stageid="d2099002-8d5b-41dc-bfd4-c8e3a5fed226" name="Start" type="Start">
     <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
-    <display x="15" y="-105" />
+    <display x="-30" y="-135" />
     <inputs>
-      <input type="text" name="Host" stage="HostParam" />
-      <input type="text" name="Token" stage="TokenParam" />
-      <input type="collection" name="SubmissionIds" stage="SubmissionIdsParam" />
-      <input type="collection" name="WorkflowIds" stage="WorkflowIdsParam" />
-      <input type="number" name="Limit" stage="LimitParam" />
-      <input type="text" name="InputFileName" stage="InputFileNameParam" />
-      <input type="text" name="Status" stage="StatusParam" />
-      <input type="text" name="Retrieved" stage="RetrievedParam" />
+      <input type="text" name="Host" narrative="Indico host url" stage="HostParam" />
+      <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
+      <input type="collection" name="Submission IDs" narrative="List of submissList of submission ids to filter outpution ids" stage="SubmissionIdsParam" />
+      <input type="collection" name="Workflow IDs" narrative="List of workflow ids to filter output" stage="WorkflowIdsParam" />
+      <input type="number" name="Limit" narrative="Limits the number of submission returned" stage="LimitParam" />
+      <input type="text" name="Input Filename" narrative="Submission name of input file" stage="InputFileNameParam" />
+      <input type="text" name="Status" narrative="Check the specific status of the submission" stage="StatusParam" />
+      <input type="text" name="Retrieved" narrative="Is submission retrieved" stage="RetrievedParam" />
     </inputs>
     <onsuccess>2e02996a-4bcd-447f-974c-080cba2d7d4f</onsuccess>
   </stage>
   <stage stageid="88614772-3481-4b9b-bec1-fcc3fe42c06c" name="End" type="End">
     <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
     <loginhibit />
-    <display x="15" y="165" />
+    <display x="-30" y="165" />
     <outputs>
-      <output type="collection" name="Submissions" stage="SubmissionsResult" />
+      <output type="collection" name="Submissions" narrative="Returned submission list" stage="SubmissionsResult" />
+      <output type="flag" name="Success" narrative="Flag indicating whether the action was successful" stage="SuccessResult" />
+      <output type="text" name="Error Message" narrative="Error message (when success=false)" stage="ErrorMessageResult" />
     </outputs>
   </stage>
   <stage stageid="f40515ad-e3a5-4633-841b-365ef97984f3" name="Inputs" type="Block">
@@ -210,7 +191,7 @@
   <stage stageid="29759ab7-6de6-44a5-965f-a02f2a162568" name="ListSubmissions Stage" type="Code">
     <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
     <loginhibit />
-    <display x="15" y="75" w="120" h="30" />
+    <display x="-30" y="45" w="120" h="30" />
     <inputs>
       <input type="collection" name="SubmissionIdsInput" expr="[SubmissionIdsParam]" />
       <input type="collection" name="WorkflowIdsInput" expr="[WorkflowIdsParam]" />
@@ -229,7 +210,7 @@
     <loginhibit />
     <display x="-195" y="-15" w="120" h="30" />
     <datatype>text</datatype>
-    <initialvalue xml:space="preserve">https://app.indico.io</initialvalue>
+    <initialvalue />
     <alwaysinit />
   </stage>
   <stage stageid="de40f5d5-fe9b-4683-83f9-8e94e7ba0dbe" name="TokenParam" type="Data">
@@ -239,9 +220,9 @@
     <initialvalue />
     <alwaysinit />
   </stage>
-  <stage stageid="c9000abd-3342-482b-b421-1330dbf9cf2f" name="Client" type="Block">
+  <stage stageid="c9000abd-3342-482b-b421-1330dbf9cf2f" name="Common Variables" type="Block">
     <loginhibit />
-    <display x="-270" y="-45" w="150" h="105" />
+    <display x="-270" y="-45" w="150" h="195" />
     <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
   <stage stageid="0148d482-70bc-46d5-8dff-c2b446f3fd63" name="SubmissionIdsParam" type="Collection">
@@ -291,7 +272,7 @@
   <stage stageid="2e02996a-4bcd-447f-974c-080cba2d7d4f" name="ListSubmissions Initialise" type="Code">
     <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
     <loginhibit />
-    <display x="15" y="-15" w="120" h="30" />
+    <display x="-30" y="-15" w="120" h="30" />
     <inputs>
       <input type="text" name="HostInput" expr="[HostParam]" />
       <input type="text" name="TokenInput" expr="[TokenParam]" />
@@ -299,35 +280,37 @@
     <onsuccess>29759ab7-6de6-44a5-965f-a02f2a162568</onsuccess>
     <code><![CDATA[Connector = new IndicoConnector(TokenInput, HostInput);]]></code>
   </stage>
-  <stage stageid="6315abd4-fcd1-47ba-9fe4-985fdc5faa08" name="WorkflowSubmission" type="SubSheetInfo">
+  <stage stageid="6315abd4-fcd1-47ba-9fe4-985fdc5faa08" name="Workflow Submission" type="SubSheetInfo">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <display x="-195" y="-105" w="150" h="90" />
   </stage>
   <stage stageid="cc2a0296-e651-4ea9-8389-8b5f5fd2c17c" name="Start" type="Start">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="15" y="-105" />
+    <display x="300" y="-135" />
     <inputs>
-      <input type="text" name="Host" stage="HostParam" />
-      <input type="text" name="Token" stage="TokenParam" />
-      <input type="number" name="WorklowId" stage="WorflowIdParam" />
-      <input type="collection" name="Filepaths" stage="FilepathsParam" />
-      <input type="collection" name="Uris" stage="UrisParam" />
+      <input type="text" name="Host" narrative="Indico host url" stage="HostParam" />
+      <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
+      <input type="number" name="Worklow ID" narrative="Id of workflow for submission" stage="WorflowIdParam" />
+      <input type="collection" name="Filepaths" narrative="Paths of files to submit" stage="FilepathsParam" />
+      <input type="collection" name="URIs" narrative="Urls to submit" stage="UrisParam" />
     </inputs>
     <onsuccess>1bf9fb40-3387-4d96-8a5a-086890eeb6b2</onsuccess>
   </stage>
   <stage stageid="4c5185bc-43b8-4d8a-94fe-a515bf4c8d59" name="End" type="End">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="15" y="165" />
+    <display x="300" y="165" />
     <outputs>
-      <output type="collection" name="SubmissionIds" stage="SubmissionIdsResult" />
+      <output type="collection" name="Submission IDs" narrative="List of submission ids" stage="SubmissionIdsResult" />
+      <output type="flag" name="Success" narrative="Flag indicating whether the action was successful" stage="SuccessResult" />
+      <output type="text" name="Error Message" narrative="Error message (when success=false)" stage="ErrorMessageResult" />
     </outputs>
   </stage>
   <stage stageid="ec845ba1-3780-4083-8ba4-1329dbd9d138" name="WorkflowSubmission Call" type="Code">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="15" y="75" w="120" h="30" />
+    <display x="300" y="45" w="120" h="30" />
     <inputs>
       <input type="collection" name="FilepathsInput" expr="[FilepathsParam]" />
       <input type="collection" name="UrisInput" expr="[UrisParam]" />
@@ -342,19 +325,19 @@
   <stage stageid="febf6089-6898-492c-81e8-f3b070b850fc" name="Inputs" type="Block">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="-270" y="-45" w="150" h="270" />
+    <display x="-105" y="-150" w="150" h="210" />
     <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
   <stage stageid="39367857-88a2-4084-8563-3f338b7d1eb4" name="Outputs" type="Block">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="-435" y="-45" w="150" h="120" />
+    <display x="60" y="-150" w="150" h="90" />
     <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
   <stage stageid="bfe2c9c4-5156-44a2-a9cb-2fdde4740c31" name="FilepathsParam" type="Collection">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="-195" y="15" w="120" h="90" />
+    <display x="-30" y="-105" w="120" h="60" />
     <datatype>collection</datatype>
     <private />
     <alwaysinit />
@@ -362,7 +345,7 @@
   <stage stageid="fac1b045-891a-4fab-912b-edb96b44ddc0" name="SubmissionIdsResult" type="Collection">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="-360" y="15" w="120" h="90" />
+    <display x="135" y="-105" w="120" h="60" />
     <datatype>collection</datatype>
     <private />
     <alwaysinit />
@@ -370,7 +353,7 @@
   <stage stageid="1bf9fb40-3387-4d96-8a5a-086890eeb6b2" name="WorkflowSubmission Initialise" type="Code">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="15" y="-15" w="120" h="30" />
+    <display x="300" y="-15" w="120" h="30" />
     <inputs>
       <input type="text" name="HostInput" expr="[HostParam]" />
       <input type="text" name="TokenInput" expr="[TokenParam]" />
@@ -381,7 +364,7 @@
   <stage stageid="e226584d-87b1-4b85-bee0-bc1ae23e1b47" name="WorflowIdParam" type="Data">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <loginhibit />
-    <display x="-195" y="195" w="120" h="30" />
+    <display x="-30" y="30" w="120" h="30" />
     <datatype>number</datatype>
     <initialvalue />
     <private />
@@ -389,7 +372,7 @@
   </stage>
   <stage stageid="c51f91e8-c2ca-4386-a674-090bfcf2f993" name="UrisParam" type="Collection">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
-    <display x="-195" y="120" w="120" h="90" />
+    <display x="-30" y="-30" w="120" h="60" />
     <datatype>collection</datatype>
     <private />
     <alwaysinit />
@@ -429,7 +412,7 @@
   <stage stageid="7818b903-58fb-411d-9948-759418009ec2" name="SubmissionResultInitialize" type="Code">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="150" y="-120" w="120" h="30" />
+    <display x="255" y="-60" w="120" h="30" />
     <inputs>
       <input type="text" name="HostInput" expr="[HostParam]" />
       <input type="text" name="TokenInput" expr="[TokenParam]" />
@@ -444,7 +427,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="a7c44659-18ae-45ee-8e46-2087112e1740" name="SubmissionResultStage" type="Code">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="150" y="-60" w="120" h="30" />
+    <display x="255" y="0" w="120" h="30" />
     <inputs>
       <input type="number" name="SubmissionIdInput" expr="[SubmissionIdParam]" />
       <input type="text" name="SubmissionStatusAwaitedInput" expr="[SubmissionStatusAwaitedParam]" />
@@ -458,7 +441,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="8bb728e3-7368-4406-ab12-8027e5a94706" name="SubmissionIdParam" type="Data">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="-240" y="-30" w="120" h="30" />
+    <display x="-75" y="-165" w="120" h="30" />
     <datatype>number</datatype>
     <initialvalue />
     <private />
@@ -467,7 +450,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="2a3da9e6-c43b-4d4e-b0c3-23f70be79fc9" name="CheckIntervalMsParam" type="Data">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="-240" y="15" w="150" h="30" />
+    <display x="-75" y="-120" w="120" h="30" />
     <datatype>number</datatype>
     <initialvalue>300</initialvalue>
     <private />
@@ -476,7 +459,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="75c76956-1be5-4d5f-9cca-abf186db7c0e" name="TimeoutMsParam" type="Data">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="-240" y="60" w="150" h="30" />
+    <display x="-75" y="-75" w="120" h="30" />
     <datatype>number</datatype>
     <initialvalue>5000</initialvalue>
     <private />
@@ -485,19 +468,19 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="ffd2c698-6384-4403-bf04-9b689c0c721c" name="Inputs" type="Block">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="-315" y="-75" w="150" h="225" />
+    <display x="-150" y="-195" w="150" h="195" />
     <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
   <stage stageid="1c9453b7-d9a2-4001-b365-450eab8a5bcf" name="Outputs" type="Block">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="-135" y="-75" w="150" h="195" />
+    <display x="15" y="-195" w="150" h="90" />
     <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
   <stage stageid="d175579e-0af2-445b-937c-9f43248e8f63" name="SubmissionResult" type="Collection">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="-60" y="-30" w="120" h="30" />
+    <display x="90" y="-150" w="120" h="60" />
     <datatype>collection</datatype>
     <private />
     <alwaysinit />
@@ -505,40 +488,45 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="496c1538-af1d-4f7e-bd89-3bad82fdc4a4" name="SubmissionStatusAwaitedParam" type="Data">
     <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
     <loginhibit />
-    <display x="-240" y="105" w="150" h="30" />
+    <display x="-75" y="-30" w="120" h="30" />
     <datatype>text</datatype>
     <initialvalue />
     <private />
     <alwaysinit />
   </stage>
-  <stage stageid="0a088c7e-e8c7-4bee-a437-d49f6d6dabc4" name="SubmitReview" type="SubSheetInfo">
+  <stage stageid="0a088c7e-e8c7-4bee-a437-d49f6d6dabc4" name="Submit Review" type="SubSheetInfo">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <display x="-255" y="-150" w="150" h="90" />
   </stage>
   <stage stageid="b890745b-a483-4d05-ae61-cd11ed8b0b8e" name="Start" type="Start">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="120" y="-135" />
+    <display x="240" y="-180" />
     <inputs>
-      <input type="text" name="Host" stage="HostParam" />
-      <input type="text" name="Token" stage="TokenParam" />
-      <input type="number" name="CheckIntervalMs" stage="CheckIntervalMsParam" />
-      <input type="number" name="TimeoutMs" stage="TimeoutMsParam" />
-      <input type="number" name="SubmissionId" stage="SubmissionIdParam" />
-      <input type="collection" name="Changes" stage="ChangesParam" />
-      <input type="flag" name="Rejected" stage="RejectedParam" />
+      <input type="text" name="Host" narrative="Indico host url" stage="HostParam" />
+      <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
+      <input type="number" name="Check Interval (Milliseconds)" narrative="Specifies the time interval in miliseconds between consecutive checks" stage="CheckIntervalMsParam" />
+      <input type="number" name="Timeout (Milliseconds)" narrative="Specifies the amount of time (in milliseconds) to wait for the activity to run before an error is thrown" stage="TimeoutMsParam" />
+      <input type="number" name="Submission ID" narrative="Id of the submission" stage="SubmissionIdParam" />
+      <input type="collection" name="Changes" narrative="Changes to make to raw predictions" stage="ChangesParam" />
+      <input type="flag" name="Rejected" narrative="Reject the predictions and place the submission in the review queue. Must be true if Changes not provided" stage="RejectedParam" />
     </inputs>
     <onsuccess>a94d2cb8-6122-44d7-96df-ae0847eb0946</onsuccess>
   </stage>
   <stage stageid="09a9bcd9-308c-4cb8-825b-fea9ba1492be" name="End" type="End">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="120" y="60" />
+    <display x="240" y="120" />
+    <outputs>
+      <output type="collection" name="Submit Review Result" narrative="JSON response" stage="SubmitReviewResult" />
+      <output type="flag" name="Success" narrative="Flag indicating whether the action was successful" stage="SuccessResult" />
+      <output type="text" name="Error Message" narrative="Error message (when success=false)" stage="ErrorMessageResult" />
+    </outputs>
   </stage>
   <stage stageid="a94d2cb8-6122-44d7-96df-ae0847eb0946" name="SubmitReviewInititialize" type="Code">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="120" y="-75" w="120" h="30" />
+    <display x="240" y="-60" w="120" h="30" />
     <inputs>
       <input type="text" name="HostInput" expr="[HostParam]" />
       <input type="text" name="TokenInput" expr="[TokenParam]" />
@@ -553,7 +541,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="6b29c42e-339e-4671-99a3-bf69fa606d64" name="SubmitReviewStage" type="Code">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="120" y="-15" w="120" h="30" />
+    <display x="240" y="0" w="120" h="30" />
     <inputs>
       <input type="number" name="SubmissionIdInput" expr="[SubmissionIdParam]" />
       <input type="collection" name="ChangesInput" expr="[ChangesParam]" />
@@ -568,7 +556,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="38a363be-d82b-41c6-9349-6d91485d5bb2" name="SubmissionIdParam" type="Data">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="-255" y="30" w="120" h="30" />
+    <display x="-90" y="-75" w="120" h="30" />
     <datatype>number</datatype>
     <initialvalue />
     <private />
@@ -577,7 +565,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="453aca25-5127-4bbc-9401-ebcff0072c7c" name="CheckIntervalMsParam" type="Data">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="-255" y="-60" w="150" h="30" />
+    <display x="-90" y="-165" w="120" h="30" />
     <datatype>number</datatype>
     <initialvalue>300</initialvalue>
     <private />
@@ -586,7 +574,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="c9a91ee6-cb7d-4f3d-a5b4-1b530cfae8f1" name="TimeoutMsParam" type="Data">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="-255" y="-15" w="150" h="30" />
+    <display x="-90" y="-120" w="120" h="30" />
     <datatype>number</datatype>
     <initialvalue>5000</initialvalue>
     <private />
@@ -595,19 +583,19 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="a6ba6486-ec95-4ec5-8967-8a1de1500d7a" name="Inputs" type="Block">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="-330" y="-90" w="150" h="240" />
+    <display x="-165" y="-195" w="150" h="270" />
     <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
   <stage stageid="0b0ca979-66b2-4303-a8d5-afa450abec57" name="Outputs" type="Block">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="-150" y="-45" w="150" h="195" />
+    <display x="0" y="-195" w="150" h="90" />
     <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
   <stage stageid="248bd804-9485-4f04-98d7-5ade88d323f7" name="SubmitReviewResult" type="Collection">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="-75" y="0" w="120" h="30" />
+    <display x="75" y="-150" w="120" h="60" />
     <datatype>collection</datatype>
     <private />
     <alwaysinit />
@@ -615,7 +603,7 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="8f03c784-91c9-479c-a176-f3ce2f86eb00" name="RejectedParam" type="Data">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="-255" y="120" w="120" h="30" />
+    <display x="-90" y="45" w="120" h="30" />
     <datatype>flag</datatype>
     <initialvalue>False</initialvalue>
     <private />
@@ -624,9 +612,135 @@ Connector.TimeoutMs = TimeoutMsInput;]]></code>
   <stage stageid="9209ef1e-9370-4830-ae76-70dc48ddbffd" name="ChangesParam" type="Collection">
     <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
     <loginhibit />
-    <display x="-255" y="75" w="120" h="30" />
+    <display x="-90" y="-15" w="120" h="60" />
     <datatype>collection</datatype>
     <private />
     <alwaysinit />
+  </stage>
+  <stage stageid="5bea67ee-bf72-40a1-afd2-f2d0bd4f62e9" name="SuccessResult" type="Data">
+    <loginhibit />
+    <display x="-195" y="75" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue>True</initialvalue>
+    <alwaysinit />
+  </stage>
+  <stage stageid="a99d5d4c-74cd-4c29-84d2-65662b219923" name="ErrorMessageResult" type="Data">
+    <loginhibit />
+    <display x="-195" y="120" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e96437da-a7e1-4393-96e6-2188a907be46" name="Try" type="Block">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="225" y="-45" w="240" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e45d1725-9de5-48b1-9a7c-9eea009a0d66" name="Recover" type="Recover">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="420" y="45" />
+    <onsuccess>7f661958-a7a9-4fca-8d80-62d6a8d5bb10</onsuccess>
+  </stage>
+  <stage stageid="57c7b060-7a3a-4c45-a959-11d0e70c30a6" name="Resume" type="Resume">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="420" y="165" />
+    <onsuccess>4c5185bc-43b8-4d8a-94fe-a515bf4c8d59</onsuccess>
+  </stage>
+  <stage stageid="7f661958-a7a9-4fca-8d80-62d6a8d5bb10" name="Set Error" type="MultipleCalculation">
+    <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
+    <loginhibit />
+    <display x="420" y="105" />
+    <onsuccess>57c7b060-7a3a-4c45-a959-11d0e70c30a6</onsuccess>
+    <steps>
+      <calculation expression="False" stage="SuccessResult" />
+      <calculation expression="ExceptionDetail()" stage="ErrorMessageResult" />
+    </steps>
+  </stage>
+  <stage stageid="6707901f-ee52-4afe-9aea-d6703ea9efd1" name="Recover" type="Recover">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <loginhibit />
+    <display x="90" y="45" />
+    <onsuccess>37ce8ff3-89ef-454f-95c9-044b5c46e283</onsuccess>
+  </stage>
+  <stage stageid="9bdfae56-5663-4d0f-9b6d-d7913fd396cc" name="Resume" type="Resume">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <loginhibit />
+    <display x="90" y="165" />
+    <onsuccess>88614772-3481-4b9b-bec1-fcc3fe42c06c</onsuccess>
+  </stage>
+  <stage stageid="37ce8ff3-89ef-454f-95c9-044b5c46e283" name="Set Error" type="MultipleCalculation">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <loginhibit />
+    <display x="90" y="105" />
+    <onsuccess>9bdfae56-5663-4d0f-9b6d-d7913fd396cc</onsuccess>
+    <steps>
+      <calculation expression="False" stage="SuccessResult" />
+      <calculation expression="ExceptionDetail()" stage="ErrorMessageResult" />
+    </steps>
+  </stage>
+  <stage stageid="132c3dc3-e6f7-4129-be4e-13e271cef6e8" name="Recover" type="Recover">
+    <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
+    <loginhibit />
+    <display x="375" y="0" />
+    <onsuccess>82719da1-757b-49b8-8351-aee8375b950c</onsuccess>
+  </stage>
+  <stage stageid="596998b8-3aae-41da-acef-47e66ba2b99d" name="Resume" type="Resume">
+    <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
+    <loginhibit />
+    <display x="375" y="120" />
+    <onsuccess>90daf28c-91df-4bb7-8e83-69fc40c35a32</onsuccess>
+  </stage>
+  <stage stageid="82719da1-757b-49b8-8351-aee8375b950c" name="Set Error" type="MultipleCalculation">
+    <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
+    <loginhibit />
+    <display x="375" y="60" />
+    <onsuccess>596998b8-3aae-41da-acef-47e66ba2b99d</onsuccess>
+    <steps>
+      <calculation expression="False" stage="SuccessResult" />
+      <calculation expression="ExceptionDetail()" stage="ErrorMessageResult" />
+    </steps>
+  </stage>
+  <stage stageid="19dbc002-bfd0-46af-a927-dd9e6cff0fb3" name="Recover" type="Recover">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="360" y="0" />
+    <onsuccess>5a1c3aa2-48eb-40e4-8945-c65595e7a0fa</onsuccess>
+  </stage>
+  <stage stageid="ef66635a-6233-45d5-a5ba-8a726584ce77" name="Resume" type="Resume">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="360" y="120" />
+    <onsuccess>09a9bcd9-308c-4cb8-825b-fea9ba1492be</onsuccess>
+  </stage>
+  <stage stageid="5a1c3aa2-48eb-40e4-8945-c65595e7a0fa" name="Set Error" type="MultipleCalculation">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="360" y="60" />
+    <onsuccess>ef66635a-6233-45d5-a5ba-8a726584ce77</onsuccess>
+    <steps>
+      <calculation expression="False" stage="SuccessResult" />
+      <calculation expression="ExceptionDetail()" stage="ErrorMessageResult" />
+    </steps>
+  </stage>
+  <stage stageid="5b8a787e-de2c-4209-8e66-2ec94cfd1852" name="Try" type="Block">
+    <subsheetid>82e674e3-6a99-418b-86cc-649086280ec4</subsheetid>
+    <loginhibit />
+    <display x="-105" y="-45" w="240" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="36c271f3-df23-47db-86bd-866f46d4b5a9" name="Try" type="Block">
+    <subsheetid>0dec0e58-994d-4ca4-a9e7-161d1086183d</subsheetid>
+    <loginhibit />
+    <display x="180" y="-90" w="240" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="c754d3da-c11e-4262-a814-45e8f8ab0485" name="Try" type="Block">
+    <subsheetid>fa4289e2-c868-4169-b744-8da72f9bff5e</subsheetid>
+    <loginhibit />
+    <display x="165" y="-90" w="240" h="120" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
   </stage>
 </process>
