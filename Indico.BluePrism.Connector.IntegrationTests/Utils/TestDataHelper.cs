@@ -8,9 +8,9 @@ namespace Indico.BluePrism.Connector.IntegrationTests.Utils
 
         public TestDataHelper(IndicoConnector connector) => _connector = connector;
 
-        public decimal GetAnyWorkflowId() => 1087;
+        public decimal GetAnyWorkflowId() => (int)GetSubmission()["WorkflowId"];
 
-        public decimal GetAnySubmissionId() => (int)_connector.ListSubmissions(null, null, null, null, null, 1).Rows[0]["Id"];
+        public decimal GetAnySubmissionId() => (int)GetSubmission()["Id"];
 
         public decimal GetNewSubmissionId() => (int)_connector.WorkflowSubmission(
             null,
@@ -27,5 +27,7 @@ namespace Indico.BluePrism.Connector.IntegrationTests.Utils
 
         private (decimal submisisonId, DataTable submissionResult) GetSubmissionResult(decimal submissionId) => (submissionId,
             _connector.SubmissionResult(submissionId, default));
+
+        private DataRow GetSubmission() => _connector.ListSubmissions(null, null, null, null, null, 1).Rows[0];
     }
 }
