@@ -52,8 +52,8 @@ namespace Indico.BluePrism.Connector
 
         public DataTable WorkflowSubmission(DataTable filepaths, DataTable uris, decimal workflowId)
         {
-            bool filepathsProvided = ValidateInputDataTable(filepaths);
-            bool urisProvided = ValidateInputDataTable(uris);
+            bool filepathsProvided = HasAnyRows(filepaths);
+            bool urisProvided = HasAnyRows(uris);
 
             if (!filepathsProvided && !urisProvided)
             {
@@ -166,9 +166,15 @@ namespace Indico.BluePrism.Connector
         private DataTable SubmitReview(decimal submissionIdDec, DataTable changesTable, bool rejected, bool? forceComplete)
         {
             var submissionId = (int)submissionIdDec;
-            var changes = _jsonUtility.ConvertToJSON(changesTable ?? throw new ArgumentNullException(nameof(changesTable)));
+            var changesProvided = HasAnyRows(changesTable);
+            JObject changes = null;
 
-            var jobResult = Task.Run(() => SubmitReviewAsync(submissionId, (JObject)changes, rejected, forceComplete))
+            if (changesProvided)
+            {
+                changes = (JObject)_jsonUtility.ConvertToJSON(changesTable);
+            }
+
+            var jobResult = Task.Run(() => SubmitReviewAsync(submissionId, changes, rejected, forceComplete))
                 .GetAwaiter()
                 .GetResult();
 
@@ -188,7 +194,7 @@ namespace Indico.BluePrism.Connector
             }
         }
 
-        private static bool ValidateInputDataTable(DataTable dataTable)
+        private static bool HasAnyRows(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
             {
