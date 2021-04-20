@@ -20,15 +20,14 @@ namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
                 .WithMessage(expectedExceptionMessage);
         }
 
-
         protected override DataTable PerformAction(IndicoConnector connector) =>
             connector.ListSubmissions(
+                DataTableHelpers.ToDataTable(new[] { _dataHelper.GetAnySubmissionId() }),
                 null,
-                 DataTableHelpers.ToDataTable(new[] { _dataHelper.GetAnySubmissionId() }),
-                        null,
-                        null,
-                        null,
-                        1);
+                null,
+                null,
+                null,
+                1);
 
         protected override void AssertResultCorrect(DataTable result) => result.Rows.Count.Should().Be(1);
     }
