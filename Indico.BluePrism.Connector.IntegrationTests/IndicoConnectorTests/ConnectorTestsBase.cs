@@ -28,32 +28,28 @@ namespace Indico.BluePrism.Connector.IntegrationTests.IndicoConnectorTests
         }
 
         [Test]
-        public void PerformAction_ShouldThrow_WhenBaseUrlNotFound() => 
+        public void PerformAction_ShouldThrow_WhenBaseUrlNotFound() =>
             new IndicoConnectorBuilder().WithBaseUrl("https://invalid.indico.io").Build()
                 .Invoking(PerformAction)
-                .Should().Throw<HttpRequestException>()
-                .WithMessage("No such host is known.");
+                .Should().Throw<HttpRequestException>();
 
         [Test]
         public void PerformAction_ShouldThrow_WhenBaseUrlIncorrectFormat() =>
             new IndicoConnectorBuilder().WithBaseUrl("invalid").Build()
                 .Invoking(PerformAction)
-                .Should().Throw<UriFormatException>()
-                .WithMessage("Invalid URI: The format of the URI could not be determined.");
+                .Should().Throw<UriFormatException>();
 
         [Test]
         public void PerformAction_ShouldThrow_WhenApiTokenIncorrect() =>
             new IndicoConnectorBuilder().WithToken("invalid").Build()
                 .Invoking(PerformAction)
-                .Should().Throw<HttpRequestException>()
-                .WithMessage("[error] : Unauthorized");
+                .Should().Throw<HttpRequestException>();
 
         [Test]
         public void PerformAction_ShouldThrow_WhenApiTokenNull() =>
             new IndicoConnectorBuilder().WithToken(null)
                 .Invoking(bld => PerformAction(bld.Build()))
-                .Should().Throw<ArgumentNullException>()
-                .WithMessage("Value cannot be null. (Parameter 'apiToken')");
+                .Should().Throw<ArgumentNullException>();
 
 
         protected abstract TActionResult PerformAction(IndicoConnector connector);
