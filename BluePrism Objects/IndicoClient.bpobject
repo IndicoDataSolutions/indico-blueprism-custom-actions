@@ -163,7 +163,7 @@
     <inputs>
       <input type="text" name="Host" narrative="Indico host url" stage="HostParam" />
       <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
-      <input type="collection" name="Submission IDs" narrative="List of submissList of submission ids to filter outpution ids" stage="SubmissionIdsParam" />
+      <input type="collection" name="Submission IDs" narrative="List of submission ids to filter output" stage="SubmissionIdsParam" />
       <input type="collection" name="Workflow IDs" narrative="List of workflow ids to filter output" stage="WorkflowIdsParam" />
       <input type="number" name="Limit" narrative="Limits the number of submission returned" stage="LimitParam" />
       <input type="text" name="Input Filename" narrative="Submission name of input file" stage="InputFileNameParam" />
@@ -293,7 +293,7 @@
       <input type="text" name="Token" narrative="Indico token" stage="TokenParam" />
       <input type="number" name="Worklow ID" narrative="Id of workflow for submission" stage="WorflowIdParam" />
       <input type="collection" name="Filepaths" narrative="Paths of files to submit" stage="FilepathsParam" />
-      <input type="collection" name="URIs" narrative="Urls to submit" stage="UrisParam" />
+      <input type="collection" name="URLs" narrative="Urls to submit" stage="UrlsParam" />
     </inputs>
     <onsuccess>1bf9fb40-3387-4d96-8a5a-086890eeb6b2</onsuccess>
   </stage>
@@ -313,14 +313,14 @@
     <display x="300" y="45" w="120" h="30" />
     <inputs>
       <input type="collection" name="FilepathsInput" expr="[FilepathsParam]" />
-      <input type="collection" name="UrisInput" expr="[UrisParam]" />
+      <input type="collection" name="UrlsInput" expr="[UrlsParam]" />
       <input type="number" name="WorkflowIdInput" expr="[WorflowIdParam]" />
     </inputs>
     <outputs>
       <output type="collection" name="SubmissionIdsOutput" stage="SubmissionIdsResult" />
     </outputs>
     <onsuccess>4c5185bc-43b8-4d8a-94fe-a515bf4c8d59</onsuccess>
-    <code><![CDATA[SubmissionIdsOutput = Connector.WorkflowSubmission(FilepathsInput, UrisInput, WorkflowIdInput);]]></code>
+    <code><![CDATA[SubmissionIdsOutput = Connector.WorkflowSubmission(FilepathsInput, UrlsInput, WorkflowIdInput);]]></code>
   </stage>
   <stage stageid="febf6089-6898-492c-81e8-f3b070b850fc" name="Inputs" type="Block">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
@@ -370,7 +370,7 @@
     <private />
     <alwaysinit />
   </stage>
-  <stage stageid="c51f91e8-c2ca-4386-a674-090bfcf2f993" name="UrisParam" type="Collection">
+  <stage stageid="c51f91e8-c2ca-4386-a674-090bfcf2f993" name="UrlsParam" type="Collection">
     <subsheetid>f360f3e4-a42f-40fd-a8c0-0fe8ec755b6c</subsheetid>
     <display x="-30" y="-30" w="120" h="60" />
     <datatype>collection</datatype>
