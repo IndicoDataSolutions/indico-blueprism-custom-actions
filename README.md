@@ -1,6 +1,6 @@
-# Indico Blueprism Connector
+# Indico Blue Prism Connector
 
-To install the BluePrism connector download the latest release available on the GitHub releases page.
+To install the Blue Prism connector download the latest release available on the GitHub releases page.
 
 Zip archive contains:
 * Required DLLs
