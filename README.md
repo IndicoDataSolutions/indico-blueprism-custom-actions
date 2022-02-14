@@ -7,4 +7,4 @@ Zip archive contains:
 * BPRELEASE file
 * Detailed installation guide
 
-Install according to the instructions in the manual
+Install according to the instructions in the manual.
