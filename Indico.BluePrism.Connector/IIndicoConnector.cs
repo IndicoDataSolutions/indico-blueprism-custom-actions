@@ -27,5 +27,7 @@ namespace Indico.BluePrism.Connector
         /// <param name="limit">Submission count limit. Default value is 1000.</param>
         /// <returns></returns>
         DataTable ListSubmissions(DataTable submissionIds, DataTable workflowIds, string inputFileName, string status, string retrieved, decimal limit = 1000);
+
+        DataTable GetSubmissionFileDetails(DataTable submissionIds);
     }
 }

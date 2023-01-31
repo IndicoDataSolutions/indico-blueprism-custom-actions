@@ -8,7 +8,7 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
 		<IndicoBP_Output Condition="'$(IndicoBP_Output)' == ''"></IndicoBP_Output>
-		<AppendTargetFrameworkToOutputPath Condition="'$(IndicoBP_Output)' != ''">false</AppendTargetFrameworkToOutputPath>
+		<AppendTargetFrameworkToOutputPath Condition="'$(IndicoBP_Output)' != ''">true</AppendTargetFrameworkToOutputPath>
 		<OutputPath Condition="$(IndicoBP_Output) != ''">$(IndicoBP_Output)</OutputPath>
 	</PropertyGroup>
 
@@ -20,7 +20,7 @@
 	</Target>
 
 	<ItemGroup>
-	  <PackageReference Include="IndicoClient" Version="2.0.0-preview.1" />
+	  <PackageReference Include="IndicoClient" Version="2.0.0.1251918" />
 	</ItemGroup>
 
 </Project>
