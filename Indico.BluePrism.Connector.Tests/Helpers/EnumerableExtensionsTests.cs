@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using FluentAssertions;
 using Indico.BluePrism.Connector.Helpers;
@@ -37,17 +38,71 @@ namespace Indico.BluePrism.Connector.Tests.Helpers
             {
                 Id = id,
                 Status = status,
-                InputFile = inputFile
+                InputFile = inputFile,
+                SubmissionFiles = new List<SubmissionFiles>()
+                {
+                    new SubmissionFiles()
+                    {
+                        Filename = "test.pdf",
+                        Id = 1,
+                        NumPages = 1
+
+                    }
+                }
             };
 
             //Act
             var dataTable = new List<Submission>() { testObject }.ToDetailedDataTable();
+
 
             //Assert
             dataTable.Should().NotBeNull();
             dataTable.Rows[0][nameof(testObject.Id)].Should().Equals(id);
             dataTable.Rows[0][nameof(testObject.Status)].Should().Equals(status);
             dataTable.Rows[0][nameof(testObject.InputFile)].Should().Equals(inputFile);
+            dataTable.Rows[0][nameof(testObject.SubmissionFiles)].Should().NotBeNull();
+            var subfiles = dataTable.Rows[0][nameof(testObject.SubmissionFiles)];
+            subfiles.Should().BeAssignableTo<DataTable>();
+            (subfiles as DataTable).Rows[0]["Filename"].Should().NotBeNull();
+            (subfiles as DataTable).Rows[0]["Id"].Should().Be(1);
+        }
+
+        [TestCase(1, SubmissionStatus.COMPLETE, "test")]
+        [TestCase(2, SubmissionStatus.FAILED, "test2")]
+        public void ToDetailedDataTable_ShouldReturnValidObjectOfPage(int id, SubmissionStatus status, string inputFile)
+        {
+            //Arrange
+            var testObject = new Submission
+            {
+                Id = id,
+                Status = status,
+                InputFile = inputFile,
+                SubmissionFiles = new List<SubmissionFiles>()
+                {
+                    new SubmissionFiles()
+                    {
+                        Filename = "test.pdf",
+                        Id = 1,
+                        NumPages = 1
+
+                    }
+                }
+            };
+
+            //Act
+            var dataTable = new List<Submission>() { testObject }.ToDetailedDataTable();
+
+
+            //Assert
+            dataTable.Should().NotBeNull();
+            dataTable.Rows[0][nameof(testObject.Id)].Should().Equals(id);
+            dataTable.Rows[0][nameof(testObject.Status)].Should().Equals(status);
+            dataTable.Rows[0][nameof(testObject.InputFile)].Should().Equals(inputFile);
+            dataTable.Rows[0][nameof(testObject.SubmissionFiles)].Should().NotBeNull();
+            var subfiles = dataTable.Rows[0][nameof(testObject.SubmissionFiles)];
+            subfiles.Should().BeAssignableTo<DataTable>();
+            (subfiles as DataTable).Rows[0]["Filename"].Should().NotBeNull();
+            (subfiles as DataTable).Rows[0]["Id"].Should().Be(1);
         }
 
         [TestCase(0)]
@@ -60,7 +115,18 @@ namespace Indico.BluePrism.Connector.Tests.Helpers
 
             for (int i = 0; i < count; i++)
             {
-                list.Add(new Submission { Id = i });
+                list.Add(new Submission { Id = i,
+                  SubmissionFiles = new List<SubmissionFiles>()
+                {
+                    new SubmissionFiles()
+                    {
+                        Filename = "test.pdf",
+                        Id = 1,
+                        NumPages = 1
+
+                    }
+                  }
+                });
             }
 
             //Act
